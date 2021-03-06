@@ -1,6 +1,7 @@
 package com.gina.flowerShop.web.controller;
 
 import com.gina.flowerShop.model.Role;
+import com.gina.flowerShop.repository.RoleRepository;
 import com.gina.flowerShop.service.ProviderService;
 import com.gina.flowerShop.web.dto.ProviderDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.Set;
 public class ProviderController {
     private ProviderService providerService;
 
-    //private RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
     public ProviderController(ProviderService providerService, RoleRepository roleRepository) {
         this.providerService = providerService;
