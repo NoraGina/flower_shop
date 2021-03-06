@@ -1,4 +1,4 @@
-package com.gina.flowerShop.web;
+package com.gina.flowerShop.web.dto;
 
 import com.gina.flowerShop.model.Role;
 
