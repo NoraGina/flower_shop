@@ -53,13 +53,13 @@ public class ProviderController {
             return "redirect:/admin/providers/list";
         }
 
-        Set<Role> roleSet = new HashSet<>();
+        /*Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role("ROLE_ADMIN"));
         roleSet.add(new Role("ROLE_STAFF"));
         roleSet.add(new Role("ROLE_CLIENT"));
         providerDto.setRoles(roleSet);
         Set<ProviderDto> userSet = new HashSet<>();
-        userSet.add(providerDto);
+        userSet.add(providerDto);*/
 
         providerService.save(providerDto);
         model.addAttribute("provider", providerDto);
@@ -78,7 +78,7 @@ public class ProviderController {
         ProviderDto providerDto = providerService.findById(id).get();
         redirectAttributes.addFlashAttribute("message","Utilizatorul "+providerDto.getFullName()+ " a fost sters!");
         providerService.delete(id);
-        //model.addAttribute("providers", providerService.findAll());
+
         return "redirect:/admin/providers/list";
     }
 
