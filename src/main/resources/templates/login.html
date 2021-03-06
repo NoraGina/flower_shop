@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eden Flower shopp Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body{
+        background: #d9a7c7;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #fffcdc, #d9a7c7);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #fffcdc, #d9a7c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        font-family: Georgia;
+    }
+
+    form{
+        padding: 10px;
+    }
+
+    legend{
+        color: rgb(32, 36, 36);
+        font-family: Georgia;
+        font-size: 24px;
+        font-style: oblique;
+    }
+
+    fieldset{
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    button{
+        border: none;
+        font-family: Georgia;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    span{
+        font-size: 18px;
+        font-style: italic;
+    }
+    .container{
+        background-image: linear-gradient(to right, #d9a7c7 0%, #fffcdc  100%);
+        background-image: linear-gradient(-200deg,  #fffcdc 0%,  #d9a7c7 100%);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        max-width:35%;
+        margin:40px auto auto auto;
+    }
+
+    .input-container {
+        display: -ms-flexbox; /* IE10 */
+        display: flex;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .input-field {
+        font-size: 16px;
+        padding: 10px;
+        outline: none;
+        width: 100%;
+    }
+
+    .input-field:focus {
+        border: 2px solid  #cac2cf;
+        }
+
+    .icon {
+        background: #ad969c;
+        border-radius: 10px;
+        color: white;
+        padding: 10px;
+        margin-right: -10px;
+        min-width: 40px;
+        text-align: center;
+        }
+
+    #eye{
+        background-color:white;
+        border-left: none;
+        border-radius: 10px;
+        color:#6d6265;
+        height: 100%;
+        margin-left: -10px;
+        min-width: 30px;
+    }
+
+    #pwd{
+
+        width: 85%;
+    }
+
+    #pwd:focus{
+       /* background-color:#ad969c;*/
+        border: 2px solid  #ad969c;
+    }
+
+    #eye:hover{
+        background-color:#ad969c;
+        border:1px solid rgba(24, 24, 24, 0.719);
+        color: white;
+        transform: translatey(2px);
+        /*transform:matrix(0.866,0.5,-0.1,0.866,0,0);*/
+    }
+
+    /* Set a style for the submit button */
+    .btn {
+        background-color:  #ad969c;
+        border-radius: 10px;
+        color:#33292b;
+        cursor: pointer;
+        padding: 10px 20px;
+        opacity: 0.8;
+        width: 100%;
+    }
+
+    .btn:hover {
+        color:#e0cace;
+        opacity: 1;
+    }
+
+    .signup-container{
+        padding:5px 100px 5px;
+    }
+
+    .link-a{
+        color: dimgrey;
+    }
+
+    .link-span{
+       font-size: 20px;
+       font-style: normal;
+       opacity: 0.8;
+    }
+    .link-span:hover{
+        opacity: 1;
+    }
+
+
+    .icon1{
+        background: #6b8aad;
+        border-radius: 10px;
+        color: white;
+        padding: 10px;
+        margin-right: -10px;
+        min-width: 40px;
+        text-align: center;
+    }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Invalid username or
+            password.</div>
+    </div>
+
+    <!-- logout message -->
+    <div th:if="${param.logout}">
+        <div class="alert alert-info">You have been logged out.</div>
+    </div>
+    <form method="post" th:action="@{/login}" th:object="${user}">
+        <fieldset>
+            <legend>LogIn  </legend>
+
+            <div class="input-container">
+                <i class="fa fa-envelope icon"></i>
+                <input class="input-field" type="text" name="username" placeholder="@Email Or Username" required/>
+                <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>-->
+            </div>
+            <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" name="password"   id="pwd" placeholder="Password" required/>
+
+                <span>
+                        <i class="fa fa-eye icon"  type="button" id="eye"></i>
+                     </span>
+            </div>
+            <button type="submit" class="btn">
+                <i class="fas fa-sign-in-alt ">LogIn</i>
+            </button>
+        </fieldset>
+    </form>
+    <div class="signup-container">
+        <span>Esti nou?</span>&nbsp;&nbsp;&nbsp;
+        <a class="link-a" href="/" th:href="@{/admin/registration">
+            <i class="fas fa-user-plus"><span class="link-span">&nbsp;Inregistrare</span> </i>
+        </a>
+    </div><!--End Signup container-->
+
+</div><!--End container-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+<script>
+        function show() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'text');
+    }
+
+    function hide() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'password');
+    }
+
+    var pwShown = 0;
+
+    document.getElementById("eye").addEventListener("click", function () {
+        if (pwShown == 0) {
+            pwShown = 1;
+            show();
+        } else {
+            pwShown = 0;
+            hide();
+        }
+    }, false);
+    </script>
+</body>
+</html>
