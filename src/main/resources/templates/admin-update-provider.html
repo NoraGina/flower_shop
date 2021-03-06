@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update provider</title>
+    <style>
+    *{
+             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background-color: #ebc1c4;
+            font-family: 'Helvetica';
+        }
+
+        form{
+            max-width:500px;
+            margin:40px auto auto auto;
+            }
+
+        h2{
+            font-style: italic;
+        }
+
+        .input-container {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            margin-bottom: 15px;
+            width: 100%;
+            }
+
+        .icon {
+            padding: 10px;
+            background: #d81832a4;
+            color: white;
+            min-width: 50px;
+            text-align: center;
+            }
+
+        .input-field {
+            font-size: 16px;
+            padding: 10px;
+            outline: none;
+            width: 100%;
+        }
+
+        .input-field:focus {
+        border: 2px solid #d81832a4;
+        }
+
+        #eye{
+            background-color:white;
+            border:1px solid rgba(24, 24, 24, 0.719);
+            color: #8b261c;
+            height: 100%;
+        }
+
+        #eye:hover{
+            background-color:#d81832a4;
+            border:1px solid rgba(24, 24, 24, 0.719);
+            color: white;
+            transform: translatey(2px);
+            /*transform:matrix(0.866,0.5,-0.1,0.866,0,0);*/
+        }
+
+        /* Set a style for the submit button */
+        .btn {
+            background-color: #d81832a4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 15px 20px;
+            opacity: 0.9;
+            width: 100%;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+        .column{
+            float: left;
+            padding-left: 20px;
+            padding-bottom: 10px;
+        }
+
+        .row:after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<form method="post" th:action="'/admin/update/provider/' + ${provider.id}" th:object="${provider}">
+    <h3 th:text="${message}"></h3>
+
+    <h2>Register form</h2>
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" th:field = "*{fullName}" placeholder="Full name" required/>
+        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-danger"></span>
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" th:field = "*{username}" placeholder="@ email" required/>
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+    </div>
+    <div class="input-container">
+        <i class="fas fa-at icon"></i>
+        <input class="input-field" type="text" th:field = "*{email}" placeholder="@ email" required/>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+    </div>
+
+    <div class="input-container">
+        <i class="fas fa-phone icon"></i>
+        <input class="input-field" type="text" th:field = "*{phone}" placeholder="enter phone number" required/>
+        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+    </div>
+    <div class="input-container">
+        <i class="fa fa-key icon"></i>
+        <input class="input-field" type="password" th:field = "*{password}"  id="pwd" placeholder="Password" required/>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+        <span>
+                    <i class="fa fa-eye icon"  type="button" id="eye"></i>
+                 </span>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label>Roles</label>
+        </div><!-- End column--- -->
+        <div class="column">
+            <th:block th:each="role:${roleList}">
+                <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.idRole}"/><br>
+            </th:block>
+        </div><!-- End column--- -->
+    </div><!-- ---END Row---- -->
+
+    <button type="submit" class="btn btn-success">Update</button>
+
+</form>
+
+<script>
+            function show() {
+            var p = document.getElementById('pwd');
+            p.setAttribute('type', 'text');
+        }
+
+        function hide() {
+            var p = document.getElementById('pwd');
+            p.setAttribute('type', 'password');
+        }
+
+        var pwShown = 0;
+
+        document.getElementById("eye").addEventListener("click", function () {
+            if (pwShown == 0) {
+                pwShown = 1;
+                show();
+            } else {
+                pwShown = 0;
+                hide();
+            }
+        }, false);
+        </script>
+
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
