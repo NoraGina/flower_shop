@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer add shipping address</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background: #ADA996;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            font-family: Georgia;
+        }
+
+        legend{
+            color: rgb(32, 36, 36);
+            font-family: Georgia;
+            font-size: 24px;
+            font-style: oblique;
+        }
+
+        fieldset{
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        button{
+            border: none;
+            font-family: Georgia;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .container{
+            background-image: linear-gradient(to right, #e6e6e6 0%,  #cfcece  100%);
+            background-image: linear-gradient(-200deg,    #e6e6e6 0%,   #cfcece 100%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            max-width:45%;
+            margin:40px auto auto auto;
+            padding:10px 10px 5px;
+        }
+
+        .control-label{
+            font-family: Georgia;
+            font-size: 17px;
+            padding: 5px;
+            /*width: 26%;*/
+        }
+
+        .form-group {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+
+            width: 100%;
+        }
+
+        .input-field {
+            font-size: 16px;
+            padding: 5px;
+            outline: none;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            border: 2px solid  #bdbbbb;
+        }
+
+        .row{
+            width: 100%;
+        }
+
+        .col-25{
+            float: left;
+            width:25%;
+        }
+
+        .col-75{
+            float: right;
+            padding-bottom: 10px;
+            width: 75%;
+        }
+        /*.col-75-right{
+            float: right;
+        }*/
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /*.hide{
+            display: none;
+        }*/
+        .btn {
+            background-color:   #bdbbbb;
+            border-radius: 10px;
+            color:#0f0d0d;
+            cursor: pointer;
+            padding: 10px 20px;
+            opacity: 0.8;
+            width: 100%;
+        }
+
+        .btn:hover {
+            color:#6e6b6c;
+            opacity: 1;
+        }
+
+        .link-container{
+            padding: 5px;
+            width: 100%;
+        }
+
+
+        .row-25{
+            float:left;
+            padding: 5px;
+            width:25%;
+        }
+
+        .row-75{
+            float: left;
+            padding: 5px;
+            width: 75%;
+        }
+
+        .link-container:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #btn-home{
+            background-color: #6e6b6c;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 3px;
+            opacity: 0.8;
+            width: 100%;
+        }
+
+        #btn-list{
+            background-color: #6e6b6c;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 3px;
+            opacity: 0.8;
+            width: 50%;
+        }
+
+        #btn-home:hover, #btn-list:hover{
+            color: aliceblue;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/customer/add/address}" method="post" th:object="${shippingAddress}">
+        <fieldset>
+            <legend>Informatii adresa livrare</legend>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label class="control-label" for="user">Nume utilizator</label>
+                    </div><!--***End row 25 USER***-->
+                    <div class="col-75">
+                        <input type="hidden" th:field="*{customer.id}"/>
+                        <input class="input-field" type="text" id="user" th:value = "*{customer.fullName}" disabled required/>
+
+                    </div><!--***End col75 USER***-->
+                </div><!-- **** End row***-->
+            </div><!-- **** End form group***-->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label class="control-label" for="title">Denumire</label>
+                    </div><!-- End col 25 title-->
+                    <div class="col-75">
+                        <input class="input-field" type="text" id="title" th:field = "*{name}"  placeholder="Acasa Loc de munca" required/>
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                    </div><!-- End col 75 title -->
+                </div><!--End row title-->
+            </div><!--End form-group title-->
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label class="control-label" for="city">Oras:</label>
+                    </div><!--End col 25 city-->
+
+                    <div class="col-75">
+                        <input type="text" name="anotherV" class="input-field" id = "city" th:field="*{city}" placeholder="Please enter city" required>
+                    </div><!--End col 75 input city-->
+                </div><!-- End row city-->
+            </div><!--End form-group-->
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label class="control-label" for="address">Adresa</label>
+                    </div><!--End col 25 address-->
+                    <div class="col-75">
+                        <input class="input-field" type="text" id="address" th:field = "*{address}" placeholder="Strada Nr" required/>
+                        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
+                    </div><!--End row 75 address-->
+                </div><!-- End row address-->
+            </div><!--End form-group address-->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-25">
+                        <label class="control-label" for="phone">Telefon</label>
+                    </div><!--End col 25 phone-->
+                    <div class="col-75">
+                        <input class="input-field" id="phone" type="text" th:field = "*{phone}" placeholder="Nr telefon" required/>
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+                    </div><!--End col 75 phone-->
+                </div><!--End row phone-->
+            </div><!--End form-group phone-->
+            <button type="submit" class="btn">
+                <i class="fas fa-plus">&nbsp; Adauga</i>
+            </button>
+        </fieldset>
+    </form>
+
+    <div class="link-container">
+        <div class="row-25">
+            <button  id="btn-home">
+                <a th:href="@{/customer/byPage}">
+                    <i class="fas fa-home">Home</i>
+                </a>
+            </button><!--btn-home-->
+        </div><!--End row-->
+        <div class="row-75">
+            <form method="get"  th:action="@{/customer/shippingAddresses}">
+                <input class="input-id" type="text" th:field = "*{customer.id}"  required/>
+                <button id="btn-list" type="submit">
+
+                    <i class="fas fa-list-ul">Lista adrese</i>
+
+                </button><!--btn-list-->
+            </form>
+
+        </div><!-- End row-->
+    </div><!--End link container-->
+</div><!-- ****End Container**********-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
