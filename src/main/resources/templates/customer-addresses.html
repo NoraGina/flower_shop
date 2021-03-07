@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer view shipping addresses</title>
+    <style>
+        *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background: #89868f;
+}
+h1{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+button{
+     background: #6c599e;
+     border:none;
+     border-radius: 5px;
+     font-weight: 600;
+     padding: 5px;
+     opacity: 0.7;
+     outline:#324a73;
+     text-align: center;
+}
+
+button:hover{
+    opacity: 1;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background:#36606d ;
+}
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #553260;
+}
+.fl-table thead th:nth-child(even) {
+    color: #ffffff;
+    background: #9b8092;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+.btn-container{
+
+    padding:5px 10px 5px;
+}
+.row{
+float:right;
+    width:10%;
+}
+.btn-container:after {
+content: "";
+display: table;
+clear: both;
+}
+#del-btn a{
+color:red;
+}
+#edit-btn a{
+color:green;
+}
+#logout-btn {
+color:#1f2e2e;
+}
+#add-btn a{
+color:#003366;
+}
+#home-btn a{
+color:indigo;
+}
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        /*content: "Scroll horizontally >";*/
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        /*overflow-x: hidden;*/
+        /*overflow-y: auto;*/
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        font-size: 13px;
+        /*text-overflow: ellipsis;*/
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+    .row{
+        float: none;
+        margin-bottom: 3px;
+        width: 100%;
+    }
+
+
+}
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Lista Adrese</h1>
+    <h3 th:text="${message}"></h3>
+</div>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th scope="col">Denumire</th>
+            <th scope="col">Oras</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Telefon</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="shippingAddress:${shippingAddresses}">
+            <td data-label="Denumire" th:text="${shippingAddress.name}"></td>
+            <td data-label="Oras" th:text="${shippingAddress.city}"></td>
+            <td data-label="Adresa" th:text="${shippingAddress.address}"></td>
+            <td data-label="Telefon" th:text="${shippingAddress.phone}"></td>
+            <td data-label="Update" >
+                <button class="action-btn" id="edit-btn">
+                    <a  th:href="@{/customer/shippingAddress/update/form/{idShippingAddress}(idShippingAddress=${shippingAddress.idShippingAddress})}">
+                        Edit
+                    </a>
+                </button>
+            </td>
+            <td data-label="Delete" >
+                <button class="action-btn" id="del-btn">
+                    <a th:href="@{/customer/delete/shippingAddress/{idShippingAddress}(idShippingAddress=${shippingAddress.idShippingAddress})}"
+                       onclick="return confirm('Are you sure you want to delete this address?');">
+                        <i class="far fa-trash-alt">Sterge</i>
+                    </a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="btn-container">
+        <div class="row">
+            <form th:action="@{/logout}" method="post" >
+                <button class="btn" type="submit" value="Logout" id="logout-btn">
+                    <i class="fas fa-sign-out-alt">Logout</i>
+                </button>
+                <!--<input type="submit" value="Logout" />-->
+            </form>
+        </div>
+        <div class="row">
+            <button class="btn" id="home-btn">
+                <a th:href="@{/customer/byPage}">
+                    <i class="fas fa-home">Acasa</i>
+                </a>
+            </button>
+        </div>
+        <div class="row">
+            <button class="btn" id="add-btn">
+                <a th:href="@{/customer/add/address/form}">
+                    <i class="fas fa-user-plus">Adresa noua</i>
+                </a>
+            </button>
+        </div><!--End row-->
+    </div>
+
+</div>
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
