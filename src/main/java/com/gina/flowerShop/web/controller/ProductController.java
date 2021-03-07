@@ -145,7 +145,7 @@ public class ProductController {
     }
 
     @GetMapping("/provider/delete/product/{idProduct}")
-    public String deleteProduct(@PathVariable("idProduct")Long idProduct, Model model, RedirectAttributes redirectAttributes){
+    public String deleteProduct(@PathVariable("idProduct")Long idProduct,  RedirectAttributes redirectAttributes){
         ProductDto productDto = productService.findOne(idProduct).get();
         redirectAttributes.addFlashAttribute("message",productDto.getProductName()+" a fost sters");
         productService.delete(idProduct);
