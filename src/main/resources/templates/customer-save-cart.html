@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save cart</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+         background-color:#d9d0d0;
+         font-family: Georgia;
+        }
+
+        button{
+            border: none;
+            border-radius: 3px;
+            font-size: 18px;
+            font-weight: 700;
+            opacity: 0.7;
+            padding: 3px;
+        }
+
+        button:hover{
+            opacity: 1;
+        }
+
+        legend{
+            color: rgb(71, 71, 71);
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        fieldset{
+            border-radius: 10px;
+            border: 1px solid #cab6b6;
+            padding: 5px;
+        }
+
+        table{
+            width: 100%;
+        }
+        td{
+            text-align: center;
+        }
+        caption{
+            font-size: 17px;
+            font-style: italic;
+            margin-bottom: 3px;
+        }
+
+        select{
+            font-size: 16px;
+        }
+        .price-txt{
+        background-color:#ebdddd;
+        border:0;
+        outline:0;
+        width:25%
+        }
+        .name-txt{
+        background-color:#ebdddd;
+        border:0;
+        outline:0;
+        }
+        .name-txt:focus{
+        outline:none!important;
+        }
+        .price-txt:focus{
+        outline:none!important;
+        }
+        .quantity-txt{
+        width:25%;
+        }
+        .main-container{
+            background-color: #ebdddd;
+            border-radius: 10px;
+            margin:20px auto auto auto;
+            width: 40%;
+        }
+
+        .sub-form{
+            padding: 5px;
+        }
+
+        .col-25{
+            float: left;
+            width: 25%;
+        }
+
+        .col-75{
+            float: left;
+            width: 75%;
+        }
+        .sugestion-txt{
+        font-family:Tahoma, sans-serif;
+        font-size: 16px;
+        border: 2px solid #cccccc;
+         resize: vertical;
+         width:100%;
+}
+
+        .row{
+            font-size: 18px;
+        }
+        .row::after{
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .row-sub{
+            float: right;
+           padding: 5px 40px 5px;
+        }
+
+.btn-container{
+    float: right;
+    padding: 3px;
+}
+
+.link-container::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+        #btn-sub{
+            color: darkcyan;
+            background-color: mistyrose;
+        }
+
+        #btn-home{
+          background-color: linen;
+
+}
+#btn-address{
+    background-color: lightcyan;
+
+
+}
+        .total-col{
+            float:right;
+            padding: 10px 20px 10px 10px;
+        }
+
+        .total-container::after{
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <form class="sub-form" th:action="@{/customer/save/order}" method="post" th:object="${orderCustomer}">
+        <fieldset>
+            <legend>Salveaza comanada</legend>
+            <div class="row">
+                <div class="col-25">
+                    <label>Data:</label>
+                </div><!--End col 25 order date-->
+                <div class="col-75">
+                    <p th:text="${orderCustomer.date}"></p>
+                </div><!--End col 75 order date-->
+            </div><!--End row order date-->
+            <div class="row">
+                <div class="col-25">
+                    <label>Ora:</label>
+                </div><!--End col 25 order time-->
+                <div class="col-75">
+                    <p th:text="${orderCustomer.time}"></p>
+                </div><!--End col 75 order time-->
+            </div><!--End row order time-->
+            <div class="row">
+                <div class="col-25">
+                    <label>Client</label>
+                </div><!--End col 25 costumer-->
+                <div class="col-75">
+                    <p th:text="${customer.fullName}">Agapescu Calin</p>
+                </div><!--End col 75 costumer-->
+            </div><!--End row costumer-->
+            <div class="row">
+                <div class="col-25">
+                    <label>Adrese</label>
+                </div><!--End col 25 Address-->
+                <div class="col-75">
+                    <select th:field="${orderCustomer.shippingAddress}" name="idShippingAddress" required>
+                        <option value="">Alege adresa</option>
+                        <option th:each="shippingAddress:${shippingAddresses}" th:value="${shippingAddress.idShippingAddress}" th:text="${shippingAddress.name}" name="idShippingAddress"></option>
+                    </select>
+                </div><!--End col Address costumer-->
+            </div><!--End row Address-->
+            <div class="row">
+                <div class="col-25">
+                    <label>Sugestii</label>
+                </div><!--End col 25 costumer-->
+                <div class="col-75">
+                    <textarea th:field="*{suggestion}" class="sugestion-txt"></textarea>
+                </div><!--End col 75 suggestion-->
+            </div><!--End row suggestion-->
+            <div class="items-container">
+                <table>
+                    <caption>Produse comandate</caption>
+                    <thead>
+                    <th scope="col">Nume produs</th>
+                    <th scope="col">Pret</th>
+                    <th scope="col">Cantitate</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${orderCustomer.orderItemList}">
+                        <td data-label="Nume produs">
+                            <input th:field="*{orderItemList[__${rowStat.index}__].product.productName}"/>
+                            <input th:field="*{orderItemList[__${rowStat.index}__].product.idProduct}" type="hidden"/>
+                        </td>
+                        <td data-label="Pret">
+                            <input th:field="*{orderItemList[__${rowStat.index}__].product.price}" class="price-txt" />
+                        </td>
+                        <td data-label="Cantitate">
+                            <input type="number"
+                                   th:field="*{orderItemList[__${rowStat.index}__].quantity}"
+                                   th:value="orderItem.quantity" class="quantity-txt">
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!--End items-container-->
+            <div class="total-container">
+                <div class="total-col">
+                    <label>Total plata:<b><span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}" ></span></b></label>
+                </div><!--End total-container-->
+            </div><!--End total-col-->
+            <div class="row-sub">
+                <button type="submit" id="btn-sub">
+                    <a th:href="@{/customer/cart/form}">
+                        <i class="far fa-paper-plane">Trimite</i>
+                    </a>
+                </button><!--btn-sub-->
+            </div><!--***END row-sub***-->
+        </fieldset>
+    </form>
+    <div  class="link-container">
+        <div class=btn-container>
+            <button  id="btn-home">
+                <a href="#" th:href=@{/customer/byPage}>
+                    <i class="fas fa-home">Home</i>
+                </a>
+            </button><!--btn-home-->
+        </div><!--End btn-container home-->
+        <div class=btn-container>
+            <button  id="btn-address">
+                <a href="#" th:href=@{/customer/add/address/form}>
+                    <i class="fas fa-map-marker-alt">Adresa</i>
+                </a>
+            </button><!--btn-home-->
+        </div><!--End btn-container home-->
+    </div><!--End link-container--->
+
+</div><!--****END MAIN COANTAINER****-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
