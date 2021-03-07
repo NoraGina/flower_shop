@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View categories</title>
+    <style>
+
+    *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    }
+    body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background: #95baab;
+    }
+    caption{
+    text-align: center;
+    font-size: 20px;
+    font-style:italic;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+    }
+
+    button{
+    background: #66aba4;
+    border:none;
+    border-radius: 5px;
+    font-weight: 600;
+    padding: 5px;
+    opacity: 0.8;
+    outline:#324a73;
+    text-align: center;
+    }
+
+    button:hover{
+    opacity: 1;
+    }
+
+    /* Table Styles */
+
+    .table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    }
+
+    .fl-table {
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+    }
+
+    .fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+    }
+
+    .fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+    }
+
+    .fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+    }
+
+
+    .fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #29d978;
+    }
+
+    .fl-table tr:nth-child(even) {
+    background: #56bfb8;
+    }
+
+    .btn-container{
+
+    padding:5px 10px 5px;
+    }
+    .row{
+    float:right;
+    width:10%;
+    }
+
+    .btn-container:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+    /* Responsive */
+
+    @media (max-width: 767px) {
+    .fl-table {
+    display: block;
+    width: 100%;
+    }
+    .table-wrapper:before{
+    content: "Scroll horizontally >";
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: white;
+    padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+    display: block;
+    }
+    .fl-table thead th:last-child{
+    border-bottom: none;
+    }
+    .fl-table thead {
+    float: left;
+    }
+    .fl-table tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+    padding: 20px .625em .625em .625em;
+    height: 60px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 120px;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+    text-align: left;
+    border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+    display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+    background: none;
+    }
+    .fl-table tr:nth-child(even) {
+    background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+    background: #F8F8F8;
+    border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+    border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+    display: block;
+    text-align: center;
+    }
+    .row{
+    float:none;
+    }
+
+    }
+
+    </style>
+</head>
+<body>
+<h3 th:text="${message}"></h3>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <caption>Lista categorie</caption>
+        <thead>
+        <tr>
+            <th>Denumire categorie</th>
+            <th>Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category:${categories}">
+            <td th:text="${category.categoryName}"></td>
+            <td><a  th:href="@{/provider/update/category/form/{idCategory}(idCategory=${category.idCategory})}">
+                Edit
+            </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="btn-container">
+        <div class="row">
+            <form th:action="@{/logout}" method="post" >
+                <button class="btn" type="submit" value="Logout">
+
+                    <i class="fas fa-sign-out-alt">Logout</i>
+
+                </button>
+                <!--<input type="submit" value="Logout" />-->
+            </form>
+        </div>
+        <div class="row">
+            <button class="btn">
+                <a th:href="@{/dashboard}">
+                    <i class="fas fa-home">Acasa</i>
+                </a>
+            </button>
+        </div>
+        <div class="row">
+            <button class="btn">
+                <a th:href="@{/provider/add/category/form}">
+                    <i class="far fa-plus-square">Categorie noua</i>
+                </a>
+            </button>
+        </div>
+    </div>
+
+</div>
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
