@@ -21,4 +21,19 @@ public class Customer extends User {
         super(id, fullName, username, email, phone, password, roles);
         this.shippingAddresses = shippingAddresses;
     }
+
+    public Set<ShippingAddress> getShippingAddresses() {
+        return shippingAddresses;
+    }
+
+    public void setShippingAddresses(Set<ShippingAddress> shippingAddresses) {
+        this.shippingAddresses = shippingAddresses;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "shippingAddresses=" + shippingAddresses +
+                '}';
+    }
 }
