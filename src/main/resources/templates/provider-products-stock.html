@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products filtered by stock</title>
+    <style>
+   *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #f2eceb;
+    font-family: "Open Sans", sans-serif;
+}
+
+button{
+    border:none;
+    border-radius: 5px;
+    font-size: .95em;
+    font-weight: bold;
+    padding: 5px;
+    opacity: 0.7;
+    text-align: center;
+}
+
+input, select{
+    font-size: .95em;
+    padding: 3px;
+    outline: none;
+    opacity: 0.7;
+}
+
+input{
+    width: 60px;
+}
+
+input:focus, select:focus{
+    border:1px solid #eddedd;
+    opacity: 1;
+}
+
+
+table{
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+caption{
+    color:#000080;
+    font-size:28px;
+    font-family:Georgia;
+    font-style:italic;
+    font-weight:bold;
+    margin-bottom: 10px;
+}
+
+table tr {
+    border: 1px solid rgb(175, 175, 175);
+    padding: .35em;
+  }
+
+  table th,
+  table td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    opacity: 0.8;
+    text-transform: uppercase;
+  }
+
+  table th:hover{
+      opacity: 1;
+  }
+  table td {
+    font-size: .80em;
+    letter-spacing: .1em;
+    padding: 5px;
+
+  }
+
+  tr  td:nth-child(0),
+  tr td:nth-child(1),
+  tr td:nth-child(4),
+  tr td:nth-child(5){
+  text-align: justify;
+  }
+
+  tr td:nth-child(2),
+  tr td:nth-child(3),
+
+  tr td:nth-child(6),
+  tr td:nth-child(8),
+  tr td:nth-child(9){
+    text-align: center;
+  }
+
+tr td:nth-child(7){
+    text-align: right;
+}
+
+  table thead th:nth-child(0),
+  table thead th:nth-child(1){
+    width: 18%;
+  }
+
+  table thead th:nth-child(2){
+      width: 15%;
+  }
+
+  table thead th:nth-child(3){
+      width: 8%;
+  }
+
+  table thead th:nth-child(4){
+      width:25%;
+  }
+
+  table thead th:nth-child(5){
+      width: 12%;
+  }
+
+   table thead th:nth-child(6),
+   table thead th:nth-child(7){
+      width: 5%;
+  }
+
+  table thead th:nth-child(8),
+  table thead th:nth-child(9){
+    width: 6%;
+  }
+
+
+
+table thead th:nth-child(even) {
+    color: #ffffff;
+    background: #707e8a;
+
+}
+
+table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #798a95;
+
+}
+
+table tr:nth-child(even) {
+    background: #90a3b8;
+    opacity: 0.7;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #aeb8c0;
+    opacity: 0.7;
+
+ }
+
+ tbody tr:nth-child(odd):hover{
+    opacity: 1;
+ }
+
+
+ tbody tr:nth-child(even):hover{
+  opacity: 1;
+}
+
+#price-col{
+    text-align: right;
+}
+
+#stock-col{
+    text-align: center;
+}
+.container{
+    background-color: #dbd7d7;
+    padding: 10px 10px 20px;
+}
+/* ********table buttons***** */
+.action-btn{
+    background: #787879;
+    text-transform: uppercase;
+}
+
+#del-btn{
+    color: red;
+}
+#edit-btn{
+    color: green;
+}
+
+.filter-container{
+    background-color: #c2bcbc;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+}
+
+.column{
+    padding: 3px 5px 3px 20px;
+    float:right;
+}
+
+
+
+/* Clear floats after the columns */
+.filter-container:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .filter-btn{
+        background-color:#eddedd;
+  }
+
+.link-container{
+    background-color: #c2bcbc;
+    padding:10px;
+}
+.row{
+    float:right;
+    padding-left: 10px;
+    width:10%;
+}
+
+/* Clear floats after the columns */
+.link-container:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+.btn{
+    background-color: rgb(148, 158, 175);
+    width: 99%;
+}
+
+#log-btn{
+    color: indigo;
+}
+
+#home-btn{
+    color: navy;
+}
+#add-btn{
+    color: green;
+}
+
+
+button:hover{
+    opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    select, input{
+        font-size: .8em;
+    }
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    tr  td:nth-child(0),
+    tr td:nth-child(1),
+    tr td:nth-child(2),
+    tr td:nth-child(3),
+    tr td:nth-child(4),
+    tr  td:nth-child(5),
+    tr td:nth-child(6),
+    tr td:nth-child(7),
+    tr td:nth-child(8),
+    tr td:nth-child(9){
+        text-align: right;
+    }
+
+    table td::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table td:last-child {
+      border-bottom: 0;
+    }
+    .link-container{
+        padding:5px 10px 20px;
+    }
+
+    .row{
+        float:none;
+        padding: 3px;
+        width: 100%;
+    }
+    .btn{
+        width: 100%;
+    }
+    .column{
+        float: none;
+        width: 100%;
+    }
+    .filter-btn{
+        width: 100%;
+    }
+    caption{
+        font-size: 20px;
+    }
+  }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="filter-container">
+        <div class="column">
+            <form th:action="@{/provider/products/category/stock}" method="get">
+                <select  th:name="idCategory" required>
+                    <option value="">Alege categorie</option>
+                    <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
+                </select>
+                <input th:name="stock" placeholder="0 sau 1" required/>
+                <button class="filter-btn" type="submit">
+                    <i class="fas fa-search">Filtreaza dupa categorie si stock</i></button>
+            </form>
+        </div><!--End col-->
+        <div class="column">
+            <form th:action="@{/provider/products/category}" method="get">
+                <select  th:name="idCategory" required>
+                    <option value="">Alege categorie</option>
+                    <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
+                </select>
+                <button class="filter-btn" type="submit">
+                    <i class="fas fa-search">Filtreaza dupa categorie</i></button>
+            </form>
+        </div><!--End col-->
+    </div><!-- End filter-container-->
+
+    <div class="table-container">
+        <table>
+            <caption>Lista produse dupa categorie</caption>
+            <thead>
+            <tr>
+                <th scope="col">Denumire produs</th>
+                <th scope="col">Imagine</th>
+                <th scope="col">Origine</th>
+                <th scope="col">Descriere</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Stoc</th>
+                <th scope="col">Pret</th>
+                <th scope="col">Editeaza</th>
+                <th scope="col">Sterge</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product:${products}">
+                <td  data-label="Denumire produs" th:text="${product.productName}"></td>
+                <td data-label="Imagine"><img th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  width="200px" alt="Image" /></td>
+                <td data-label="Origine" th:text="${product.origin}"></td>
+                <td data-label="Descriere" th:text="${product.description}"></td>
+                <td data-label="Categorie" th:text="${product.categoryName}"></td>
+                <td data-label="Stock" th:text="${product.stock}"></td>
+                <td data-label="Pret" th:text="${product.price}"></td>
+                <td data-label="Editeaza">
+                    <button class="action-btn" id="edit-btn">
+                        <a  th:href="@{/provider/update/product/form/{idProduct}(idProduct=${product.idProduct})}">
+                            <i class="fas fa-pencil-alt">Editeaza</i>
+                        </a>
+                    </button>
+                </td>
+                <td data-label="Sterge">
+                    <button class="action-btn" id="del-btn">
+                        <a th:href="@{/provider/delete/product/{idProduct}(idProduct=${product.idProduct})}"
+                           onclick="return confirm('Are you sure you want to delete this product?');">
+                            <i class="far fa-trash-alt">Sterge</i>
+                        </a>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- End table container-->
+
+    <div class="link-container">
+        <div class="row">
+            <form th:action="@{/logout}" method="post" >
+                <button class="btn" type="submit" value="Logout">
+                    <i class="fas fa-sign-out-alt">Logout</i>
+                </button>
+            </form>
+        </div>
+        <div class="row">
+            <button class="btn">
+                <a th:href="@{/dashboard}">
+                    <i class="fas fa-home">Acasa</i>
+                </a>
+            </button>
+        </div>
+        <div class="row">
+            <button class="btn">
+                <a th:href="@{/provider/add/product/form}">
+                    <i class="fas fa-user-plus">Produs nou</i>
+                </a>
+            </button>
+        </div><!-- End row-->
+    </div><!-- End link container-->
+
+</div><!-- End container-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
