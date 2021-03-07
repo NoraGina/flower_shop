@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update category</title>
+    <style>
+        *{
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+}
+
+body{
+    background-color: #acf8a9;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+legend{
+    color: green;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 500;
+}
+fieldset{
+    border-radius: 10px;
+    border:1px solid green;
+    padding: 5px;
+}
+form{
+    font-size: 20px;
+    padding: 5px;
+}
+label{
+    margin-bottom: 5px;
+    padding: 3px 3px 5px;
+    text-align: center;
+    width: 100%;
+}
+
+button{
+    border:none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 5px;
+    opacity: 0.8;
+    text-align: center;
+}
+.sub-btn{
+    background-color: #47d13b;
+    margin-bottom: 5px;
+    outline:#49cf0b;
+    width: 100%;
+}
+
+.sub-btn:focus{
+    border: 2px solid #043f16;
+}
+
+button:hover{
+    opacity: 1;
+}
+.txt{
+    margin-bottom: 5px;
+    padding: 5px 3px 5px;
+    outline: none;
+
+    width: 100%;
+}
+
+.txt:focus{
+    border:2px solid #65db20;
+    border-radius: 5px;
+}
+
+
+
+.container{
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+    <form method="post" th:action="'/provider/update/category/' + ${category.idCategory}"   th:object="${category}">
+        <fieldset>
+            <legend>Informatii categorie</legend>
+            <label>Denumire categorie</label><br>
+            <input class="txt" type="text" th:field="*{categoryName}" placeholder="Buchete mireasa" required>
+            <span th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" class="text-danger"></span>
+
+            <button class="sub-btn" type="submit">
+                <i class="fas fa-pencil-alt">Editeaza</i>
+            </button>
+        </fieldset>
+    </form>
+
+</div>
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
