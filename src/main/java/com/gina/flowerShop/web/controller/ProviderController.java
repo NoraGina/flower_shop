@@ -49,14 +49,14 @@ public class ProviderController {
         }
         if(providerService.countByUserName(providerDto.getUsername()) == 1l){
             redirectAttributes.addFlashAttribute("message", providerDto.getUsername()+" already have account");
-            // model.addAttribute("providers", providerService.findAll());
+           
             return "redirect:/admin/providers/list";
         }
 
-        /*Set<Role> roleSet = new HashSet<>();
+       /* Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role("ROLE_ADMIN"));
         roleSet.add(new Role("ROLE_STAFF"));
-        roleSet.add(new Role("ROLE_CLIENT"));
+
         providerDto.setRoles(roleSet);
         Set<ProviderDto> userSet = new HashSet<>();
         userSet.add(providerDto);*/
