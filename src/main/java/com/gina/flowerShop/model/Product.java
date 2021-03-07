@@ -42,8 +42,8 @@ public class Product {
     @Column(name = "stock")
     private Integer stock;
 
-   /* @OneToMany(mappedBy = "product", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
-    private List<OrderItem> orderItemList;*/
+    @OneToMany(mappedBy = "product", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItemList;
 
     public Product() {
     }
@@ -133,14 +133,14 @@ public class Product {
         this.categories = categories;
     }
 
-   /* public List<OrderItem> getOrderItemList() {
+   public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }
 
     public void setOrderItemList(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
-*/
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -13,8 +13,8 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<ShippingAddress> shippingAddresses;
 
-    /*@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<OrderCustomer> orderCustomerSet;*/
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<OrderCustomer> orderCustomerSet;
     public Customer() {
     }
 
@@ -30,6 +30,14 @@ public class Customer extends User {
 
     public void setShippingAddresses(Set<ShippingAddress> shippingAddresses) {
         this.shippingAddresses = shippingAddresses;
+    }
+
+    public Set<OrderCustomer> getOrderCustomerSet() {
+        return orderCustomerSet;
+    }
+
+    public void setOrderCustomerSet(Set<OrderCustomer> orderCustomerSet) {
+        this.orderCustomerSet = orderCustomerSet;
     }
 
     @Override
