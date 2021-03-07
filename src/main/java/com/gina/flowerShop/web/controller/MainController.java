@@ -1,5 +1,6 @@
 package com.gina.flowerShop.web.controller;
 
+import com.gina.flowerShop.service.ProductService;
 import com.gina.flowerShop.service.UserService;
 import com.gina.flowerShop.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
     @Autowired
     UserService userService;
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/")
     public String homePage(Model model){
-        //model.addAttribute("products", productService.findAll());
+        model.addAttribute("products", productService.findAll());
 
         return "index";
     }

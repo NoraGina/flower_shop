@@ -278,7 +278,244 @@
 .top-container{
 margin:40px auto 10px auto;
 }
-        </style>
+
+  /*=================MAIN CONTAINER==============*/
+
+  .main-container{
+      padding:20px 5px 20px;
+  }
+
+    .grid{
+        width: 100%;
+        margin: 1em auto;
+    }
+
+    .grid-div{
+        background-color: rgb(245, 220, 238);
+        border: 1px solid rgb(218, 215, 215);
+        float: left;
+        height: 260px;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+        margin-bottom: 0.5%;
+        width: calc(94% / 5);
+    }
+
+    .grid-div:last-child{
+        margin-right: 0%;
+      }
+
+    .grid::after{
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    img.center {
+      display: block;
+      margin: 0 auto;
+      /*width:70%;*/
+      height: 50%;
+
+  }
+  .center:hover{
+       transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+  .price-cont{
+      padding: 3px;
+  }
+
+  .mod-btn{
+      padding: 3px;
+  }
+
+
+  .title{
+      text-align: center;
+  }
+
+  .info-text{
+      text-align: justify;
+  }
+
+
+  .openmodal{
+    background-color: rgb(238, 206, 228);
+    width: 100%;
+  }
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .col{
+      float:left;
+      width: 50%;
+  }
+
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .modal-img{
+      width: 95%;
+  }
+
+  .modal-img:hover{
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
+}
+
+@media (min-width: 768px) {
+  .navbar #togglericon:checked ~ div.nav,
+  .navbar #togglericon ~ div.nav {
+    visibility: visible;
+  }
+
+  .navbar {
+    height: var(--navbar-height);
+    background-color: var(--navbar-background-color);
+    flex-direction: row;
+    display: flex;
+    visibility: visible;
+    position: fixed;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    width: 100%;
+    box-shadow: 0px 1px 5px 0px #88888888;
+  }
+
+  .toggler {
+    display: none;
+  }
+
+  .navbar form {
+    border-top: 0px;
+    border-bottom: 0px;
+    padding: 8px;
+  }
+
+  .nav {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    opacity: 1;
+    box-shadow: none;
+    background-color: #ffffff00; /* transparent */
+  }
+
+  .at-center {
+    position: absolute;
+  }
+  .at-right {
+    position: absolute;
+    justify-content: flex-end;
+  }
+
+  .dropdown {
+    margin: 0 8px;
+  }
+  .dropdown ul {
+    position: absolute;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--navbar-background-color);
+    padding: 0;
+    border: 1px solid white;
+  }
+  .dropdown input:checked ~ ul {
+    max-height: 500px;
+    transition: max-height 0.5s ease;
+    margin: 16px 0;
+    border-left: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    box-shadow: 5px 5px 5px 0px #99999988;
+  }
+
+  .dropdown ul li {
+    width: 100%;
+    margin: 4px;
+    padding: 0;
+    display: flex;
+  }
+  .dropdown ul li a {
+    padding: 8px;
+    margin: 0;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+  }
+  .navbar form {
+    margin-top: 0px;
+  }
+
+  .brand {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    visibility: visible;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    width: 150px;
+    transform: translate(0, 0);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    justify-content: center;
+  }
+  .nav * {
+    margin: 0px 8px;
+  }
+  .navbar form {
+    margin-top: 0;
+  }
+    </style>
 </head>
 <body>
 <div class="navbar">
@@ -302,7 +539,7 @@ margin:40px auto 10px auto;
             <label for="toggle-1">Inregistrare</label>
             <input type="checkbox" id="toggle-1" />
             <ul>
-                <li><a href="#" th:href="@{/admin/registration}">SignUp</a></li>
+                <li><a href="#" th:href="@{/customer/registration}">SignUp</a></li>
                 <li><a href="#" th:href="@{/login}">LogIn</a></li>
             </ul>
         </div><!---End dropdown--->
@@ -311,7 +548,68 @@ margin:40px auto 10px auto;
     </div><!-- End nav-->
 </div><!-- End nav bar-->
 <!-- the menu ends here -->
+<div class="main-container">
+    <div class="top-container">
+        <h1><strong>Lorem ipsum dolor sit amet</strong></h1>
 
+    </div><!--End top container-->
+    <div class="grid" th:if="!${#lists.isEmpty(products)}">
+        <div class="grid-div" th:each="product:${products}">
+            <h3 th:text="${product.productName}"></h3>
+            <img class="center" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image" />
+            <div class="price-cont"><!--<p class="price-text">Pret:<span th:text="${product.price}"></span></p>-->
+                <label>Pret: <span th:text="${product.price}"></span></label>
+            </div>
+            <div class="stock" th:if="${product.stock == 0}">
+                <em><span>Produs indisponibil </span></em>
+            </div>
+
+            <div class="stock" th:unless="${product.stock == 0}">
+                <em><span>Produs disponibil </span></em>
+            </div>
+            <!--End price cont-->
+            <div class="mod-btn">
+                <button class="openmodal">Mai mule informatii</button>
+            </div>
+            <div class="modal myModal">
+                <!-- The Modal -->
+                <div class="modal-content">
+                    <!-- Modal content -->
+                    <span class="close">&times;</span>
+                    <h3 th:text="${product.productName}"></h3>
+                    <div class="row">
+                        <div class="col">
+                            <img class="modal-img" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image"/>
+                        </div><!--End col-->
+
+                        <div class="col">
+                            <label>Pret:&nbsp; <span th:text="${product.price}"></span></label><br>
+                            <label>Descriere produs</label>
+                            <b>
+                                <p class="modal-info" th:text="${product.description}"></p>
+                            </b>
+                            <label>Origine: &nbsp;&nbsp;<span th:text="${product.origin}"></span></label><br>
+                            <div class="stock" th:if="${product.stock == 0}">
+                                <em><span>Produs indisponibil </span></em>
+                            </div>
+
+                            <div class="stock" th:unless="${product.stock == 0}">
+                                <em><span>Produs disponibil </span></em>
+                            </div>
+
+
+                        </div><!--End col-->
+                    </div><!--END row-->
+                </div><!--**END Modal content-->
+            </div><!--End MODAl myModal-->
+
+
+        </div><!--***END GRID_DIV***-->
+    </div><!--**** End grid*** -->
+    <div th:if="${#lists.isEmpty(products)}">
+        You don't have any products
+    </div>
+</div><!-- END main container-->
 <script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
 <script>
             var modals = document.getElementsByClassName('modal');
@@ -329,5 +627,6 @@ margin:40px auto 10px auto;
                 }
             }
         </script>
+
 </body>
 </html>
