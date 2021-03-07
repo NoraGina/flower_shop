@@ -1,5 +1,6 @@
 package com.gina.flowerShop.web.controller;
 
+import com.gina.flowerShop.repository.CategoryRepository;
 import com.gina.flowerShop.service.ProductService;
 import com.gina.flowerShop.service.UserService;
 import com.gina.flowerShop.web.dto.UserDto;
@@ -16,6 +17,8 @@ public class MainController {
     UserService userService;
     @Autowired
     ProductService productService;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping("/")
     public String homePage(Model model){
@@ -47,5 +50,6 @@ public class MainController {
         model.addAttribute("products", productService.findAllByStockGreaterThan(1));
         return "available-products";
     }
+
 
 }
