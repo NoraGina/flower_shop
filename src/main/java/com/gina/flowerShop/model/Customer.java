@@ -13,6 +13,8 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<ShippingAddress> shippingAddresses;
 
+    /*@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<OrderCustomer> orderCustomerSet;*/
     public Customer() {
     }
 
