@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add products in shop</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+     }
+
+body{
+    background-color: #c8d1d4;
+    font-family: 'Lucida Sans';
+}
+
+
+.container{
+    background-color: #9ab1b9;
+    border-radius: 10px;
+    padding:10px 20px 40px;
+    margin:20px auto auto auto;
+    width:50%;
+}
+
+.center-block{
+    font-style: italic;
+    color: #27324f;
+    font-size:2em;
+}
+
+
+button{
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 17px;
+    padding: 4px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+#btn-home{
+    background-color: #667ebe;
+    font-weight: 900;
+
+    width: 100%;
+}
+#btn-logout{
+    background-color: #667ebe;
+    width: 100%;
+}
+
+#btn-list{
+   background-color: #667ebe;
+   width: 100%;
+}
+
+#btn-home:hover,  #btn-logout:hover, #btn-list:hover, #btn-sub:hover{
+    color: #d6d7ec;
+    opacity: 1;
+    font-size: 18px;
+}
+
+
+#btn-sub{
+    background-color: #3e89af;
+    float: right;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 3px 6px 3px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+/* Floating column for labels: 25% width */
+.col-25 {
+    float: left;
+    padding-left: 10px;
+    margin-top: 6px;
+    width: 25%;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+    float: left;
+    padding-right: 10px;
+    margin-top: 6px;
+    width: 71%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.lbl{
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 5px 5px 0;
+
+}
+
+input[type=text], input[type=file], input[type=number], select{
+
+    box-sizing: border-box;
+    font-size: 16px;
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    resize: vertical;
+
+}
+
+.txt:focus{
+border: 2px solid #3e89af;
+}
+
+.btn-container{
+   padding: 5px;
+     width: 100%;
+}
+
+/*Floating columns for butons*/
+.link-container{
+    float:right;
+    padding: 2px;
+    width: 32%;
+  }
+
+  .row-sub{
+      padding: 5px 10px;
+  }
+
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <form method="post"  th:action="@{/provider/add/product}"  th:object="${product}" enctype="multipart/form-data">
+        <fieldset>
+            <legend class="center-block">Informatii produs<span>  </span><span style="font-size: 14px; color:#e60000">toate campurile sunt obligatorii</span></legend>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="productName" class="lbl">Denumire produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{productName}" type="text" class = "txt" id="productName" required name="productName"/>
+                    <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="image" class="lbl">Imagine produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  type="file" class = "txt" th:name="imageFile" id ="image" name="image" required/>
+                    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="description" class="lbl">Descriere</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{description}" type="text" class = "txt" id="description" required/>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="price" class="lbl">Pret produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{price}" type="text" class = "txt" id="price" name="price" required/>
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="stock" class="lbl">Stock</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{stock}" type="number" value="1" class = "txt" id="stock" name="stock" required/>
+                    <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label  class="lbl">Origine</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <select class = "txt" th:name="origin" id="origin">
+                        <option value="" >Alege origine</option>
+                        <option th:each="origin:${origins}" th:value="${origin}" th:text="${origin}"></option>
+                    </select>
+                    <input type="text" name="anotherV" id="anotherO" class="input-field"  th:field="*{origin}" placeholder="Please enter origin" required>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label  class="lbl">Categorie produse</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+
+                    <th:block th:each="category:${categoryList}">
+                        <input type="checkbox" th:field="*{categories}" th:text="${category.categoryName}" th:value="${category.idCategory}"/>
+                        <br>
+                    </th:block>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row-sub">
+                <button type="submit" id="btn-sub">
+                    <i class="far fa-plus-square">Salveaza</i>
+                </button><!--btn-sub-->
+            </div>
+        </fieldset>
+    </form>
+    <div class="btn-container">
+        <div class="link-container">
+            <button  id="btn-home">
+                <a th:href="@{/dashboard}">
+                    <i class="fas fa-home">Home</i>
+                </a>
+            </button><!--btn-home-->
+        </div>
+
+        <div class="link-container">
+            <button id="btn-list">
+                <a th:href="@{/provider/product/list}">
+                    <i class="fas fa-list-ul">Lista produse</i>
+                </a>
+            </button><!--btn-list-->
+        </div>
+        <div class="link-container">
+            <form th:action="@{/logout}" method="post" >
+                <button class="btn" type="submit" id="btn-logout" value="Logout">
+                    <i class="fas fa-sign-out-alt">Logout</i>
+                </button>
+            </form>
+
+        </div><!-- End btn-row-->
+    </div> <!--div btn-->
+
+</div><!-- End container-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+<script>
+    var select = document.getElementById('origin');
+        var input = document.getElementById('anotherO');
+
+        select.onchange = function() {
+            input.value = select.value;
+            getfocus();
+        }
+
+        input.onfocus=function(){
+          /*document.getElementById('city').selectedIndex = 0;*/
+          select.selectedIndex = 0;
+        }
+
+        function getfocus() {
+          /*document.getElementById("anotherV").focus();*/
+          input.focus();
+        }
+</script>
+
+
+</body>
+</html>
