@@ -49,7 +49,7 @@ public class ProviderController {
         }
         if(providerService.countByUserName(providerDto.getUsername()) == 1l){
             redirectAttributes.addFlashAttribute("message", providerDto.getUsername()+" already have account");
-           
+
             return "redirect:/admin/providers/list";
         }
 
