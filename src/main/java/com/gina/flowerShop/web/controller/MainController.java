@@ -42,4 +42,10 @@ public class MainController {
         return "dashboard";
     }
 
+    @GetMapping("/available/products")
+    public String getAvailableProducts(Model model){
+        model.addAttribute("products", productService.findAllByStockGreaterThan(1));
+        return "available-products";
+    }
+
 }
