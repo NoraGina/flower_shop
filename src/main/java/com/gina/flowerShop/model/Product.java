@@ -1,7 +1,7 @@
 package com.gina.flowerShop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name = "products")
@@ -42,27 +42,17 @@ public class Product {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToMany(mappedBy = "product", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
-    private List<OrderItem> orderItemList;
+   /* @OneToMany(mappedBy = "product", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItemList;*/
 
     public Product() {
     }
 
-    public Product(Long idProduct, String productName, String description,
-                   double price, String origin, byte[] image, Set<Category> categories, Integer stock) {
-        this.idProduct = idProduct;
-        this.productName = productName;
-        this.description = description;
-        this.price = price;
-        this.origin = origin;
-        this.image = image;
-        this.categories = categories;
-        this.stock = stock;
-    }
+
 
     public Product(Long idProduct, String productName, String description,
                    double price, String origin, byte[] image, Set<Category> categories,
-                   Integer stock, List<OrderItem> orderItemList) {
+                   Integer stock) {
         this.idProduct = idProduct;
         this.productName = productName;
         this.description = description;
@@ -71,7 +61,7 @@ public class Product {
         this.image = image;
         this.categories = categories;
         this.stock = stock;
-        this.orderItemList = orderItemList;
+
     }
 
     public Long getIdProduct() {
@@ -143,14 +133,14 @@ public class Product {
         this.categories = categories;
     }
 
-    public List<OrderItem> getOrderItemList() {
+   /* public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }
 
     public void setOrderItemList(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
-
+*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
