@@ -56,8 +56,8 @@ public class CustomerController {
             return "redirect:/customer/login";
         }
         Set<Role> roleSet= new HashSet<>();
-        roleSet.add(new Role("ROLE_CLIENT"));
-        //roleSet.add(roleRepository.findByName("ROLE_CLIENT"));
+       // roleSet.add(new Role("ROLE_CLIENT"));
+        roleSet.add(roleRepository.findByName("ROLE_CLIENT"));
         customerDto.setRoles(roleSet);
         customerService.save(customerDto);
 
