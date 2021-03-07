@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Update order</title>
+    <style>
+        *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+ background-color: peachpuff;
+ font-family: Georgia;
+}
+
+button{
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 700;
+    opacity: 0.6;
+    padding: 3px;
+}
+
+button:hover{
+    opacity: 1;
+}
+
+legend{
+font-size:18px;
+font-style:italic;
+}
+fieldset{
+padding:5px;
+}
+form{
+padding:5px;
+}
+table{
+    width: 100%;
+}
+td{
+    text-align: center;
+}
+caption{
+    font-size: 16px;
+    font-style: italic;
+}
+
+input{
+font-size:16px;
+
+}
+.main-container{
+    background-color: papayawhip;
+    border-radius: 10px;
+    margin:20px auto auto auto;
+    width: 40%;
+}
+
+.info-container{
+    padding: 10px;
+}
+.inputs{
+margin-bottom:2px;
+width:100%;
+}
+#quantity-input{
+width:40%;
+}
+#price-input{
+background-color:papayawhip;
+border:0px papayawhip;
+width:40%;
+}
+#name-input{
+background-color:papayawhip;
+outline: none !important;
+border:0px papayawhip;
+}
+
+.col-25{
+    float: left;
+    width: 25%;
+}
+
+.col-75{
+    float: left;
+    width: 75%;
+}
+
+.row{
+    font-size: 18px;
+}
+.row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
+.btn-container{
+    float: right;
+    padding: 3px;
+}
+
+
+#btn-edit{
+    background-color: lightcyan;
+    width: 100px;
+
+}
+
+#btn-edit {
+    color:green;
+}
+</style>
+</head>
+<body>
+<div class="main-container">
+    <form method="post"  th:action="'/customer/update/order/' + ${orderCustomer.idOrderCustomer}"  th:object="${orderCustomer}">
+        <fieldset>
+            <legend>Informatii comanda</legend>
+            <div class="info-container">
+                <div class="row">
+                    <div class="col-25">
+                        <label>Comanda Nr:</label>
+                    </div><!--End col 25 order-->
+                    <div class="col-75">
+                        <input  type="text" th:field="*{idOrderCustomer}" class="inputs" />
+                    </div><!--End col 75 order-->
+                </div><!--End row order-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Data:</label>
+                    </div><!--End col 25 order date-->
+                    <div class="col-75">
+                        <input  type="text" th:field = "*{date}"  th:text="${#temporals.formatISO(localDate)}" class="inputs"/>
+                    </div><!--End col 75 order date-->
+                </div><!--End row order date-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Ora:</label>
+                    </div><!--End col 25 order time-->
+                    <div class="col-75">
+                        <input type="text" th:field = "*{time}" th:text="${#temporals.formatISO(timestamp)}" class="inputs"/>
+                    </div><!--End col 75 order time-->
+                </div><!--End row order time-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Status:</label>
+                    </div><!--End col 25 order status-->
+                    <div class="col-75">
+                        <input type="text" th:field = "*{status}" class="inputs"/>
+                    </div><!--End col 75 order status-->
+                </div><!--End row order status-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Client:</label>
+                    </div><!--End col 25 order client-->
+                    <div class="col-75">
+                        <input th:field="${customer.fullName}" class="inputs" id="txt-name" type="text"/>
+                    </div><!--End col 75 order client-->
+                </div><!--End row order client-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Adresa:</label>
+                    </div><!--End col 25 order client-->
+                    <div class="col-75">
+                        <input th:field ="*{shippingAddress.idShippingAddress}" type="hidden" th:name="idShippingAddress">
+                        <input th:field="*{shippingAddress.name}" class="inputs"  type="text"/><br>
+                        <input th:field="*{shippingAddress.city}" class="inputs"  type="text"/><br>
+                        <input th:field="*{shippingAddress.address}" class="inputs"  type="text"/><br>
+                        <input th:field="*{shippingAddress.phone}" class="inputs"  type="text"/><br>
+                    </div><!--End col 75 order address-->
+                </div><!--End row order address-->
+
+                <table>
+                    <caption>Produse comandate</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nume produs</th>
+                        <th scope="col">Pret</th>
+                        <th scope="col">Cantitate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${orderCustomer.orderItemList} ">
+                        <td data-label="Nume produs"><input th:field="*{orderItemList[__${rowStat.index}__].product.productName}" id="name-input"/>
+                            <input th:field="*{orderItemList[__${rowStat.index}__].product.idProduct}" id="id-input"  type="hidden"/></td>
+                        <td data-label="Pret"><input th:field="*{orderItemList[__${rowStat.index}__].product.price}" id="price-input" /></td>
+                        <td data-label="Cantitate" class="quantity-row">
+                            <input type="number"
+                                   th:field="*{orderItemList[__${rowStat.index}__].quantity}"
+                                   th:value="orderItem.quantity" id="quantity-input" ></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="btn-container">
+                    <button type="submit" class="btn-edit"><i class="fas fa-cart-arrow-down">Editeaza</i></button>
+                </div>
+
+            </div><!-- End info-container-->
+        </fieldset>
+    </form>
+</div><!-- End main container-->
+</body>
+</html>
