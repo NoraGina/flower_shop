@@ -31,9 +31,13 @@ public class CategoryController {
 
     @PostMapping("/provider/add/category")
     public String addCategory(@Valid @ModelAttribute("category") Category category,
-                              BindingResult result, Model model){
+                              BindingResult result, Model model, RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
             return "provider-add-category";
+        }
+        if(categoryRepository.countByCategoryName(category.getCategoryName())==1L){
+            redirectAttributes.addFlashAttribute("message", "Exista deja o categorie cu numele: "+category.getCategoryName());
+            return "redirect:/provider/categories/list";
         }
         categoryRepository.save(category);
         Category newCategory = new Category();
