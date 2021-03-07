@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View cart</title>
+    <style>
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+     background-color:#d9d0d0;
+     font-family: Georgia;
+}
+
+button{
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 700;
+    opacity: 0.7;
+    padding: 3px;
+}
+
+button:hover{
+    opacity: 1;
+}
+
+select{
+    font-size: 16px;
+}
+
+table{
+    width: 100%;
+}
+td{
+    text-align: center;
+}
+caption{
+    font-size: 17px;
+    font-style: italic;
+    margin-bottom: 3px;
+}
+.main-container{
+    background-color: #ebdddd;
+    border-radius: 10px;
+    margin:20px auto auto auto;
+    width: 40%;
+}
+
+.info-container{
+    padding: 10px;
+}
+
+.btn-delete{
+    background-color: mistyrose;
+    color:red;
+}
+
+.col-25{
+    float: left;
+    padding-bottom: 3px;
+    width: 25%;
+}
+
+.col-75{
+    float: left;
+    padding-bottom: 3px;
+    width: 75%;
+}
+
+.row{
+    font-size: 18px;
+}
+.row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+.total-info{
+    float:right;
+    padding: 5px 20px 5px 5px;
+}
+.col-total::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+.link-row{
+   padding: 5px 60px 5px 10px;
+}
+.link-col{
+    float: right;
+    padding-right: 10px;
+}
+.link-row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+#btn-sub{
+    color: darkslategrey;
+    background-color: #cfc3c3;
+}
+
+#btn-save{
+    background-color: peachpuff;
+    color: green;
+}
+#btn-home{
+    background-color: papayawhip;
+    color: midnightblue;
+}
+
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div class="info-container">
+        <div class="row">
+            <div class="col-25">
+                <label>Client</label>
+            </div><!--End col 25 costumer-->
+            <div class="col-75">
+                <p th:text="${customer.fullName}">Agapescu Calin</p>
+            </div><!--End col 75 costumer-->
+        </div><!--End row costumer-->
+
+        <div class="items-container">
+            <table>
+                <caption>Produse comandate</caption>
+                <thead>
+                <th scope="col">Nume produs</th>
+                <th scope="col">Pret</th>
+                <th scope="col">Cantitate</th>
+                <th scope="col">Optiuni</th>
+                </thead>
+                <tbody>
+
+                <tr th:each="orderItem: ${items}">
+                    <td data-label="Nume produs" th:text="${orderItem.product.productName}" th:value="orderItem.product.idProduct"></td>
+                    <td data-label="Pret"  th:text="${#numbers.formatDecimal(orderItem.product.price, 0, 'COMMA', 2, 'POINT')}"></td>
+                    <td data-label="Cantitate" th:text="*{orderItem.quantity}" th:value="orderItem.quantity"></td>
+
+                    <td data-label="Optiuni">
+                        <button type="submit" class="btn-delete">
+                            <a th:href="@{/remove/{idProduct}(idProduct=${orderItem.product.idProduct})}"
+                               onclick="return confirm('Are you sure you want to delete this item?');">
+                                <i class="far fa-trash-alt">Sterge</i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-total">
+                <div class="total-info">
+                    <label class="lbl">Total de plata:&nbsp;</label>
+                    <b><span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}" class="inputs-total" id="txt-total">140.00</span></b>
+                </div>
+
+            </div>
+        </div>
+        <div class="link-row">
+            <div class="link-col">
+                <button type="submit" id="btn-save">
+                    <a th:href="@{/customer/cart/form}">
+                        <i class="fas fa-cart-arrow-down">Salveaza</i>
+                    </a>
+                </button><!--btn-save-->
+            </div><!--***END LINK_COL SAVE***-->
+            <div class="link-col">
+                <button type="submit" id="btn-home">
+                    <a th:href="@{/customer/byPage}">
+                        <i class="fas fa-shopping-basket">Continua cumaparaturi</i>
+                    </a>
+                </button><!--btn-home-->
+            </div><!--***END LINK-COL HOME-->
+        </div><!--***END LINK_ROW***-->
+    </div><!---***END INFO CONTAINER***-->
+</div><!--****END MAIN CONTAINER-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
