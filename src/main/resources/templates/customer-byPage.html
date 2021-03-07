@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer by page</title>
+    <style>
+    *{
+    padding: 0;
+    margin: 0;
+    }
+
+    body {
+    font-family: Georgia;
+    background-color: #d9d9d9;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    }
+
+    h1 {
+    color: rgb(168, 108, 155);
+    font-size: 2rem;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 4rem;
+    letter-spacing: -3px;
+    color: gray;
+    text-align: center;
+    text-shadow: 1px 2px 1px white;
+    }
+    h1 strong {
+    color: rgb(153, 51, 148);
+    font-weight: 800;
+    font-size: 3.3rem;
+    padding: 10px;
+    }
+
+    h3{
+    padding: 5px;
+    text-align: center;
+    }
+    p{
+    font-size: 16px;
+    font-style: italic;
+    }
+
+    span{
+    font-weight: bolder;
+    }
+
+    button{
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 3px;
+    opacity: 0.7;
+    }
+
+    button:hover{
+    opacity: 1;
+    }
+
+    /*********** start of navbar code ************/
+    :root {
+    --navbar-height: 56px;
+    --navbar-background-color:  #8c8c8c;
+    --navbar-item-text-color: #000033;
+    --navbar-item-background-color: var(--navbar-background-color);
+    --navbar-item-text-color-hover: rebeccapurple;
+    --navbar-item-font: bold 1rem/1rem Georgia;
+    --navbar-item-background-color-hover: dimgray;
+    --navbar-font-family:Georgia;
+    }
+
+    .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: var(--navbar-background-color);
+    font-family: var(--navbar-font-family);
+    z-index: 9999;
+    }
+
+    .navbar #togglericon {
+    visibility: hidden;
+    }
+
+    .navbar #togglericon:after {
+    content: "☰";
+    position: absolute;
+    visibility: visible;
+    color: black;
+    font-size: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8rem;
+    border-radius: 4px;
+    border: 2px solid #ffffff00;
+    }
+
+    .navbar #togglericon:checked:after {
+    color: black;
+    border: 2px solid #f0f0f0;
+    }
+
+    .nav {
+    position: fixed;
+    top: 40px;
+    left: 0px;
+    right: 0px;
+    visibility: hidden;
+    opacity: 0;
+    padding: 8px;
+    transition: all 0.5s ease;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--navbar-background-color);
+    box-shadow: 0px 4px 4px 0px #00000088;
+    }
+
+    .navbar #togglericon:checked ~ div.nav {
+    visibility: visible;
+    transition: all 0.3s ease;
+    opacity: 1;
+    }
+
+    .nav a {
+    padding: 8px;
+    font: var(--navbar-item-font);
+    text-decoration: none;
+    color: var(--navbar-item-text-color);
+    background-color: var(--navbar-item-background-color);
+    }
+
+
+    .nav a:hover {
+    color: var(--navbar-item-text-color-hover);
+    }
+
+    .nav p {
+    margin: 0;
+    padding: 8px;
+    color: var(--navbar-item-text-color);
+    }
+
+    .dropdown {
+    position: relative;
+    display: block;
+    color: var(--navbar-item-text-color);
+    font: var(--navbar-item-font);
+    }
+    .dropdown label {
+    display: block;
+    padding: 8px;
+    }
+
+    .dropdown label:after {
+    position: absolute;
+    content: "▼";
+    color: var(--navbar-item-text-color);
+    font-size: 0.75rem;
+    top: 8px;
+    margin-left: 4px;
+    }
+
+    .dropdown label:hover {
+    color: var(--navbar-item-text-color-hover);
+    }
+    .dropdown label:hover:after {
+    color: var(--navbar-item-text-color-hover);
+    }
+    .dropdown input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    }
+    .dropdown input:checked ~ ul {
+    max-height: 500px;
+    transition: max-height 0.5s ease;
+    margin: 16px 0;
+    }
+    .dropdown ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.25s ease;
+    }
+    .dropdown li {
+    margin: 12px 0px 12px 16px;
+    }
+
+    .dropdown a {
+    color: black;
+    text-decoration: none;
+    font-weight: normal;
+    }
+
+    .navbar form {
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    justify-content: flex-start;
+    }
+
+    .navbar form input {
+    font-size: 1rem;
+    margin: 0 8px 0 0;
+    padding: 0;
+    outline: none;
+    width: 12rem;
+    }
+
+    .navbar form input:focus{
+    border: 1px solid  rgb(238, 175, 214);
+    }
+
+    .navbar form select {
+    outline: rgb(246, 245, 243);
+    font-size: 1rem;
+    width: 12rem;
+    padding: 0;
+    margin: 0 8px 0 0;
+    }
+
+    .navbar form select:focus{
+    border: 1px solid  rgb(238, 175, 214);
+    }
+
+    .nav-btn{
+    background-color: rgb(235, 233, 233);
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    opacity: 0.6;
+    padding: 4px;
+    height: 1.8rem;
+    width: 1.8rem;
+    }
+    .nav-btn:hover{
+    opacity: 1;
+    }
+
+    .brand {
+    position: fixed;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navbar-background-color);
+    visibility: visible;
+    top: 0;
+    left: 22.5%;
+    width: 50%;
+    }
+    .brand-icon {
+    font-size: 1.8rem;
+    font-weight: bolder;
+    color: rebeccapurple;
+    }
+    .brand-name {
+    margin-left: 8px;
+    font-style: italic;
+    font-weight: bolder;
+    }
+
+    /* helpers */
+    .navbar-centered {
+    justify-content: center;
+    }
+
+    /* =================FILTER CONTAINER=============*/
+    .filter-container{
+    background-color:  #737373;
+    font-size: 1rem;
+    padding: 5px;
+    margin-top: 70px;
+
+    }
+
+    .col-avaible{
+    float:left;
+    padding: 3px 10px 3px 40px;
+    }
+
+    .col-catOrigin{
+    float: left;
+    padding: 3px 10px 3px 20px;
+    }
+
+    .col-category{
+    float:left;
+    padding: 3px 10px 3px 20px;
+    }
+    .filter-container::after{
+    content: "";
+    clear: both;
+    display: table;
+    }
+    .select-txt{
+    font-size: 1rem;
+    outline: rgb(246, 245, 243);
+    opacity: 0.6;
+    padding: 4px;
+    }
+    .select-txt:focus{
+    border: 1px solid  rgb(216, 192, 207);
+    }
+
+    .select-txt:hover{
+    opacity: 1;
+    }
+
+    .message-container{
+    color:#4d0028;
+    font-size:18px;
+    font-style:italic;
+    }
+    /*=================MAIN CONTAINER==============*/
+
+    .main-container{
+    padding:20px 5px 20px;
+    }
+
+    .grid{
+    width: 100%;
+    margin: 1em auto;
+    }
+
+    .grid-div{
+    background-color: #e6e6e6;
+    border: 1px solid rgb(218, 215, 215);
+    float: left;
+    height: 310px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-bottom: 0.5%;
+    width: calc(94% / 5);
+    }
+
+    .grid-div:last-child{
+    margin-right: 0%;
+    }
+
+    .grid::after{
+    content: "";
+    clear: both;
+    display: table;
+    }
+
+    img.center {
+    display: block;
+    margin: 0 auto;
+    /*width:70%;*/
+    height: 45%;
+
+    }
+    .center:hover{
+    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+    .price-cont{
+    padding: 3px;
+    }
+
+    .mod-btn{
+    padding: 3px;
+    }
+
+    .by-container{
+    padding: 3px;
+    }
+    .title{
+    text-align: center;
+    }
+
+    .info-text{
+    text-align: justify;
+    }
+
+    .by-btn{
+    background-color: #f1d1ec;
+    width: 100%;
+    }
+    .by-modBtn{
+    background-color: #f0f0f0;
+    width: 100%;
+    }
+    .openmodal{
+    background-color: rgb(238, 206, 228);
+    width: 100%;
+    }
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    .col{
+    float:left;
+    width: 50%;
+    }
+
+    .row::after {
+    content: "";
+    clear: both;
+    display: table;
+    }
+
+    .modal-img{
+    width: 95%;
+    }
+
+    .modal-img:hover{
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
+    }
+
+    @media (min-width: 768px) {
+    .navbar #togglericon:checked ~ div.nav,
+    .navbar #togglericon ~ div.nav {
+    visibility: visible;
+    }
+
+    .navbar {
+    height: var(--navbar-height);
+    background-color: var(--navbar-background-color);
+    flex-direction: row;
+    display: flex;
+    visibility: visible;
+    position: fixed;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    width: 100%;
+    box-shadow: 0px 1px 5px 0px #88888888;
+    }
+
+    .toggler {
+    display: none;
+    }
+
+    .navbar form {
+    border-top: 0px;
+    border-bottom: 0px;
+    padding: 8px;
+    }
+
+    .nav {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    opacity: 1;
+    box-shadow: none;
+    background-color: #ffffff00; /* transparent */
+    }
+
+    .at-center {
+    position: absolute;
+    }
+    .at-right {
+    position: absolute;
+    justify-content: flex-end;
+    }
+
+    .dropdown {
+    margin: 0 8px;
+    }
+    .dropdown ul {
+    position: absolute;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--navbar-background-color);
+    padding: 0;
+    border: 1px solid white;
+    }
+    .dropdown input:checked ~ ul {
+    max-height: 500px;
+    transition: max-height 0.5s ease;
+    margin: 16px 0;
+    border-left: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    box-shadow: 5px 5px 5px 0px #99999988;
+    }
+
+    .dropdown ul li {
+    width: 100%;
+    margin: 4px;
+    padding: 0;
+    display: flex;
+    }
+    .dropdown ul li a {
+    padding: 8px;
+    margin: 0;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    }
+    .navbar form {
+    margin-top: 0px;
+    }
+
+    .brand {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    visibility: visible;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    width: 150px;
+    transform: translate(0, 0);
+    white-space: nowrap;
+    }
+    }
+
+    @media (min-width: 1200px) {
+    .nav {
+    justify-content: center;
+    }
+    .nav * {
+    margin: 0px 8px;
+    }
+    .navbar form {
+    margin-top: 0;
+    }
+    }
+
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <label for="togglericon" class="toggler" checked></label>
+    <input type="checkbox" id="togglericon" class="toggler" />
+
+    <div class="brand">
+        <span class="brand-icon">⚛</span>
+        <span class="brand-name">Brand Name</span>
+    </div><!--***END Brand***--->
+
+    <div class="nav">
+        <!-- reposition the menu with: -->
+        <!-- div class="nav at-center" -->
+        <!-- div class="nav at-right"  -->
+
+        <a href="#">Despre</a>
+        <a href="#">Contact</a>
+
+        <!--<div class="dropdown">
+            <label for="toggle-1">Inregistrare</label>
+            <input type="checkbox" id="toggle-1" />
+            <ul>
+                <li><a href="#" th:href="@{/customer/registration}">SignUp</a></li>
+                <li><a href="#" th:href="@{/customer/login}">LogIn</a></li>
+                <li><a ></a></li>
+            </ul>
+        </div>-->
+
+        <div class="dropdown"  >
+            <label for="toggle-2">Adresa livrare</label>
+            <input type="checkbox" id="toggle-2" />
+            <ul>
+                <li><a href="#" th:href="@{/customer/add/address/form}">Adauga adresa</a></li>
+                <li ><a href="#" th:href="@{/customer/shippingAddresses}">Lista adrese</a></li>
+            </ul>
+        </div><!---***End dropdown Addresses***-->
+        <a href="#" th:href="@{/customer/view/cart/form}">Vezi produse in cos</a>
+        <form>
+            <input type="text" placeholder="Editeaza utilizator @email" name="search" />
+            <button class="nav-btn">🔎</button>
+        </form>
+        <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+
+    </div><!-- End nav-->
+</div><!-- End nav bar-->
+<!-- the menu ends here -->
+
+<div class="filter-container">
+    <div class="col-avaible">
+        <label>Produse disponibile</label>
+        <button class="nav-btn">🔎</button>
+    </div>
+    <div class="col-category">
+        <form class="filter-form">
+            <label>Produse categorie</label>
+            <select class="select-txt" name="idCategory">
+                <option value="">Alege categorie</option>
+                <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
+            </select>
+            <button class="nav-btn">🔎</button>
+        </form>
+    </div>
+    <div class="col-catOrigin">
+        <form class="filter-form">
+            <label>Produse categorie si origine</label>
+            <select class="select-txt" name="category">
+                <option value="">Alege categoria</option>
+                <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
+            </select>
+            <select class="select-txt" th:name="origin" id="origin">
+                <option value="">Alege origine</option>
+                <option th:each="origin:${origins}" th:value="${origin}" th:text="${origin}"></option>
+            </select>
+            <button class="nav-btn">🔎</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="main-container">
+    <div class="top-container">
+        <h1><strong>Lorem ipsum dolor sit amet</strong></h1><!--<span th:text="${currentUser.fullName}"></span>-->
+        <div class="message-container">
+            Welcome&nbsp;<span th:text="${customer.fullName}" class="message-txt"></span>
+            <h3 th:text="${message}"></h3>
+        </div>
+
+        <!--<h3 th:text="${message}">Message</h3>-->
+        <!--<div th:if="${param.logout}">
+            <div class="alert alert-info">You have been logged out.</div>
+        </div>-->
+    </div><!--End top container-->
+    <div class="grid">
+        <div class="grid-div" th:each="product:${products}">
+            <h3 th:text="${product.productName}"></h3>
+
+            <img class="center" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image" />
+            <div class="price-cont">
+                <label>Pret: <span th:text="${product.price}"></span></label>
+            </div>
+            <div class="stock" th:if="${product.stock == 0}">
+                <em><span>Produs indisponibil </span></em>
+            </div>
+
+            <div class="stock" th:unless="${product.stock == 0}">
+                <em><span>Produs disponibil </span></em>
+            </div>
+            <!--End price cont-->
+            <div class="mod-btn">
+                <button class="openmodal">Mai mule informatii</button>
+            </div>
+            <div class="modal myModal">
+                <!-- The Modal -->
+                <div class="modal-content">
+                    <!-- Modal content -->
+                    <span class="close">&times;</span>
+                    <h3 th:text="${product.productName}"></h3>
+                    <div class="row">
+                        <div class="col">
+                            <img class="modal-img" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image"/>
+                        </div><!--End col-->
+
+                        <div class="col">
+                            <label>Pret:&nbsp; <span th:text="${product.price}"></span></label><br>
+                            <label>Descriere produs</label>
+                            <b>
+                                <p class="modal-info" th:text="${product.description}"></p>
+                            </b>
+                            <label>Origine: &nbsp;&nbsp;<span th:text="${product.origin}"></span></label><br>
+                            <div class="stock" th:if="${product.stock == 0}">
+                                <em><span>Produs indisponibil </span></em>
+                            </div>
+
+                            <div class="stock" th:unless="${product.stock == 0}">
+                                <em><span>Produs disponibil </span></em>
+                            </div>
+                            <div class="by-modal"  th:if="${product.stock != 0}">
+                                <button class="by-modBtn">
+                                    <a href="#" th:href="@{/by/product/{idProduct}(idProduct=${product.idProduct})}">
+                                        <i class="fas fa-cart-arrow-down">Adauga</i>
+                                    </a>
+                                </button>
+                            </div>
+
+                        </div><!--End col-->
+                    </div><!--END row-->
+                </div><!--**END Modal content-->
+            </div><!--End MODAl myModal-->
+            <div class="by-container" th:if="${product.stock != 0}">
+                <button class="by-btn" type="submit">
+                    <a href="#" th:href="@{/by/product/{idProduct}(idProduct=${product.idProduct})}"  th:disabled="${product.stock == 0}">
+                        <i class="fas fa-cart-arrow-down">Adauga</i>
+                    </a>
+                </button>
+            </div><!--***End by-container***-->
+
+        </div><!--***END GRID_DIV***-->
+    </div><!--**** End grid*** -->
+</div><!-- END main container-->
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+<script>
+            var modals = document.getElementsByClassName('modal');
+            // Get the button that opens the modal
+            var btns = document.getElementsByClassName("openmodal");
+            var spans = document.getElementsByClassName("close");
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].onclick = function () {
+                    modals[i].style.display = "block";
+                }
+            }
+            for (let i = 0; i < spans.length; i++) {
+                spans[i].onclick = function () {
+                    modals[i].style.display = "none";
+                }
+            }
+        </script>
+</body>
+</html>
