@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update product</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+     }
+
+body{
+    background-color: #bee4be;
+    font-family: 'Lucida Sans';
+}
+
+
+.container{
+    background-color: rgb(173 212 176);
+    border-radius: 10px;
+    padding:10px 20px 20px;
+    margin:20px auto auto auto;
+    width:50%;
+}
+
+.center-block{
+    font-style: italic;
+    color: #528d54;
+    font-size:2em;
+}
+
+fieldset{
+    border: 2px solid #528d54;
+    border-radius: 5px;
+}
+
+button{
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 17px;
+    padding: 4px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+ #btn-sub:hover{
+    color: #dde6de;
+    opacity: 1;
+    font-size: 18px;
+}
+
+
+#btn-sub{
+    background-color: #46d059;
+    color: #012c07;
+    float: right;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 3px 6px 3px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+/* Floating column for labels: 25% width */
+.col-25 {
+    float: left;
+    padding-left: 10px;
+    margin-top: 6px;
+    width: 25%;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+    float: left;
+    padding-right: 10px;
+    margin-top: 6px;
+    width: 71%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.lbl{
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 5px 5px 0;
+
+}
+
+input[type=text], input[type=file], input[type=number], select{
+    box-sizing: border-box;
+    font-size: 14px;
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    resize: vertical;
+}
+input[type=checkbox]{
+font-size:10px;
+font-style:italic;
+}
+
+.txt:focus{
+border: 2px solid #46d059;
+}
+
+
+
+/*Floating columns for butons*/
+
+
+  .row-sub{
+      padding: 5px 10px;
+  }
+
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <form method="post"  th:action="'/provider/update/product/' + ${product.idProduct}"   th:object="${product}" enctype="multipart/form-data">
+        <fieldset>
+            <legend class="center-block">Informatii produs<span>  </span><span style="font-size: 14px; color:#e60000">toate campurile sunt obligatorii</span></legend>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="productName" class="lbl">Denumire produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{productName}" type="text" class = "txt" id="productName" required name="productName"/>
+                    <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="image" class="lbl">Imagine produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  type="file" class = "txt" th:name="imageFile" id ="image" name="image" required/><br>
+                    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="text-danger"></span>
+                    <img th:src="*{'data:image/jpg;base64,'+ imageAsString}"  width="100px" alt="Image" />
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="description" class="lbl">Descriere</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{description}" type="text" class = "txt" id="description" required/>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="price" class="lbl">Pret produs</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{price}" type="text" class = "txt" id="price" name="price" required/>
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="stock" class="lbl">Stock</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{stock}" type="number" class = "txt" id="stock" name="stock" required/>
+                    <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label  class="lbl">Origine</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <input  th:field="*{origin}" type="text" class = "txt" id="origin" name="stock" required/>
+                    <span th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}" class="text-danger"></span>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row">
+                <div class="col-25">
+                    <label  class="lbl">Categorie</label>
+                </div><!--div col-25-->
+                <div class="col-75">
+                    <font size="-1">
+                        <th:block th:each="category:${categoryList}">
+                            <input type="checkbox" th:field="*{categories}" th:text="${category.categoryName}" th:value="${category.idCategory}" /><br>
+                        </th:block>
+                    </font>
+                </div><!--div col-75-->
+            </div><!--div row-->
+
+            <div class="row-sub">
+                <button type="submit" id="btn-sub">
+                    <i class="fas fa-pencil-alt">Editeaza</i>
+                </button><!--btn-sub-->
+            </div>
+        </fieldset>
+    </form>
+</div><!-- End container-->
+
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
+</body>
+</html>
