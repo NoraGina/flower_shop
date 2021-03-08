@@ -63,10 +63,12 @@ public class MainController {
     }
 
     @GetMapping("/customer/available/category")
-    public String getAllAvailableProductsByCategory(Model model,
+    public String getAllAvailableProductsByCategory(Model model, @AuthenticationPrincipal UserDetails currentUser,
                                                     @RequestParam(value = "idCategory" , required = false) Long idCategory){
+        CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
+        model.addAttribute("customer", customerDto);
         model.addAttribute("products",productService.findAllByCategoryIdAndStockGreaterThan(idCategory, 1));
-        
+
         return "customer-available-category";
     }
 
