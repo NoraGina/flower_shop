@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -57,11 +58,16 @@ public class MainController {
         model.addAttribute("customer", customerDto);
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
-
-
         model.addAttribute("origins",productService.findDistinctOrigin());
         return "customer-byPage";
     }
 
+    @GetMapping("/customer/available/category")
+    public String getAllAvailableProductsByCategory(Model model,
+                                                    @RequestParam(value = "idCategory" , required = false) Long idCategory){
+        model.addAttribute("products",productService.findAllByCategoryIdAndStockGreaterThan(idCategory, 1));
+        
+        return "customer-available-category";
+    }
 
 }
