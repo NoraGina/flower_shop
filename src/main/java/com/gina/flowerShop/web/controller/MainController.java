@@ -9,10 +9,14 @@ import com.gina.flowerShop.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -56,8 +60,13 @@ public class MainController {
     public String byPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
         CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
         model.addAttribute("customer", customerDto);
-        model.addAttribute("products", productService.findAll());
+        model.addAttribute("products", productService.findAllByStockGreaterThan(1));
         model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+       /* List<String> origins = new ArrayList<>();
+        for(String s:productService.findDistinctOrigin()){
+            s=s.replaceAll(",","");
+            origins.add(s);
+        }*/
         model.addAttribute("origins",productService.findDistinctOrigin());
         return "customer-byPage";
     }
@@ -72,4 +81,12 @@ public class MainController {
         return "customer-available-category";
     }
 
+    @GetMapping("/customer/available/origin")
+    public String getAllAvailableProductsByOrigin(Model model, @AuthenticationPrincipal UserDetails currentUser,
+                                                  @RequestParam(value= "origin", required = false)String origin){
+        CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
+        model.addAttribute("customer", customerDto);
+        model.addAttribute("products",productService.findAllByStockGreaterThanAndOrigin(1, origin));
+        return"customer-available-origin";
+    }
 }

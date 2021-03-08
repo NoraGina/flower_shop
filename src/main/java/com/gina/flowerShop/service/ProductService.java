@@ -14,4 +14,5 @@ public interface ProductService {
     List<ProductDto> findAllByCategoryId(Long idCategory);
     List<ProductDto>findAllByStockGreaterThan( int stock);
     List<ProductDto> findAllByCategoryIdAndStockGreaterThan(Long idCategory, int stock);
+    List<ProductDto>findAllByStockGreaterThanAndOrigin( int stock, String origin);
 }

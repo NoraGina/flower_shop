@@ -122,4 +122,16 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductDto> findAllByStockGreaterThanAndOrigin(int stock, String origin) {
+        List<Product>productList = productRepository.findAllByStockGreaterThanAndOrigin(stock, origin);
+        List<ProductDto>productDtoList = new ArrayList<>();
+        for(Product product:productList){
+            ProductDto productDto = toDTO(product);
+            productDtoList.add(productDto);
+        }
+        return productDtoList;
+    }
 }
