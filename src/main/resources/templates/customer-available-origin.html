@@ -20,24 +20,6 @@
     margin: 0;
     }
 
-    h1 {
-    color: rgb(168, 108, 155);
-    font-size: 2rem;
-    font-weight: normal;
-    font-style: italic;
-    line-height: 4rem;
-    letter-spacing: -3px;
-    color: gray;
-     margin:40px auto 10px;
-    text-align: center;
-    text-shadow: 1px 2px 1px white;
-    }
-    h1 strong {
-    color: rgb(153, 51, 148);
-    font-weight: 800;
-    font-size: 3.3rem;
-    padding: 10px;
-    }
 
     h3{
     padding: 5px;
@@ -282,17 +264,35 @@
     }
 
 
-
-    .message-container{
-    color:#4d0028;
-    font-size:18px;
-    font-style:italic;
-    }
     /*=================MAIN CONTAINER==============*/
 
     .main-container{
     padding:20px 5px 20px;
     }
+
+     .message-container{
+    color:#4d0028;
+    font-size:18px;
+    font-style:italic;
+    margin:50px auto 5px auto;
+    }
+
+    .span-info{
+color:red;
+font-size:24px;
+font-style:italic;
+}
+
+.title-div{
+margin:5px auto 10px auto;
+text-align: center;
+}
+.span-title{
+color:rgb(153, 51, 148);
+/* color: rgb(168, 108, 155);*/
+font-size:30px;
+font-style:italic;
+}
 
     .grid{
     width: 100%;
@@ -573,19 +573,15 @@
 
 
 <div class="main-container">
-    <div class="top-container">
-        <h1><strong>Lorem ipsum dolor sit amet</strong></h1><!--<span th:text="${currentUser.fullName}"></span>-->
         <div class="message-container">
             Welcome&nbsp;<span th:text="${customer.fullName}" class="message-txt"></span>
             <h3 th:text="${message}"></h3>
-        </div>
-
-        <!--<h3 th:text="${message}">Message</h3>-->
-        <!--<div th:if="${param.logout}">
-            <div class="alert alert-info">You have been logged out.</div>
-        </div>-->
-    </div><!--End top container-->
-    <div class="grid">
+        </div><!--End message-container-->
+    <div class="title-div" th:if="${not #lists.isEmpty(products)}">
+        <span class="span-title">Produse disponibile din </span>
+        <span class="span-title" th:text="${origin}"></span>
+    </div>
+    <div class="grid" th:if="${not #lists.isEmpty(products)}">
         <div class="grid-div" th:each="product:${products}">
             <h3 th:text="${product.productName}"></h3>
 
@@ -651,6 +647,11 @@
 
         </div><!--***END GRID_DIV***-->
     </div><!--**** End grid*** -->
+    <div  class="title-div" th:if="${#lists.isEmpty(products)}">
+        <span class="span-info">Nu exista produse disponibile din</span>
+        <span class="span-info" th:text="${origin}"></span>
+        <span class="span-info"> !!!</span>
+    </div>
 </div><!-- END main container-->
 <script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
 <script>

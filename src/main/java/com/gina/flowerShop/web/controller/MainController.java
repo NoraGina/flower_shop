@@ -87,6 +87,9 @@ public class MainController {
                                                   @RequestParam(value= "origin", required = false)String origin){
         CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
         model.addAttribute("customer", customerDto);
+        String replaceString = origin.replaceAll(",", "");
+        String trimString = replaceString;
+        model.addAttribute("origin", trimString);
         model.addAttribute("products",productService.findAllByStockGreaterThanAndOrigin(1, origin));
         return"customer-available-origin";
     }
