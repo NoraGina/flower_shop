@@ -20,26 +20,9 @@
     margin: 0;
     }
 
-    h1 {
-    color: rgb(168, 108, 155);
-    font-size: 2rem;
-    font-weight: normal;
-    font-style: italic;
-    line-height: 4rem;
-    letter-spacing: -3px;
-    color: gray;
-     margin:40px auto 10px;
-    text-align: center;
-    text-shadow: 1px 2px 1px white;
-    }
-    h1 strong {
-    color: rgb(153, 51, 148);
-    font-weight: 800;
-    font-size: 3.3rem;
-    padding: 10px;
-    }
 
     h3{
+    color:rgb(132 15 21);
     padding: 5px;
     text-align: center;
     }
@@ -282,16 +265,34 @@
     }
 
 
-
-    .message-container{
-    color:#4d0028;
-    font-size:18px;
-    font-style:italic;
-    }
     /*=================MAIN CONTAINER==============*/
 
     .main-container{
     padding:20px 5px 20px;
+    }
+
+     .message-container{
+    color:#4d0028;
+    font-size:18px;
+    font-style:italic;
+    margin:50px auto 5px auto;
+    }
+
+    .span-info{
+    color:red;
+    font-size:24px;
+    font-style:italic;
+}
+
+    .title-div{
+    margin:5px auto 10px auto;
+    text-align: center;
+    }
+    .span-title{
+   /*  color:rgb(153, 51, 148);*/
+    color: rgb(132 15 21);
+    font-size:30px;
+    font-style:italic;
     }
 
     .grid{
@@ -300,6 +301,7 @@
     }
 
     .grid-div{
+    color:rgb(132 15 21);
      background-color:rgb(245 222 213);
     border: 1px solid rgb(253, 185, 165);
     float: left;
@@ -354,6 +356,12 @@
     background-color: #f1d1ec;
     width: 100%;
     }
+
+.by-btn a{
+color:rgb(8 1 62);
+font-size:17px;
+font-weight:bold;
+}
     .by-modBtn{
     background-color: #f0f0f0;
     width: 100%;
@@ -362,6 +370,9 @@
     background-color: rgb(238, 206, 228);
     width: 100%;
     }
+     .openmodal:focus{
+    border:3px solid rgb(132 15 21);
+  }
     .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -580,12 +591,12 @@
             <h3 th:text="${message}"></h3>
         </div>
 
-        <!--<h3 th:text="${message}">Message</h3>-->
-        <!--<div th:if="${param.logout}">
-            <div class="alert alert-info">You have been logged out.</div>
-        </div>-->
+        <div class="title-div" th:if="${not #lists.isEmpty(products)}">
+            <span class="span-title">Produse disponibile in categoria </span>
+            <span class="span-title" th:text="${category.categoryName}"></span>
+        </div>
     </div><!--End top container-->
-    <div class="grid">
+    <div class="grid" th:if="${not #lists.isEmpty(products)}">
         <div class="grid-div" th:each="product:${products}">
             <h3 th:text="${product.productName}"></h3>
 
@@ -651,6 +662,11 @@
 
         </div><!--***END GRID_DIV***-->
     </div><!--**** End grid*** -->
+    <div  class="title-div" th:if="${#lists.isEmpty(products)}">
+        <span class="span-info">Nu exista produse disponibile in categoria </span>
+        <span class="span-info" th:text="${category.categoryName}"></span>
+        <span class="span-info"> !!!</span>
+    </div>
 </div><!-- END main container-->
 <script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
 <script>

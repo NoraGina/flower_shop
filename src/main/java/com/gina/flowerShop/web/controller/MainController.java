@@ -77,6 +77,8 @@ public class MainController {
                                                     @RequestParam(value = "idCategory" , required = false) Long idCategory){
         CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
         model.addAttribute("customer", customerDto);
+        Category category = categoryRepository.getOne(idCategory);
+        model.addAttribute("category", category);
         model.addAttribute("products",productService.findAllByCategoryIdAndStockGreaterThan(idCategory, 1));
 
         return "customer-available-category";
