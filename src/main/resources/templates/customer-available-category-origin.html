@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer by page</title>
+    <title>Customer by page filtered by origin and category</title>
     <style>
     *{
     padding: 0;
@@ -12,7 +12,7 @@
 
     body {
     font-family: Georgia;
-    background-color: #d9d9d9;
+    background-color: rgb(221, 192, 241);
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -20,23 +20,6 @@
     margin: 0;
     }
 
-    h1 {
-    color: rgb(168, 108, 155);
-    font-size: 2rem;
-    font-weight: normal;
-    font-style: italic;
-    line-height: 4rem;
-    letter-spacing: -3px;
-    color: gray;
-    text-align: center;
-    text-shadow: 1px 2px 1px white;
-    }
-    h1 strong {
-    color: rgb(153, 51, 148);
-    font-weight: 800;
-    font-size: 3.3rem;
-    padding: 10px;
-    }
 
     h3{
     padding: 5px;
@@ -63,14 +46,29 @@
     button:hover{
     opacity: 1;
     }
+.span-info{
+color:red;
+font-size:24px;
+font-style:italic;
+}
+
+.title-div{
+margin:5px auto 10px auto;
+text-align: center;
+}
+.span-title{
+color:indigo;
+font-size:30px;
+font-style:italic;
+}
 
     /*********** start of navbar code ************/
     :root {
     --navbar-height: 56px;
-    --navbar-background-color:  #8c8c8c;
+    --navbar-background-color:rgb(206, 160, 236);
     --navbar-item-text-color: #000033;
     --navbar-item-background-color: var(--navbar-background-color);
-    --navbar-item-text-color-hover: rebeccapurple;
+    --navbar-item-text-color-hover: rgb(87, 9, 74);
     --navbar-item-font: bold 1rem/1rem Georgia;
     --navbar-item-background-color-hover: dimgray;
     --navbar-font-family:Georgia;
@@ -280,52 +278,13 @@
     justify-content: center;
     }
 
-    /* =================FILTER CONTAINER=============*/
-    .filter-container{
-    background-color:  #737373;
-    font-size: 1rem;
-    padding: 5px;
-    margin-top: 70px;
 
-    }
-
-    .col-avaible{
-    float:left;
-    padding: 3px 10px 3px 40px;
-    }
-
-    .col-catOrigin{
-    float: left;
-    padding: 3px 10px 3px 20px;
-    }
-
-    .col-category{
-    float:left;
-    padding: 3px 10px 3px 20px;
-    }
-    .filter-container::after{
-    content: "";
-    clear: both;
-    display: table;
-    }
-    .select-txt{
-    font-size: 1rem;
-    outline: rgb(246, 245, 243);
-    opacity: 0.6;
-    padding: 4px;
-    }
-    .select-txt:focus{
-    border: 1px solid  rgb(216, 192, 207);
-    }
-
-    .select-txt:hover{
-    opacity: 1;
-    }
 
     .message-container{
     color:#4d0028;
     font-size:18px;
     font-style:italic;
+    margin:50px auto 5px auto;
     }
     /*=================MAIN CONTAINER==============*/
 
@@ -339,8 +298,8 @@
     }
 
     .grid-div{
-    background-color: #e6e6e6;
-    border: 1px solid rgb(218, 215, 215);
+    background-color:rgb(215, 184, 238);
+    border: 1px solid rgb(202, 140, 243);
     float: left;
     height: 310px;
     margin-left: 0.5%;
@@ -591,20 +550,10 @@
         <!-- div class="nav at-center" -->
         <!-- div class="nav at-right"  -->
 
-        <a href="#">Despre</a>
+        <a href="#" th:href="@{/customer/byPage}">Acasa</a>
         <a href="#">Contact</a>
 
-        <!--<div class="dropdown">
-            <label for="toggle-1">Inregistrare</label>
-            <input type="checkbox" id="toggle-1" />
-            <ul>
-                <li><a href="#" th:href="@{/customer/registration}">SignUp</a></li>
-                <li><a href="#" th:href="@{/customer/login}">LogIn</a></li>
-                <li><a ></a></li>
-            </ul>
-        </div>-->
-
-        <div class="dropdown"  >
+        <div class="dropdown">
             <label for="toggle-2">Adresa livrare</label>
             <input type="checkbox" id="toggle-2" />
             <ul>
@@ -613,69 +562,31 @@
             </ul>
         </div><!---***End dropdown Addresses***-->
         <a href="#" th:href="@{/customer/view/cart/form}">Vezi produse in cos</a>
-        <form>
-            <input type="text" placeholder="Editeaza utilizator @email" name="search" />
-            <button class="nav-btn">🔎</button>
-        </form>
+
         <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
 
     </div><!-- End nav-->
 </div><!-- End nav bar-->
 <!-- the menu ends here -->
 
-<div class="filter-container">
-    <div class="col-avaible">
-        <form class="filter-form" th:action="@{/customer/available/origin}" method="get">
-            <label>Produse origine</label>
-            <select class="select-txt" name="origin">
-                <option value="">Alege origine</option>
-                <option th:each="origin:${origins}" th:value="${origin}" th:text="${origin}"></option>
-            </select>
-            <button class="nav-btn">🔎</button>
-        </form>
-    </div>
-    <div class="col-category">
-        <form class="filter-form" th:action="@{/customer/available/category}" method="get">
-            <label>Produse categorie</label>
-            <select class="select-txt" name="idCategory">
-                <option value="">Alege categorie</option>
-                <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
-            </select>
-            <button class="nav-btn">🔎</button>
-        </form>
-    </div>
-    <div class="col-catOrigin">
-        <form class="filter-form" th:action="@{/customer/available/category/origin}" method="get">
-            <label>Produse categorie si origine</label>
-            <select class="select-txt" name="idCategory">
-                <option value="">Alege categoria</option>
-                <option th:each="category:${categoryList}" th:value="${category.idCategory}" th:text="${category.categoryName}"></option>
-            </select>
-            <select class="select-txt" name="origin" id="origin">
-                <option value="">Alege origine</option>
-                <option th:each="origin:${origins}" th:value="${origin}" th:text="${origin}"></option>
-            </select>
-            <button class="nav-btn">🔎</button>
-        </form>
-    </div>
-
-</div>
 
 <div class="main-container">
-    <div class="top-container">
-        <h1><strong>Lorem ipsum dolor sit amet</strong></h1><!--<span th:text="${currentUser.fullName}"></span>-->
+
+        <!--<h1><strong>Lorem ipsum dolor sit amet</strong></h1><span th:text="${currentUser.fullName}"></span>-->
         <div class="message-container">
             Welcome&nbsp;<span th:text="${customer.fullName}" class="message-txt"></span>
             <h3 th:text="${message}"></h3>
-        </div>
+        </div><!--End message container-->
 
-        <!--<h3 th:text="${message}">Message</h3>-->
-        <!--<div th:if="${param.logout}">
-            <div class="alert alert-info">You have been logged out.</div>
-        </div>-->
-    </div><!--End top container-->
-    <div class="grid">
-        <div class="grid-div" th:each="product:${products}">
+    <div class="title-div" th:if="${not #lists.isEmpty(products)}">
+        <span class="span-title">Produse filtrate dupa </span>
+        <span class="span-title" th:text="${category.categoryName}"></span>
+        <span class="span-title"> si din </span>
+        <span class="span-title" th:text="${origin}"></span>
+    </div>
+    <div class="grid" th:if="${not #lists.isEmpty(products)}">
+
+        <div class="grid-div"  th:each="product:${products}">
             <h3 th:text="${product.productName}"></h3>
 
             <img class="center" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image" />
@@ -740,6 +651,13 @@
 
         </div><!--***END GRID_DIV***-->
     </div><!--**** End grid*** -->
+    <div  class="title-div" th:if="${#lists.isEmpty(products)}">
+       <span class="span-info">Nu exista produse disponibile in categoria </span>
+        <span class="span-info" th:text="${category.categoryName}"></span>
+        <span class="span-info"> si din </span>
+        <span class="span-info" th:text="${origin}"></span>
+        <span class="span-info"> !!!</span>
+    </div>
 </div><!-- END main container-->
 <script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
 <script>

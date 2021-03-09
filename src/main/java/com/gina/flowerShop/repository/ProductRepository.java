@@ -22,6 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p  INNER JOIN p.categories c where c.idCategory=:idCategory and p.stock=:stock")
     List<Product> findAllByCategoryIdAndStockGreaterThan(@Param("idCategory")Long idCategory, @Param("stock")int stock);
 
+    @Query("select p from Product p  INNER JOIN p.categories c where c.idCategory=:idCategory and p.origin=:origin and p.stock=:stock")
+    List<Product> findAllByCategoryIdOriginAndStockGreaterThan(@Param("idCategory")Long idCategory,@Param("origin")String origin, @Param("stock")int stock);
+
     @Query("Select p from Product p where p.stock=:stock and p.origin=:origin")
     List<Product>findAllByStockGreaterThanAndOrigin(@Param("stock") int stock, @Param("origin")String origin);
 

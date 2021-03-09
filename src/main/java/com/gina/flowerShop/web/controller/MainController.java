@@ -1,5 +1,6 @@
 package com.gina.flowerShop.web.controller;
 
+import com.gina.flowerShop.model.Category;
 import com.gina.flowerShop.repository.CategoryRepository;
 import com.gina.flowerShop.service.CustomerService;
 import com.gina.flowerShop.service.ProductService;
@@ -88,5 +89,20 @@ public class MainController {
         model.addAttribute("customer", customerDto);
         model.addAttribute("products",productService.findAllByStockGreaterThanAndOrigin(1, origin));
         return"customer-available-origin";
+    }
+
+    @GetMapping("/customer/available/category/origin")
+    public String getAllAvailableProductsByCategoryAndOrigin(Model model, @AuthenticationPrincipal UserDetails currentUser,
+                                                             @RequestParam(value = "idCategory" , required = false) Long idCategory,
+                                                  @RequestParam(value= "origin", required = false)String origin){
+        CustomerDto customerDto = customerService.findByUsername(currentUser.getUsername());
+        model.addAttribute("customer", customerDto);
+        Category category = categoryRepository.getOne(idCategory);
+        String replaceString = origin.replaceAll(",", "");
+        String trimString = replaceString;
+        model.addAttribute("category", category);
+        model.addAttribute("origin", trimString);
+        model.addAttribute("products",productService.findAllByCategoryIdOriginAndStockGreaterThan(idCategory, origin, 1));
+        return"customer-available-category-origin";
     }
 }

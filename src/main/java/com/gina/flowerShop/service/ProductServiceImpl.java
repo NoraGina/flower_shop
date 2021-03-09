@@ -134,4 +134,15 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }
+
+    @Override
+    public List<ProductDto> findAllByCategoryIdOriginAndStockGreaterThan(Long idCategory, String origin, Integer stock) {
+        List<Product>productList = productRepository.findAllByCategoryIdOriginAndStockGreaterThan(idCategory, origin, stock);
+        List<ProductDto>productDtoList = new ArrayList<>();
+        for(Product product:productList){
+            ProductDto productDto = toDTO(product);
+            productDtoList.add(productDto);
+        }
+        return productDtoList;
+    }
 }
