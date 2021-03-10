@@ -42,6 +42,7 @@
     padding: 5px;
     text-align: center;
     }
+
     p{
     font-size: 16px;
     font-style: italic;
@@ -613,10 +614,6 @@
             </ul>
         </div><!---***End dropdown Addresses***-->
         <a href="#" th:href="@{/customer/view/cart/form}">Vezi produse in cos</a>
-        <form>
-            <input type="text" placeholder="Editeaza utilizator @email" name="search" />
-            <button class="nav-btn">🔎</button>
-        </form>
         <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
 
     </div><!-- End nav-->
@@ -667,6 +664,7 @@
         <div class="message-container">
             Welcome&nbsp;<span th:text="${customer.fullName}" class="message-txt"></span>
             <h3 th:text="${message}"></h3>
+
         </div>
 
         <!--<h3 th:text="${message}">Message</h3>-->

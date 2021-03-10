@@ -16,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -63,6 +60,38 @@ public class CustomerController {
 
         return "redirect:/customer/registration?success";
     }
+
+    @GetMapping("/customer/update/form")
+    public String displayCustomerUpdate(@RequestParam("email") String email,
+                                        RedirectAttributes redirectAttributes,Model model){
+
+       CustomerDto customer = customerService.findByEmailAndRoleName(email,"ROLE_CLIENT" );
+        if(customer != null){
+            model.addAttribute("customer", customer);
+
+            return "customer-update";
+
+        }
+        redirectAttributes.addFlashAttribute("message", "Nu exista cont pe acest "+email+", inregistrati-va! ");
+        return "redirect:/";
+    }
+
+    @PostMapping("customer/update/{id}")
+    public String updateCustomer(@PathVariable("id")Long id, Model model,
+                                 @Valid @ModelAttribute("customer") CustomerDto customer, BindingResult result,
+                                 RedirectAttributes attributes){
+        if(result.hasErrors()){
+            return "customer-update";
+        }
+
+        customerService.save(customer);
+        model.addAttribute("customer", customer);
+
+        attributes.addFlashAttribute("message", customer.getFullName().toUpperCase()+" "+"editare cu succes!");
+
+        return "redirect:/";
+    }
+
 
     @GetMapping("/customer/add/address/form")
     public String customerDisplayAddAddressForm(Model model, @AuthenticationPrincipal UserDetails currentUser){

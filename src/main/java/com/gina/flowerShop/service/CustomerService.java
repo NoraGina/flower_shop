@@ -13,4 +13,5 @@ public interface CustomerService extends UserDetailsService {
     void delete(Long id);
     long countByUserName( String username);
     CustomerDto findByUsername(String username);
+    CustomerDto findByEmailAndRoleName(String email, String name);
 }

@@ -98,6 +98,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDto;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public CustomerDto findByEmailAndRoleName(String email, String name) {
+        final Customer customer = customerRepository.findByEmailAndRoleName(email, name);
+        final CustomerDto customerDto = toDto(customer);
+        return customerDto;
+    }
+
     private Collection< ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
 
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());

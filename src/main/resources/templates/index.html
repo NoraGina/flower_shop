@@ -41,7 +41,11 @@
               padding: 5px;
               text-align: center;
           }
-
+         .message-txt{
+            color:red;
+              padding: 5px;
+              text-align: center;
+              }
 
           span{
               font-weight: bolder;
@@ -535,6 +539,10 @@ margin:40px auto 10px auto;
         <a href="#">Despre</a>
         <a href="#">Contact</a>
         <a href="#" th:href="@{/available/products}">Produse disponibile</a>
+        <form method="get" th:action="@{/customer/update/form}" th:object="${customer}">
+            <input type="text" placeholder="Editeaza utilizator @email" name="email" required/>
+            <button class="nav-btn">🔎</button>
+        </form>
         <div class="dropdown">
             <label for="toggle-1">Inregistrare</label>
             <input type="checkbox" id="toggle-1" />
@@ -551,7 +559,7 @@ margin:40px auto 10px auto;
 <div class="main-container">
     <div class="top-container">
         <h1><strong>Lorem ipsum dolor sit amet</strong></h1>
-
+        <h3 class="message-txt" th:text="${message}"></h3>
     </div><!--End top container-->
     <div class="grid" th:if="!${#lists.isEmpty(products)}">
         <div class="grid-div" th:each="product:${products}">
