@@ -242,6 +242,14 @@ color:indigo;
         </div><!--End row order time-->
         <div class="row">
             <div class="col-25">
+                <label>Cerinte:</label>
+            </div><!--End col 25 order-->
+            <div class="col-75">
+                <p th:text="${orderCustomer.suggestion}"></p>
+            </div><!--End col 75 order-->
+        </div><!--End row order-->
+        <div class="row">
+            <div class="col-25">
                 <label>Client</label>
             </div><!--End col 25 costumer-->
             <div class="col-75">
@@ -316,7 +324,7 @@ color:indigo;
                         <i class="fas fa-highlighter">Edit</i>
                     </a>
                 </button><!--btn-edit-->
-                </form>
+
             </div><!-- End btn-container edit-->
 
             <div class=btn-container>
