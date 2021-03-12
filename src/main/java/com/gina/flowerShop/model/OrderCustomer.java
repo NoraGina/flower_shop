@@ -149,6 +149,13 @@ public class OrderCustomer {
         return total;
     }
 
+    public double getAmount(){
+        double total = 0;
+        for(OrderItem orderItem:this.orderItemList){
+            total += orderItem.getQuantity()* orderItem.getProduct().getPrice();
+        }
+        return total;
+    }
 
 
     @Override

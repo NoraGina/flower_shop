@@ -1,6 +1,8 @@
 package com.gina.flowerShop.web.controller;
 
+import com.gina.flowerShop.model.OrderCustomer;
 import com.gina.flowerShop.model.Role;
+import com.gina.flowerShop.repository.OrderCustomerRepository;
 import com.gina.flowerShop.repository.RoleRepository;
 import com.gina.flowerShop.service.ProviderService;
 import com.gina.flowerShop.web.dto.ProviderDto;
@@ -15,21 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class ProviderController {
-    private ProviderService providerService;
+    @Autowired private ProviderService providerService;
 
-    private RoleRepository roleRepository;
-    @Autowired
-    public ProviderController(ProviderService providerService, RoleRepository roleRepository) {
-        this.providerService = providerService;
-        this.roleRepository = roleRepository;
-    }
+    @Autowired private RoleRepository roleRepository;
+
+    @Autowired private OrderCustomerRepository orderCustomerRepository;
+
+
+
 
     @GetMapping("/admin/registration")
     public String showRegistrationFormProvider(Model model) {
@@ -110,5 +109,19 @@ public class ProviderController {
         redirectAttributes.addFlashAttribute("message", "Utilizatorul "+providerDto.getFullName()+" a fost editat cu succes");
 
         return "redirect:/admin/providers/list";
+    }
+
+    @GetMapping("/provider/orders")
+    public String getAllOrders( Model model){
+        List<OrderCustomer>orderCustomers = orderCustomerRepository.findAll();
+        double total = 0;
+        for(OrderCustomer orderCustomer: orderCustomers){
+            total += orderCustomer.getTotal();
+            model.addAttribute("orderCustomer", orderCustomer);
+        }
+
+        model.addAttribute("orders", orderCustomers);
+        model.addAttribute("total", total);
+        return "provider-orders";
     }
 }

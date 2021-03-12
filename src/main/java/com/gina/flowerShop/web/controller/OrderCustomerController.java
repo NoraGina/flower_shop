@@ -5,6 +5,7 @@ import com.gina.flowerShop.repository.*;
 import com.gina.flowerShop.service.OrderCustomerService;
 import com.gina.flowerShop.service.ProductService;
 import com.gina.flowerShop.web.dto.CustomerDto;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -222,12 +223,11 @@ public class OrderCustomerController {
             final OrderCustomer orderCustomer = optionalOrderCustomer.get();
             Customer customer = orderCustomer.getCustomer();
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
-            List<OrderItem>orderItemList = orderItemRepository.findAllByIdOrderCustomer(idOrderCustomer);
-            orderCustomer.setOrderItemList(orderItemList);
+            orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
+            orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
             model.addAttribute("orderCustomer", orderCustomer);
             model.addAttribute("customer", customer);
             model.addAttribute("shippingAddress", shippingAddress);
-
 
         }else {
             new IllegalArgumentException("Invalid order Id:" + idOrderCustomer);
@@ -255,12 +255,10 @@ public class OrderCustomerController {
         double value =0;
 
         for(OrderItem orderItem:orderCustomer.getOrderItemList()){
-
-            total += orderItem.getProduct().getPrice()*orderItem.getQuantity();
             value = orderItem.getProduct().getPrice()*orderItem.getQuantity();
-
-
+            total += orderItem.getProduct().getPrice()*orderItem.getQuantity();
         }
+
         orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
         orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
         orderCustomerRepository.save(orderCustomer);

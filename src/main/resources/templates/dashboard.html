@@ -48,6 +48,9 @@
                 <li class="nav-item" sec:authorize="hasAnyRole('CLIENT')">
                     <a class="nav-link" th:href=@{/customer/byPage}>Fa cumparaturi</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('STAFF', 'ADMIN')">
+                    <a class="nav-link" th:href=@{/provider/orders}>Comenzi</a>
+                </li>
                 <li class="nav-item dropdown" sec:authorize="hasAnyRole('STAFF', 'ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Products
