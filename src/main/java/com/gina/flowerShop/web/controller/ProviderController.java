@@ -1,13 +1,12 @@
 package com.gina.flowerShop.web.controller;
 
-import com.gina.flowerShop.model.OrderCustomer;
-import com.gina.flowerShop.model.Role;
-import com.gina.flowerShop.repository.OrderCustomerRepository;
-import com.gina.flowerShop.repository.RoleRepository;
+import com.gina.flowerShop.model.*;
+import com.gina.flowerShop.repository.*;
 import com.gina.flowerShop.service.ProviderService;
 import com.gina.flowerShop.web.dto.ProviderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +26,9 @@ public class ProviderController {
 
     @Autowired private OrderCustomerRepository orderCustomerRepository;
 
-
-
+    @Autowired private ShippingAddressRepository shippingAddressRepository;
+    @Autowired private OrderItemRepository orderItemRepository;
+    @Autowired private CustomerRepository customerRepository;
 
     @GetMapping("/admin/registration")
     public String showRegistrationFormProvider(Model model) {
@@ -118,10 +118,69 @@ public class ProviderController {
         for(OrderCustomer orderCustomer: orderCustomers){
             total += orderCustomer.getTotal();
             model.addAttribute("orderCustomer", orderCustomer);
+            model.addAttribute("customer", orderCustomer.getCustomer());
         }
 
         model.addAttribute("orders", orderCustomers);
         model.addAttribute("total", total);
         return "provider-orders";
+    }
+    @Transactional
+    @GetMapping("/provider/delete/order/{idOrderCustomer}")
+    public String providerDeleteOrder(@PathVariable("idOrderCustomer")Long idOrderCustomer, Model model,
+                                      RedirectAttributes redirectAttributes){
+        Customer customer = orderCustomerRepository.findById(idOrderCustomer).get().getCustomer();
+        OrderCustomer orderCustomer = orderCustomerRepository.getOne(idOrderCustomer);
+        List<ShippingAddress>shippingAddressList = shippingAddressRepository.findAllByCustomerId(customer.getId());
+        ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
+        redirectAttributes.addFlashAttribute("message", "Comanda "+idOrderCustomer+ " a fost stearsa cu succes");
+        orderCustomerRepository.deleteById(idOrderCustomer);
+        shippingAddressList.add(shippingAddress);
+        Set<ShippingAddress>shippingAddressSet = new HashSet<>(shippingAddressList);
+        customer.setShippingAddresses(shippingAddressSet);
+
+        return "redirect:/provider/orders";
+    }
+
+    @GetMapping("/provider/update/order/form/{idOrderCustomer}")
+    public String displayProviderUpdateOrderForm(@PathVariable("idOrderCustomer")Long idOrderCustomer, Model model){
+        Optional<OrderCustomer> optionalOrderCustomer = orderCustomerRepository.findById(idOrderCustomer);
+        if(optionalOrderCustomer.isPresent()){
+            final OrderCustomer orderCustomer = optionalOrderCustomer.get();
+            Customer customer = orderCustomer.getCustomer();
+            ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
+            orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
+            orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+
+            model.addAttribute("orderCustomer", orderCustomer);
+            model.addAttribute("customer", customer);
+            model.addAttribute("shippingAddress", shippingAddress);
+            model.addAttribute("orderItems", orderCustomer.getOrderItemList());
+        }else {
+            new IllegalArgumentException("Invalid order Id:" + idOrderCustomer);
+        }
+
+        return "provider-update-order";
+    }
+
+    @PostMapping("/provider/update/order/{idOrderCustomer}")
+    public String providerUpdateOrder(@PathVariable("idOrderCustomer")Long idOrderCustomer,
+                                      @Valid @ModelAttribute("orderCustomer")OrderCustomer orderCustomer,
+                                      RedirectAttributes redirectAttributes, BindingResult result){
+
+            if(result.hasErrors()){
+                return "provider-update-order";
+            }
+            Customer customer = orderCustomer.getCustomer();
+            orderCustomer.setCustomer(customer);
+            ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
+            shippingAddress.setCustomer(customer);
+            orderCustomer.setOrderItemList(orderItemRepository.findAllByIdOrderCustomer(orderCustomer.getIdOrderCustomer()));
+
+            orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+            redirectAttributes.addFlashAttribute("message","Comanda "+idOrderCustomer+ " a fost editata cu succes" );
+            orderCustomerRepository.save(orderCustomer);
+
+        return "redirect:/provider/orders";
     }
 }

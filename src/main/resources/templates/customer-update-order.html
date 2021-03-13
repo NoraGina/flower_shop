@@ -52,7 +52,11 @@ caption{
 
 input{
 font-size:16px;
-
+}
+textarea{
+font-size:16px;
+margin-bottom:2px;
+width:100%;
 }
 .main-container{
     background-color: papayawhip;
@@ -115,14 +119,12 @@ width:20%;
 
 
 #btn-edit{
+color:green;
     background-color: lightcyan;
     width: 100px;
 
 }
 
-#btn-edit {
-    color:green;
-}
 </style>
 </head>
 <body>
@@ -161,6 +163,14 @@ width:20%;
                     </div><!--End col 25 order status-->
                     <div class="col-75">
                         <input type="text" th:field = "*{status}" class="inputs"/>
+                    </div><!--End col 75 order status-->
+                </div><!--End row order status-->
+                <div class="row">
+                    <div class="col-25">
+                        <label>Cerinte:</label>
+                    </div><!--End col 25 order status-->
+                    <div class="col-75">
+                        <textarea th:field="*{suggestion}" class="sugestion-txt"></textarea>
                     </div><!--End col 75 order status-->
                 </div><!--End row order status-->
                 <div class="row">
@@ -206,15 +216,6 @@ width:20%;
                                    th:value="orderItem.quantity" id="quantity-input" ></td>
 
                     </tr>
-                    <!--<tr th:each="orderItem : ${orderCustomer.orderItemList} ">
-                       <td data-label="Item"> <input th:value="${orderItem.idOrderItem}" id="item-input"  /></td>
-                        <td data-label="Nume produs"><input th:value="${orderItem.product.productName}" id="name-input"/>
-                            <input th:value="${orderItem.product.idProduct}" id="id-input"  type="hidden"/></td>
-                        <td data-label="Pret"><input  th:value="${orderItem.product.price}" id="price-input" /></td>
-                        <td data-label="Cantitate" class="quantity-row">
-                            <input type="number"  th:value="${orderItem.quantity}" id="quantity-input" ></td>
-
-                    </tr>-->
 
                     </tbody>
                 </table>

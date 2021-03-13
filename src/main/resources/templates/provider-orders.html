@@ -195,11 +195,14 @@
         </form>
     </div>
     <br>
+    <div class="message container">
+        <h3 th:text="${message}"></h3>
+    </div>
     <div class="orders-container" th:each="orderCustomer:${orders}">
         <div class="btn-row">
             <div class="col">
                 <button type="submit" id="btn-delete">
-                    <a th:href="@{/orders/delete/{idOrderCustomer}(idOrderCustomer=${orderCustomer.idOrderCustomer})}">
+                    <a th:href="@{/provider/delete/order/{idOrderCustomer}(idOrderCustomer=${orderCustomer.idOrderCustomer})}">
                         <i class="fas fa-trash-alt"> Delete</i>
 
                     </a>
@@ -207,7 +210,7 @@
             </div><!--End col delete-->
             <div class="col">
                 <button type="submit" id="btn-edit">
-                    <a th:href="@{/displayEditOrderManager/{idOrderCustomer}(idOrderCustomer=${orderCustomer.idOrderCustomer})}">
+                    <a th:href="@{/provider/update/order/form/{idOrderCustomer}(idOrderCustomer=${orderCustomer.idOrderCustomer})}">
                         <i class="fas fa-pen">Edit order </i>
                     </a>
                 </button>
@@ -251,16 +254,16 @@
                 <label>Client</label>
             </div><!--END Col-25 order customer-->
             <div class="col-75">
-                <span th:text="${orderCustomer.customer.fullName}">Man Horea</span>
+                <span th:text="${customer.fullName}"></span>
             </div><!--END col-75 order customer-->
             <div class="col-25">
                 <label>Adresa de livrare</label>
             </div><!--END Col-25 order shiiping address-->
             <div class="col-75">
-                <span th:text="${orderCustomer.shippingAddress.name}">Mama Man Elisabeta</span>
-                <span th:text="${orderCustomer.shippingAddress.address}">Str.Muzicii, Nr.8</span>
-                <span th:text="${orderCustomer.shippingAddress.city}">Oradea</span>
-                <span  th:text="${orderCustomer.shippingAddress.phone}">0770214578</span>
+                <span th:text="${orderCustomer.shippingAddress.name}"></span>
+                <span th:text="${orderCustomer.shippingAddress.address}"></span>
+                <span th:text="${orderCustomer.shippingAddress.city}"></span>
+                <span  th:text="${orderCustomer.shippingAddress.phone}"></span>
             </div><!--END col-75 shipping address-->
         </div><!--End row-->
         <div class="table-container">
@@ -278,17 +281,14 @@
                 </thead>
                 <tbody>
                 <tr th:each="orderItem:${orderCustomer.orderItemList}">
-                    <td  data-label="denumire produs" th:text="${orderItem.product.productName}"></td>
+                    <td  data-label="Denumire produs" th:text="${orderItem.product.productName}"></td>
                     <td>
                         <img  data-label="Imagine" class="center" th:src="*{'data:image/jpg;base64,'+ orderItem.product.imageAsString}"  alt="Image" height="80px"/>
                     </td>
-
                     <td  data-label="Pret" th:text="${orderItem.product.price}"></td>
                     <td  data-label="Cantitate" th:text="${orderItem.quantity}"></td>
                     <td  data-label="Valoare" th:text="${#numbers.formatDecimal(orderItem.value, 0, 'COMMA', 2, 'POINT')}" id="order-value"></td>
                 </tr>
-
-
 
                 </tbody>
 
