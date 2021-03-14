@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long idRole;
 
     @Column(name = "role_name")
@@ -39,17 +40,12 @@ public class Role {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        if(idRole != null){
-            return idRole.equals(role.idRole) &&
-                    name.equals(role.name);
-        }
-        return
+        return idRole == role.idRole &&
                 name.equals(role.name);
     }
 

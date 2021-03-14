@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByEmailAndRoleName(@Param("email")String email,@Param("name") String name);
     @Query("select count(*) from Customer c where c.username =:username")
     long countByUsername(@Param("username") String username);
+
+
 }

@@ -2,199 +2,147 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Orders</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400;1,500&display=swap');
-*{
-            margin: 0;
-            padding: 0;
-           box-sizing: border-box;
-        }
-
-        body{
-            background-color: #acb3b5;
-            font-family: Roboto;
-        }
-        caption{
-            font-size: 18px;
-            font-style: italic;
-            font-weight: 900;
-        }
-        table{
-            width:100%;
-        }
-
-        table th{
-            padding-bottom: 5px;
-            text-decoration: underline;
-        }
-
-        table td{
-            text-align: center;
-        }
-
-        h2{
-            text-align: center;
-            font-style:italic;
-        }
-        button{
-            background-color: #1c3542;
-            border: none;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 500;
-            padding: 3px 5px;
-        }
-       input{
-           font-size: 16px;
-       }
-       select{
-           font-size: 16px;
-       }
-
-        legend{
-        font-size:15px;
-        font-style:italic;
-        }
-
-        fieldset{
-        padding:10px;
-        }
-
-        button {
-            transition-duration: 0.4s;
-          }
-
-          button:hover {
-            background-color: #7fa3b5; /* Green */
-          }
-          a:hover{
-              color:#03121a;
-          }
-
-        .container{
-            font-size: 14px;
-            padding:10px;
-            margin:auto;
-            width:60%;
-        }
-
-        .orders-container{
-            border-bottom: 2px solid#4c626e;
-            padding: 25px 10px 40px;
-            width: 100%;
-        }
-
-        .form-search{
-         font-size: 17px;
-         padding:10px;
-        }
-
-        .col{
-            float: right;
-            padding-right: 3px;
-        }
-
-        .btn-row::after{
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .col-25{
-            float: left;
-            width: 25%;
-        }
-
-        .col-75{
-            float: left;
-            width: 75%;
-        }
-
-        .row{
-            font-size: 16px;
-        }
-        .row::after{
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .total-container{
-            padding:10px 25px 10px;;
-            float:right;
-        }
-
-
-          .total-container {
-            clear: right;
-          }
-
-          .btn-container{
-                padding: 20px 40px 20px;
-                float:right;
-          }
-
-          .btn-container{
-              clear:right;
-          }
-          .btn-search{
-              color:powderblue;
-          }
-          #btn-link a{
-              color:indigo;
-          }
-          #btn-edit a{
-              color:rgb(114, 219, 9);
-          }
-          #btn-delete a{
-              color: lightcoral;
-          }
-
-    </style>
+    <title>Orders by status</title>
 </head>
+<style>
+     @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400;1,500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+   box-sizing: border-box;
+}
+
+body{
+    background-color: #c4af9a;
+    font-family: Roboto;
+}
+caption{
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 900;
+}
+table{
+    width:100%;
+}
+
+table th{
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
+
+table td{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+    font-style:italic;
+}
+button{
+    background-color: #c9a780;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 3px 5px;
+}
+input{
+   font-size: 16px;
+}
+
+
+button {
+    transition-duration: 0.4s;
+  }
+
+  button:hover {
+    background-color: #c09864; /* Green */
+  }
+  a:hover{
+      color:#03121a;
+  }
+
+.container{
+    font-size: 14px;
+    padding:10px;
+    margin:10px auto;
+    width:60%;
+}
+
+.orders-container{
+    border-bottom: 2px solid#4c626e;
+    padding: 25px 10px 40px;
+    width: 100%;
+}
+
+.form-search{
+ font-size: 17px;
+ padding:10px;
+}
+
+.col{
+    float: right;
+    padding-right: 3px;
+}
+
+.btn-row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.col-25{
+    float: left;
+    width: 25%;
+}
+
+.col-75{
+    float: left;
+    width: 75%;
+}
+
+.row{
+    font-size: 16px;
+}
+.row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.total-container{
+    padding:10px 25px 10px;;
+    float:right;
+}
+
+
+  .total-container {
+    clear: right;
+  }
+
+  .btn-container{
+        padding: 20px 40px 20px;
+        float:right;
+  }
+
+  .btn-container{
+      clear:right;
+  }
+
+  #btn-link a{
+      color:indigo;
+  }
+  #btn-edit a{
+      color: seagreen;
+  }
+  #btn-delete a{
+      color: indianred;
+  }
+</style>
 <body>
 <div class="container">
-    <h2>All orders</h2>
-    <div class = "form-search">
-        <form  th:action="@{/orders-date/}" method="get">
-            <fieldset>
-                <legend>Filter by Date</legend>
-                <input type="date" th:value="${orderCustomer.date}" th:name="date"/>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
+    <h2>Orders by status</h2>
 
-    <div class = "form-search">
-        <form  th:action="@{/provider/orders/status}" method="get">
-            <fieldset>
-                <legend>Filter by Status</legend>
-                <select th:field="${orderCustomer.status}" th:name="status">
-                    <option value="">Select status</option>
-                    <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
-                            th:value="${status}" th:text="${status}" ></option>
-                </select>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class = "form-search">
-        <form th:action="@{/orders-date-status}" method="get">
-            <fieldset>
-                <legend>Filter by Date and Status</legend>
-                <input type="date" th:value="${orderCustomer.date}" th:name="date"/>
-                <select th:field="${orderCustomer.status}" th:name="status">
-                    <option value="">Select status</option>
-                    <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
-                            th:value="${status}" th:text="${status}" ></option>
-                </select>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
-    <br>
     <div class="message container">
         <h3 th:text="${message}"></h3>
     </div>

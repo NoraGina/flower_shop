@@ -162,11 +162,11 @@
                         <label>Cerinte:</label>
                     </div><!--End col 25 order suggestion-->
                     <div class="col-75" th:if="${orderCustomer.suggestion != null}">
-                        <span th:text="*{suggestion}" class="fixed-inputs"></span>
+                        <textarea th:field="*{suggestion}" class="fixed-inputs"></textarea>
                     </div><!--End col 75 order suggestion-->
-                    <div class="col-75" th:unlless="${orderCustomer.suggestion != null}">
+                    <!--<div class="col-75" th:unlless="${orderCustomer.suggestion != null}">
                        <span class="fixed-inputs" th:field="*{suggestion}">Nu exista cerinte</span>
-                   </div><!--End col 75 order suggestion-->
+                   </div>End col 75 order suggestion-->
                 </div><!--End row order suggestion-->
                 <div class="row">
                     <div class="col-25">
@@ -174,6 +174,7 @@
                     </div><!--End col 25 order client-->
                     <div class="col-75">
                         <input th:field="${customer.fullName}" class="fixed-inputs" id="txt-name" type="text"/>
+                        <input th:field="${customer.id}"/>
                     </div><!--End col 75 order client-->
                 </div><!--End row order client-->
                 <div class="row">

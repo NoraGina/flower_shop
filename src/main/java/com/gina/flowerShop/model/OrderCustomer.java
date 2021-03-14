@@ -28,7 +28,7 @@ public class OrderCustomer {
     @Column(name="suggestion")
     private String suggestion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_customer")
     @NotFound(action = NotFoundAction.IGNORE)
     private Customer customer;

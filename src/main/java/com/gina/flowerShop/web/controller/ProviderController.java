@@ -5,17 +5,16 @@ import com.gina.flowerShop.repository.*;
 import com.gina.flowerShop.service.ProviderService;
 import com.gina.flowerShop.web.dto.ProviderDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -52,13 +51,13 @@ public class ProviderController {
             return "redirect:/admin/providers/list";
         }
 
-       /* Set<Role> roleSet = new HashSet<>();
+        Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role("ROLE_ADMIN"));
         roleSet.add(new Role("ROLE_STAFF"));
 
         providerDto.setRoles(roleSet);
         Set<ProviderDto> userSet = new HashSet<>();
-        userSet.add(providerDto);*/
+        userSet.add(providerDto);
 
         providerService.save(providerDto);
         model.addAttribute("provider", providerDto);
@@ -125,9 +124,32 @@ public class ProviderController {
         model.addAttribute("total", total);
         return "provider-orders";
     }
+
+    @GetMapping("/provider/orders/date")
+    public String displayAllOrdersByDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam
+            (value = "date", required = false) LocalDate date,Model model){
+       // List<OrderCustomer>orderCustomers = orderCustomerRepository.findAllByStatus(satus)
+        return "redirect:provider-orders";
+    }
+
+    @GetMapping("/provider/orders/status")
+    public String displayAllOrdersByStatus( @RequestParam(value = "status", required = false) Status status,Model model){
+        List<OrderCustomer>orderCustomers = orderCustomerRepository.findAllByStatus(status);
+        double total = 0;
+        for(OrderCustomer orderCustomer: orderCustomers){
+            total += orderCustomer.getTotal();
+            model.addAttribute("orderCustomer", orderCustomer);
+            model.addAttribute("customer", orderCustomer.getCustomer());
+        }
+
+        model.addAttribute("orders", orderCustomers);
+        model.addAttribute("total", total);
+        return "provider-orders-status";
+    }
+
     @Transactional
     @GetMapping("/provider/delete/order/{idOrderCustomer}")
-    public String providerDeleteOrder(@PathVariable("idOrderCustomer")Long idOrderCustomer, Model model,
+    public String providerDeleteOrder(@PathVariable("idOrderCustomer")Long idOrderCustomer,
                                       RedirectAttributes redirectAttributes){
         Customer customer = orderCustomerRepository.findById(idOrderCustomer).get().getCustomer();
         OrderCustomer orderCustomer = orderCustomerRepository.getOne(idOrderCustomer);
@@ -149,9 +171,10 @@ public class ProviderController {
             final OrderCustomer orderCustomer = optionalOrderCustomer.get();
             Customer customer = orderCustomer.getCustomer();
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
+            shippingAddress.setCustomer(customer);
             orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
             orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
-
+            orderCustomer.setCustomer(customer);
             model.addAttribute("orderCustomer", orderCustomer);
             model.addAttribute("customer", customer);
             model.addAttribute("shippingAddress", shippingAddress);
@@ -171,12 +194,15 @@ public class ProviderController {
             if(result.hasErrors()){
                 return "provider-update-order";
             }
-            Customer customer = orderCustomer.getCustomer();
+            //Long idCustomer  = orderCustomerRepository.findCustomerByIdOrderCustomer(orderCustomer.getIdOrderCustomer());
+            //Customer customer = customerRepository.getOne(idCustomer);
+
+        Customer customer = orderCustomerRepository.getOne(idOrderCustomer).getCustomer();
             orderCustomer.setCustomer(customer);
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
             shippingAddress.setCustomer(customer);
             orderCustomer.setOrderItemList(orderItemRepository.findAllByIdOrderCustomer(orderCustomer.getIdOrderCustomer()));
-
+           // orderCustomer.setCustomer(customerRepository.);
             orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
             redirectAttributes.addFlashAttribute("message","Comanda "+idOrderCustomer+ " a fost editata cu succes" );
             orderCustomerRepository.save(orderCustomer);
