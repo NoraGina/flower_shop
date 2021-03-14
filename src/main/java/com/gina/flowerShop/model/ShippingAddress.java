@@ -30,8 +30,8 @@ public class ShippingAddress {
     @NotFound(action = NotFoundAction.IGNORE)
     private Customer customer;
 
-    /*@OneToOne(mappedBy = "shippingAddress",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    private OrderCustomer orderCustomer;*/
+    @OneToOne(mappedBy = "shippingAddress",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    private OrderCustomer orderCustomer;
 
     public ShippingAddress() {
     }
@@ -94,13 +94,13 @@ public class ShippingAddress {
         this.customer = customer;
     }
 
-   /* public OrderCustomer getOrderCustomer() {
+    public OrderCustomer getOrderCustomer() {
         return orderCustomer;
     }
 
     public void setOrderCustomer(OrderCustomer orderCustomer) {
         this.orderCustomer = orderCustomer;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

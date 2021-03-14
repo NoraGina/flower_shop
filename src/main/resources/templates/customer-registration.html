@@ -135,30 +135,34 @@
                 <input class="input-field" type="text" th:field = "*{fullName}" placeholder="Full name" required/>
                 <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-danger"></span>
             </div>
-            <div class="input-container">
-                <i class="fa fa-envelope icon"></i>
-                <input class="input-field" type="text" th:field = "*{username}" placeholder=" username or @Email" required/>
-                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
-            </div>
-            <div class="input-container">
-                <i class="fa fa-key icon"></i>
-                <input class="input-field" type="password" th:field = "*{password}"  id="pwd" placeholder="Password" required/>
-                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
-                <span>
-                        <i class="fa fa-eye icon"  type="button" id="eye"></i>
-                     </span>
-            </div>
-            <div class="input-container">
-                <i class="fas fa-at icon"></i>
-                <input class="input-field" type="text" th:field = "*{email}" placeholder="@ email" required/>
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
-            </div>
 
             <div class="input-container">
                 <i class="fas fa-phone icon"></i>
                 <input class="input-field" type="text" th:field = "*{phone}" placeholder="enter phone number" required/>
                 <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
             </div>
+            <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" th:field = "*{password}"  id="pwd" placeholder="Password" required/>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                <span>
+                <i class="fa fa-eye icon"  type="button" id="eye"></i>
+             </span>
+            </div>
+            <div class="input-container">
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" th:field = "*{username}" placeholder="@ email as username" required/>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-at icon"></i>
+                <input class="input-field" type="text" th:field = "*{email}" placeholder="@ email" required/>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+            </div>
+
+
+
             <button type="submit" class="btn">Register</button>
             <span>Already registered? <a href="/" th:href="@{/login}">Login
         here</a></span>

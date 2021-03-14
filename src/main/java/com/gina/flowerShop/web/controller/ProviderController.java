@@ -51,13 +51,13 @@ public class ProviderController {
             return "redirect:/admin/providers/list";
         }
 
-        Set<Role> roleSet = new HashSet<>();
+        /*Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role("ROLE_ADMIN"));
         roleSet.add(new Role("ROLE_STAFF"));
 
         providerDto.setRoles(roleSet);
         Set<ProviderDto> userSet = new HashSet<>();
-        userSet.add(providerDto);
+        userSet.add(providerDto);*/
 
         providerService.save(providerDto);
         model.addAttribute("provider", providerDto);

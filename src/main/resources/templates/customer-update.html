@@ -7,255 +7,184 @@
 
  @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
 /* End Fonts */
-/* Start Global rules */
-* {
-    padding: 0;
-    margin: 0;
+*{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-/* End Global rules */
 
-/* Start body rules */
-body {
-    background-image: linear-gradient(-225deg, #E3FDF5 0%, #ffd4f6 100%);
-    background-image: linear-gradient(to top, #95f5ad 0%, #fed6e3 100%);
+body{
+    background: #DAD299;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #B0DAB9, #DAD299);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #B0DAB9, #DAD299); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: Abel;
+}
+
+form{
+    padding: 10px;
+}
+
+legend{
+    color: rgb(32, 36, 36);
+    font-family: Georgia;
+    font-size: 24px;
+    font-style: oblique;
+}
+
+fieldset{
+    border-radius: 10px;
+    padding: 5px 5px 10px;
+}
+
+.container{
+
+    background-image: linear-gradient(to top,  #6bc27d 0%, #e0c2a4 100%);
+    background-image: linear-gradient(-220deg,#6bc27d 0%,  #dbb187 100%);
     background-attachment: fixed;
     background-repeat: no-repeat;
-    opacity: .95;
-
+    border-radius: 10px;
+    max-width:400px;
+    margin:40px auto auto auto;
 }
 
-/* End body rules */
-
-/* Start form  attributes */
-form {
-    background-image: linear-gradient(-225deg, #e3fdec 50%, #f8acfb 50%);
-    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
-    border-radius: 5px;
-    margin: 2% auto;
-    padding: 2%;
-    height: auto;
-    min-height: 500px;
-    width: 450px;
-}
-/* form Container */
-form .con {
-    display: -webkit-flex;
+.input-container {
+    display: -ms-flexbox; /* IE10 */
     display: flex;
-    margin: 0 auto;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
-/* the header form form */
-header {
-    margin: 2% auto 10% auto;
-    text-align: center;
-}
-/* Login title form form */
-header h2 {
-    color: #3e403f;
-    font-size: 250%;
-    font-family: 'Playfair Display';
-    font-style: italic;
-}
-/*  A welcome message or an explanation of the login form */
-header p {
-    color:#08053f;
-    font-family: 'Playfair Display';
-    font-weight: 600;
-    letter-spacing: 0.05em;
-}
-
-
-.input-item {
-    background: #fff;
-    border-radius: 5px 0px 0px 5px;
-    color: #333;
-    padding: 11.5px 0px 11.5px 9px;
-}
-
-
-/* Show/hide password Font Icon */
-#eye {
-    background: #fff;
-    color: #333;
-    cursor: pointer;
-    margin: 5.9px 0 0 0;
-    margin-left: -18px;
-    padding: 10px 9px 14px 0px;
-    border-radius: 0px 5px 5px 0px;
-
-    float: right;
-    position: relative;
-    right: 1%;
-    top: -.1%;
-    z-index: 5;
-}
-/* inputs form  */
-input[class="form-input"]{
-    border: none;
-    border-radius: 0px 5px 5px 0px;
-    color: #5E6472;
+.input-field {
     font-size: 16px;
-    font-family: 'Abel', sans-serif;
-    margin-top: 2%;
-    padding: 15px;
-    height: 40px;
-    width: 255px;
+    padding: 10px;
     outline: none;
-    transition: 0.2s linear;
-
-}
-input[id="phone-input"] {width: 255px;}
-
-input[id="txt-input"] {width: 258px;}
-/* focus  */
-input:focus {
-    transform: translateX(-2px);
-    border-radius: 5px;
+    width: 100%;
 }
 
+.input-field:focus {
+    border: 2px solid  #23a134;
+    }
 
-/* buttons  */
-button {
-    border: none;
-    border-radius: 8px;
-    color: #1b1b35;
-    cursor: pointer;
-    display: inline-block;
-    font-family:'Abel';
-    font-size:17px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    margin: 7% auto;
-    padding: 0 20px;
-    height: 40px;
-    width: 280px;
-    outline: none;
+.icon {
+    background:  #23a134;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    margin-right: -10px;
+    min-width: 40px;
     text-align: center;
-    transition: all 0.2s linear;
-}
-
-
-
-/*     Edit button  */
-.edit-btn {background: #abeff5;}
-
-
-/* buttons hover */
-button:hover {
-    background-color: #36bb58;
-    box-shadow: none;
-    transform: translatey(3px);
-}
-
-/* buttons hover Animation */
-button:hover {
-    animation: ani9 0.4s ease-in-out infinite alternate;
-}
-@keyframes ani9 {
-    0% {
-        transform: translateY(3px);
     }
-    100% {
-        transform: translateY(5px);
+
+    #eye{
+        background-color:white;
+        border-left: none;
+        color:#23a134;
+        height: 100%;
+        margin-left: -10px;
+        min-width: 30px;
     }
+
+    #pwd{
+        width: 85%;
+    }
+
+    #pwd:focus{
+        background-color: #d9f8ea;
+        border: 2px solid  #23a134;
+    }
+
+    #eye:hover{
+        background-color:#23a134;
+        border:1px solid rgba(24, 24, 24, 0.719);
+        color: white;
+        transform: translatey(2px);
+        /*transform:matrix(0.866,0.5,-0.1,0.866,0,0);*/
+    }
+
+    /* Set a style for the submit button */
+.btn {
+    background-color:  #23a134;
+    border: none;
+    border-radius: 10px;
+    color:rgb(221, 230, 241);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    opacity: 0.8;
+    width: 100%;
+}
+
+.btn:hover {
+    color:lightgrey;
+    opacity: 1;
 }
     </style>
 </head>
 <body>
-
-<div class="overlay">
-
+<div class="container">
     <form method="post" th:action="'/customer/update/' + ${customer.id}" th:object="${customer}">
-        <!--   con = Container  for items in the form-->
-        <div class="con">
-            <!--     Start  header Content  -->
-            <header class="head-form">
-                <h2>Update Form</h2>
+        <fieldset>
+            <legend>Update form customer</legend>
+            <div class="input-container">
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" th:field = "*{fullName}" placeholder="Full name" required/>
+                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-danger"></span>
+            </div>
 
-            </header>
-            <!--     End  header Content  -->
-            <input th:field="*{id}" type="hidden"/>
-            <div class="field-set">
-                <!--   full name -->
-                <span class="input-item">
-                        <i class="fa fa-user-circle"></i>
-                    </span>
-                <!--   full name Input-->
-                <input th:field="*{fullName}" class="form-input" id="name-input" type="text" required>
-                <br>
-                <!--   user name -->
-                <span class="input-item">
-                        <i class="fa fa-user-circle"></i>
-                    </span>
-                <!--   user name Input-->
-                <input th:field="*{username}" class="form-input" id="username-input" type="text" required>
-                <br>
-
-                <!--   user name email-->
-                <span class="input-item">
-                        <i class="fas fa-at"></i>
-                    </span>
-                <!--   user name email Input-->
-                <input th:field="*{email}" class="form-input" id="email-input" type="text" required>
-                <br>
-                <span class="input-item">
-                        <i class="fas fa-phone"></i>
-                    </span>
-                <input class="form-input" th:field="*{phone}" id="phone-input" type="text" required>
-                <br>
-
-                <!--   Password -->
-                <span class="input-item">
-                            <i class="fa fa-key"></i>
-                        </span>
-                <!--   Password Input-->
-                <input th:field="*{password}" class="form-input" type="password" id="pwd" name="password"
-                       required>
-
-                <!--      Show/hide password  -->
+            <div class="input-container">
+                <i class="fas fa-phone icon"></i>
+                <input class="input-field" type="text" th:field = "*{phone}" placeholder="enter phone number" required/>
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+            </div>
+            <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" th:field = "*{password}"  id="pwd" placeholder="Password" required/>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
                 <span>
-                            <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
-                        </span>
-                <br>
-                <!--      button Edit -->
-                <button class="edit-btn" onclick="return alert('Editare realizata cu succes');" > Edit
-                    <i class="fas fa-user-edit" aria-hidden="true"></i>
-                </button>
-            </div><!-- End fieldset -->
-        </div> <!--   End Container  -->
-    </form> <!-- End Form -->
-</div><!-- End overlay-->
+                <i class="fa fa-eye icon"  type="button" id="eye"></i>
+             </span>
+            </div>
+            <div class="input-container">
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" th:field = "*{username}" placeholder="@ email as username" required/>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+            </div>
 
-<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous">
-</script>
+            <div class="input-container">
+                <i class="fas fa-at icon"></i>
+                <input class="input-field" type="text" th:field = "*{email}" placeholder="@ email" required/>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+            </div>
 
+
+            <button type="submit" class="btn">Editeaza</button>
+        </fieldset>
+    </form>
+</div>
+<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
 <script>
         function show() {
-            var p = document.getElementById('pwd');
-            p.setAttribute('type', 'text');
-        }
-        function hide() {
-            var p = document.getElementById('pwd');
-            p.setAttribute('type', 'password');
-        }
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'text');
+    }
 
-        var pwShown = 0;
+    function hide() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'password');
+    }
 
-        document.getElementById("eye").addEventListener("click", function () {
-            if (pwShown == 0) {
-                pwShown = 1;
-                show();
-            } else {
-                pwShown = 0;
-                hide();
-            }
-        }, false);
+    var pwShown = 0;
+
+    document.getElementById("eye").addEventListener("click", function () {
+        if (pwShown == 0) {
+            pwShown = 1;
+            show();
+        } else {
+            pwShown = 0;
+            hide();
+        }
+    }, false);
     </script>
 
 </body>

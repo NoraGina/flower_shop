@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService{
             user.setId(userDto.getId());
         }
         user.setFullName(userDto.getFullName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(userDto.getRoles());
         return user;
     }
@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService{
         final UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setFullName(user.getFullName());
-        userDto.setPassword(user.getPassword());
         userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
         userDto.setPhone(user.getEmail());
+        userDto.setPassword(user.getPassword());
         userDto.setRoles(user.getRoles());
         return userDto;
     }

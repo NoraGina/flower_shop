@@ -35,7 +35,7 @@ public class CustomerController {
     @GetMapping("/customer/registration")
     public String customerAddForm(Model model){
 
-        final CustomerDto customerDto = new CustomerDto();
+         CustomerDto customerDto = new CustomerDto();
 
         model.addAttribute("customer",customerDto);
         return "customer-registration";
@@ -53,7 +53,7 @@ public class CustomerController {
             return "redirect:/customer/login";
         }
         Set<Role> roleSet= new HashSet<>();
-       // roleSet.add(new Role("ROLE_CLIENT"));
+        //roleSet.add(new Role("ROLE_CLIENT"));
         roleSet.add(roleRepository.findByName("ROLE_CLIENT"));
         customerDto.setRoles(roleSet);
         customerService.save(customerDto);
@@ -83,7 +83,9 @@ public class CustomerController {
         if(result.hasErrors()){
             return "customer-update";
         }
-
+        Set<Role> roleSet= new HashSet<>();
+        roleSet.add(roleRepository.findByName("ROLE_CLIENT"));
+        customer.setRoles(roleSet);
         customerService.save(customer);
         model.addAttribute("customer", customer);
 

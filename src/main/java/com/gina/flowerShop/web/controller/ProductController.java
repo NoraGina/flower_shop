@@ -44,7 +44,7 @@ public class ProductController {
 
     @PostMapping("/provider/add/product")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, BindingResult result, Model model,
-                             @RequestParam("imageFile") MultipartFile file){
+                             @RequestParam("imageFile") MultipartFile file, RedirectAttributes redirectAttributes){
 
         if(result.hasErrors()){
             return "/provider/add/product";
@@ -52,6 +52,10 @@ public class ProductController {
         try{
             byte[] byteObjects = convertToBytes(file);
             productDto.setImage(byteObjects);
+            if(productService.countByProductNameAndImage(productDto.getProductName(), productDto.getImage())==1l){
+                redirectAttributes.addFlashAttribute("message", "Produsul exista deja, poate doriti sa-l editati!?");
+                return "redirect:/provider/product/list";
+            }
             productService.save(productDto);
 
         }catch (Exception e){

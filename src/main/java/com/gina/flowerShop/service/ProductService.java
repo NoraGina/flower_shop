@@ -1,8 +1,6 @@
 package com.gina.flowerShop.service;
 
-import com.gina.flowerShop.model.Product;
 import com.gina.flowerShop.web.dto.ProductDto;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +16,6 @@ public interface ProductService {
     List<ProductDto> findAllByCategoryIdAndStockGreaterThan(Long idCategory, int stock);
     List<ProductDto>findAllByStockGreaterThanAndOrigin( int stock, String origin);
     List<ProductDto> findAllByCategoryIdOriginAndStockGreaterThan(Long idCategory, String origin, Integer stock);
+    long countByProductNameAndImage(String productName, byte[] image);
 
 }

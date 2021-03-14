@@ -145,4 +145,9 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }
+
+    @Override
+    public long countByProductNameAndImage(String productName, byte[] image) {
+        return productRepository.countByProductNameAndImage(productName, image);
+    }
 }

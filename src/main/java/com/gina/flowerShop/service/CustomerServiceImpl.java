@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerDto.setEmail(customer.getEmail());
         customerDto.setPhone(customer.getPhone());
         customerDto.setAddressSet(customer.getShippingAddresses());
-        //customerDto.setOrderCustomerSet(customer.getOrderCustomerSet());
+        customerDto.setOrderCustomerSet(customer.getOrderCustomerSet());
         return customerDto;
     }
 
@@ -55,9 +55,9 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(passwordEncoder.encode(customerDto.getPassword()));
         customer.setRoles(customerDto.getRoles());
         customer.setEmail(customerDto.getEmail());
-        customer.setPhone(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
         customer.setShippingAddresses(customerDto.getAddressSet());
-        //customer.setOrderCustomerSet(customerDto.getOrderCustomerSet());
+        customer.setOrderCustomerSet(customerDto.getOrderCustomerSet());
         return customer;
     }
     @Override

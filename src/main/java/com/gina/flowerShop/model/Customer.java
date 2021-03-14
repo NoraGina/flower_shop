@@ -17,9 +17,17 @@ public class Customer extends User {
     }
 
     public Customer(Long id, String fullName, String username, @Email String email, String phone, String password,
-                    Set<Role> roles, Set<ShippingAddress> shippingAddresses) {
+                    Set<Role> roles, Set<ShippingAddress> shippingAddresses, Set<OrderCustomer> orderCustomerSet) {
         super(id, fullName, username, email, phone, password, roles);
         this.shippingAddresses = shippingAddresses;
+        this.orderCustomerSet = orderCustomerSet;
+    }
+
+    public Customer(String fullName, String username, String password, Set<Role> roles,
+                    Set<ShippingAddress> shippingAddresses, Set<OrderCustomer> orderCustomerSet) {
+        super(fullName, username, password, roles);
+        this.shippingAddresses = shippingAddresses;
+        this.orderCustomerSet = orderCustomerSet;
     }
 
     public Set<ShippingAddress> getShippingAddresses() {
