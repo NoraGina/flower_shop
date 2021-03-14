@@ -251,10 +251,22 @@
                 <span th:text="${orderCustomer.status}">AFFECTED</span>
             </div><!--END col-75 order status-->
             <div class="col-25">
-                <label>Client</label>
+                <label>Nume client</label>
             </div><!--END Col-25 order customer-->
             <div class="col-75">
-                <span th:text="${orderCustomer.customer.fullName}"></span>
+                <span th:text="${orderCustomer.customer.fullName}"></span><br>
+            </div><!--END col-75 order customer-->
+            <div class="col-25">
+                <label>Email client</label>
+            </div><!--END Col-25 order customer-->
+            <div class="col-75">
+                <span th:text="${orderCustomer.customer.email}"></span>
+            </div><!--END col-75 order customer-->
+            <div class="col-25">
+                <label>Telefon client</label>
+            </div><!--END Col-25 order customer-->
+            <div class="col-75">
+                <span th:text="${orderCustomer.customer.phone}"></span>
             </div><!--END col-75 order customer-->
             <div class="col-25">
                 <label>Adresa de livrare</label>
