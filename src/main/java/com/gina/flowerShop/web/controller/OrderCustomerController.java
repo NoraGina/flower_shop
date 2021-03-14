@@ -190,20 +190,23 @@ public class OrderCustomerController {
         if(result.hasErrors()){
             return "customer-save-cart";
         }
-        Customer customer = customerRepository.findByUsername(currentUser.getUsername());
+        //Customer customer = customerRepository.findByUsername(currentUser.getUsername());
         double total = 0;
         for(OrderItem orderItem:orderCustomer.getOrderItemList()){
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
         }
         orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
-        orderCustomer.setCustomer(customer);
+       // orderCustomer.setCustomer(customer);
         orderCustomer.setStatus(Status.AFFECTED);
         orderCustomer.setDate(LocalDate.now());
         orderCustomer.setTime(LocalTime.now());
+        if(orderCustomer.getSuggestion().isEmpty()){
+            orderCustomer.setSuggestion("Nici o cerinta");
+        }
         orderCustomerRepository.save(orderCustomer);
         model.addAttribute("total", total);
         model.addAttribute("orderCustomer", orderCustomer);
-        model.addAttribute("customer", customer);
+        model.addAttribute("customer",orderCustomer.getCustomer());
         httpSession.removeAttribute("order");
 
         return "customer-order";
@@ -223,12 +226,12 @@ public class OrderCustomerController {
             final OrderCustomer orderCustomer = optionalOrderCustomer.get();
             Customer customer = orderCustomer.getCustomer();
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
-            orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
-            orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+            //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
+           // orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
             model.addAttribute("orderCustomer", orderCustomer);
             model.addAttribute("customer", customer);
             model.addAttribute("shippingAddress", shippingAddress);
-
+            model.addAttribute("orderItemList", orderItemRepository.findAllByIdOrderCustomer(orderCustomer.getIdOrderCustomer()));
         }else {
             new IllegalArgumentException("Invalid order Id:" + idOrderCustomer);
         }
@@ -261,6 +264,9 @@ public class OrderCustomerController {
 
         orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
         orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+        if(orderCustomer.getSuggestion().isEmpty()){
+            orderCustomer.setSuggestion("Nici o cerinta");
+        }
         orderCustomerRepository.save(orderCustomer);
 
         model.addAttribute("orderCustomer", orderCustomer);

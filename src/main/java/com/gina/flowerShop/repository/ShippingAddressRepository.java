@@ -13,6 +13,6 @@ public interface ShippingAddressRepository extends JpaRepository<ShippingAddress
     @Query("SELECT DISTINCT s FROM ShippingAddress s left join fetch s.customer where customer_id=:id")
     List<ShippingAddress> findAllByCustomerId(@Param("id")Long id);
 
-    @Query("select count(*) from ShippingAddress s where s.name =:name")
-    long countByName(@Param("name") String name);
+    @Query("select count(*) from ShippingAddress s where s.name =:name and customer.id=:id")
+    long countByNameAndCustomerId(@Param("name") String name, @Param("id")Long id);
 }

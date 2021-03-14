@@ -117,7 +117,7 @@ public class ProviderController {
         for(OrderCustomer orderCustomer: orderCustomers){
             total += orderCustomer.getTotal();
             model.addAttribute("orderCustomer", orderCustomer);
-            model.addAttribute("customer", orderCustomer.getCustomer());
+           // model.addAttribute("customer", orderCustomer.getCustomer());
         }
 
         model.addAttribute("orders", orderCustomers);

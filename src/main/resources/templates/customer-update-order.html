@@ -205,7 +205,7 @@ color:green;
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="row : ${orderCustomer.orderItemList} ">
+                    <tr th:each="row : ${orderItemList} ">
                        <td data-label="Item"><input th:field="*{orderItemList[__${rowStat.index}__].idOrderItem}" class="id-input"  type="hidden"/>Item</td>
                         <td data-label="Nume produs"><input th:field="*{orderItemList[__${rowStat.index}__].product.productName}" id="name-input"/>
                             <input th:field="*{orderItemList[__${rowStat.index}__].product.idProduct}" class="id-input"  type="hidden"/></td>

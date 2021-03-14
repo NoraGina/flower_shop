@@ -114,11 +114,12 @@ public class CustomerController {
             return "customer-add-address";
         }
         try{
-            if(shippingAddressRepository.countByName(shippingAddress.getName())==1L){
+            Customer customer = customerRepository.findByUsername(currentUser.getUsername());
+            if(shippingAddressRepository.countByNameAndCustomerId(shippingAddress.getName(), customer.getId())==1L){
                 redirectAttributes.addFlashAttribute("message", shippingAddress.getName()+" are adresa poate doriti sa o editati?!");
                 return "redirect:/customer/shippingAddresses";
             }
-            Customer customer = customerRepository.findByUsername(currentUser.getUsername());
+
             shippingAddress.setCustomer(customer);
             shippingAddressRepository.save(shippingAddress);
         }catch (Exception e){

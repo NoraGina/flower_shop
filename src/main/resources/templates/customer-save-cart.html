@@ -184,7 +184,8 @@
                     <label>Client</label>
                 </div><!--End col 25 costumer-->
                 <div class="col-75">
-                    <p th:text="${customer.fullName}">Agapescu Calin</p>
+                    <input type="text" th:field="${orderCustomer.customer.id}" />
+                    <p th:text="${orderCustomer.customer.fullName}"></p>
                 </div><!--End col 75 costumer-->
             </div><!--End row costumer-->
             <div class="row">
