@@ -127,8 +127,7 @@ public class ProviderController {
 
         }
 
-        //model.addAttribute("orderCustomer", getOrderCustomerFromList(orderCustomers));
-       // model.addAttribute("orderItemList", orderItemRepository.findAllByIdOrderCustomer(getOrderCustomerFromList(orderCustomers)));
+
         model.addAttribute("orders", orderCustomers);
         model.addAttribute("total", total);
         return "provider-orders";
@@ -156,7 +155,7 @@ public class ProviderController {
         for(OrderCustomer orderCustomer: orderCustomers){
             total += orderCustomer.getTotal();
         }
-
+        model.addAttribute("status", status);
         model.addAttribute("orders", orderCustomers);
         model.addAttribute("total", total);
         return "provider-orders-status";
