@@ -21,4 +21,7 @@ public interface OrderCustomerRepository extends JpaRepository<OrderCustomer, Lo
     @Query("Select o from OrderCustomer o where  o.date=:date")
     List<OrderCustomer> findAllByDate(@Param("date")LocalDate date);
 
+    @Query("Select o from OrderCustomer o where  o.date=:date and o.status=:status")
+    List<OrderCustomer> findAllByDateAndStatus(@Param("date")LocalDate date, @Param("status")Status status);
+
 }

@@ -161,6 +161,24 @@ public class ProviderController {
         return "provider-orders-status";
     }
 
+    @GetMapping("/provider/orders/date/status")
+    public String displayAllOrdersByDateAndStatus(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam
+            (value = "date", required = false) LocalDate date,
+                                                  @RequestParam(value = "status", required = false) Status status,
+                                                  Model model){
+        List<OrderCustomer>orderCustomers = orderCustomerRepository.findAllByDateAndStatus(date, status);
+        double total = 0;
+        for(OrderCustomer orderCustomer: orderCustomers){
+            total += orderCustomer.getTotal();
+        }
+        model.addAttribute("date", date);
+        model.addAttribute("status", status);
+        model.addAttribute("orders", orderCustomers);
+        model.addAttribute("total", total);
+
+        return "provider-orders-date-status";
+    }
+
     @Transactional
     @GetMapping("/provider/delete/order/{idOrderCustomer}")
     public String providerDeleteOrder(@PathVariable("idOrderCustomer")Long idOrderCustomer,
