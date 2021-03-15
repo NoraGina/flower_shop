@@ -160,7 +160,7 @@
         <form  th:action="@{/orders-date/}" method="get">
             <fieldset>
                 <legend>Filter by Date</legend>
-                <input type="date" th:value="${orderCustomer.date}" th:name="date"/>
+                <input type="date"  th:name="date"/>
                 <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
             </fieldset>
         </form>
@@ -170,7 +170,7 @@
         <form  th:action="@{/provider/orders/status}" method="get">
             <fieldset>
                 <legend>Filter by Status</legend>
-                <select th:field="${orderCustomer.status}" th:name="status">
+                <select th:name="status">
                     <option value="">Select status</option>
                     <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
                             th:value="${status}" th:text="${status}" ></option>
@@ -184,8 +184,8 @@
         <form th:action="@{/orders-date-status}" method="get">
             <fieldset>
                 <legend>Filter by Date and Status</legend>
-                <input type="date" th:value="${orderCustomer.date}" th:name="date"/>
-                <select th:field="${orderCustomer.status}" th:name="status">
+                <input type="date"  th:name="date"/>
+                <select  th:name="status">
                     <option value="">Select status</option>
                     <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
                             th:value="${status}" th:text="${status}" ></option>
@@ -233,7 +233,7 @@
                 <label>Ora</label>
             </div><!--END Col-25 order time-->
             <div class="col-75">
-                <span th:text="${orderCustomer.time}">8:20</span>
+                <span th:text="${orderCustomer.time}"></span>
             </div><!--END col-75 order time-->
             <div class="col-25">
                 <label>Cerinte</label>
@@ -248,7 +248,7 @@
                 <label>Status</label>
             </div><!--END Col-25 order status-->
             <div class="col-75">
-                <span th:text="${orderCustomer.status}">AFFECTED</span>
+                <span th:text="${orderCustomer.status}"></span>
             </div><!--END col-75 order status-->
             <div class="col-25">
                 <label>Nume client</label>
@@ -279,7 +279,6 @@
             </div><!--END col-75 shipping address-->
         </div><!--End row-->
         <div class="table-container">
-
             <table>
                 <caption>Lista produse</caption>
                 <thead>
@@ -292,10 +291,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="orderItem:${orderCustomer.orderItemList}">
+                <tr th:each="orderItem:${orderCustomer.orderItemSet}">
                     <td  data-label="Denumire produs" th:text="${orderItem.product.productName}"></td>
                     <td>
-                        <img  data-label="Imagine" class="center" th:src="*{'data:image/jpg;base64,'+ orderItem.product.imageAsString}"  alt="Image" height="80px"/>
+                        <img  data-label="Imagine" class="center" th:src="*{'data:image/jpg;base64,'+ orderItem.product.imageAsString}"  alt="Image" height="80px" src=""/>
                     </td>
                     <td  data-label="Pret" th:text="${orderItem.product.price}"></td>
                     <td  data-label="Cantitate" th:text="${orderItem.quantity}"></td>
@@ -306,7 +305,6 @@
 
             </table>
         </div><!--End table container-->
-
 
 
         <div class="total-container">

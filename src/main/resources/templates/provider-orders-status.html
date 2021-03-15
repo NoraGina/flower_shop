@@ -199,14 +199,26 @@ button {
                 <span th:text="${orderCustomer.status}">AFFECTED</span>
             </div><!--END col-75 order status-->
             <div class="col-25">
-                <label>Client</label>
+                <label>Nume client</label>
             </div><!--END Col-25 order customer-->
             <div class="col-75">
-                <span th:text="${customer.fullName}"></span>
+                <span th:text="${orderCustomer.customer.fullName}"></span><br>
+            </div><!--END col-75 order customer-->
+            <div class="col-25">
+                <label>Email client</label>
+            </div><!--END Col-25 order customer-->
+            <div class="col-75">
+                <span th:text="${orderCustomer.customer.email}"></span>
+            </div><!--END col-75 order customer-->
+            <div class="col-25">
+                <label>Telefon client</label>
+            </div><!--END Col-25 order customer-->
+            <div class="col-75">
+                <span th:text="${orderCustomer.customer.phone}"></span>
             </div><!--END col-75 order customer-->
             <div class="col-25">
                 <label>Adresa de livrare</label>
-            </div><!--END Col-25 order shiiping address-->
+            </div><!--END Col-25 order shipping address-->
             <div class="col-75">
                 <span th:text="${orderCustomer.shippingAddress.name}"></span>
                 <span th:text="${orderCustomer.shippingAddress.address}"></span>
@@ -215,7 +227,6 @@ button {
             </div><!--END col-75 shipping address-->
         </div><!--End row-->
         <div class="table-container">
-
             <table>
                 <caption>Lista produse</caption>
                 <thead>
@@ -228,10 +239,10 @@ button {
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="orderItem:${orderCustomer.orderItemList}">
+                <tr th:each="orderItem:${orderCustomer.orderItemSet}">
                     <td  data-label="Denumire produs" th:text="${orderItem.product.productName}"></td>
                     <td>
-                        <img  data-label="Imagine" class="center" th:src="*{'data:image/jpg;base64,'+ orderItem.product.imageAsString}"  alt="Image" height="80px"/>
+                        <img  data-label="Imagine" class="center" th:src="*{'data:image/jpg;base64,'+ orderItem.product.imageAsString}"  alt="Image" height="80px" src=""/>
                     </td>
                     <td  data-label="Pret" th:text="${orderItem.product.price}"></td>
                     <td  data-label="Cantitate" th:text="${orderItem.quantity}"></td>
@@ -242,9 +253,7 @@ button {
 
             </table>
         </div><!--End table container-->
-
-
-
+        
         <div class="total-container">
             <label>Total comanada</label>
             <b><span th:text="${#numbers.formatDecimal(orderCustomer.amount, 0, 'COMMA', 2, 'POINT')}" class="inputs-total" >600.00</span></b>

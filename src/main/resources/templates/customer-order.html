@@ -286,6 +286,7 @@ color:indigo;
             <table>
                 <caption>Produse comandate</caption>
                 <thead>
+                <th scope="col">Item</th>
                 <th scope="col">Nume produs</th>
                 <th scope="col">Pret</th>
                 <th scope="col">Cantitate</th>
@@ -294,6 +295,7 @@ color:indigo;
                 </thead>
                 <tbody>
                 <tr th:each="orderItem:${orderCustomer.orderItemList}">
+                    <td data-label="Item" th:text="${orderItem.idOrderItem}"></td>
                     <td data-label="Nume produs" th:text="${orderItem.product.productName}"></td>
                     <td data-label="Pret" th:text="${orderItem.product.price}"></td>
                     <td data-label="Cantitate" th:text="${orderItem.quantity}"></td>

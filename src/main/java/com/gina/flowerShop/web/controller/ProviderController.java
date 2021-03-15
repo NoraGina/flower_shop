@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProviderController {
@@ -110,16 +111,24 @@ public class ProviderController {
         return "redirect:/admin/providers/list";
     }
 
+    private Long getOrderCustomerFromList(List<OrderCustomer>orders){
+        for(OrderCustomer orderCustomer:orders){
+            return orderCustomer.getIdOrderCustomer();
+        }
+        return null;
+    }
+
     @GetMapping("/provider/orders")
     public String getAllOrders( Model model){
         List<OrderCustomer>orderCustomers = orderCustomerRepository.findAll();
         double total = 0;
         for(OrderCustomer orderCustomer: orderCustomers){
             total += orderCustomer.getTotal();
-            model.addAttribute("orderCustomer", orderCustomer);
-           // model.addAttribute("customer", orderCustomer.getCustomer());
+
         }
 
+        //model.addAttribute("orderCustomer", getOrderCustomerFromList(orderCustomers));
+       // model.addAttribute("orderItemList", orderItemRepository.findAllByIdOrderCustomer(getOrderCustomerFromList(orderCustomers)));
         model.addAttribute("orders", orderCustomers);
         model.addAttribute("total", total);
         return "provider-orders";
@@ -172,13 +181,15 @@ public class ProviderController {
             Customer customer = orderCustomer.getCustomer();
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
             shippingAddress.setCustomer(customer);
-            orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
-            orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+            List<OrderItem>orderItemList = orderItemRepository.findAllByIdOrderCustomer(idOrderCustomer);
+            //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
+            //orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
             orderCustomer.setCustomer(customer);
+            model.addAttribute("orderItemList", orderItemList);
             model.addAttribute("orderCustomer", orderCustomer);
             model.addAttribute("customer", customer);
             model.addAttribute("shippingAddress", shippingAddress);
-            model.addAttribute("orderItems", orderCustomer.getOrderItemList());
+
         }else {
             new IllegalArgumentException("Invalid order Id:" + idOrderCustomer);
         }

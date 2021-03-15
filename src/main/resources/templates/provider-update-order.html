@@ -174,7 +174,7 @@
                     </div><!--End col 25 order client-->
                     <div class="col-75">
                         <input th:field="${customer.fullName}" class="fixed-inputs" id="txt-name" type="text"/>
-                        <input th:field="${customer.id}"/>
+                        <input th:field="${customer.id}" type="hidden"/>
                     </div><!--End col 75 order client-->
                 </div><!--End row order client-->
                 <div class="row">
@@ -201,7 +201,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="orderItem:${orderItems}">
+                    <tr th:each="orderItem:${orderItemList}">
                         <td data-label="Item" th:text="${orderItem.idOrderItem}"></td>
                         <td  data-label="Denumire produs" th:text="${orderItem.product.productName}"></td>
                         <td>

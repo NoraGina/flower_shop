@@ -113,7 +113,7 @@ public class OrderCustomerController {
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
 
         }
-        orderCustomer.setOrderItemList(orderItemList);
+        //orderCustomer.setOrderItemList(orderItemList);
         model.addAttribute("total", total);
 
         return "redirect:/customer/view/cart/form";
@@ -134,8 +134,7 @@ public class OrderCustomerController {
                 total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
 
             }
-
-            //orderCustomer.setOrderItemList(orderItemList);
+            orderCustomer.setOrderItemList(orderItemList);
             Customer customer = customerRepository.findByUsername(currentUser.getUsername());
             orderCustomer.setCustomer(customer);
             model.addAttribute("customer", customer);
@@ -154,10 +153,6 @@ public class OrderCustomerController {
     @GetMapping("/customer/cart/form")
     public String displayCartForm(@AuthenticationPrincipal UserDetails currentUser, Model model){
         OrderCustomer orderCustomer = (OrderCustomer) httpSession.getAttribute("order");
-
-        //orderCustomer.setStatus(Status.AFFECTED);
-        //orderCustomer.setDate(LocalDate.now());
-        //orderCustomer.setTime(LocalTime.now());
         List<OrderItem>orderItemList = orderCustomer.getOrderItemList();
         double total=0;
         double value = 0;
@@ -165,9 +160,10 @@ public class OrderCustomerController {
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
             value = orderItem.getProduct().getPrice()*orderItem.getQuantity();
         }
-        orderCustomer.setOrderItemList(orderItemList);
+
         Customer customer = customerRepository.findByUsername(currentUser.getUsername());
         orderCustomer.setCustomer(customer);
+        //orderCustomer.setOrderItemList(orderItemList);
         model.addAttribute("customer", customer);
         model.addAttribute("total", total);
         model.addAttribute("value", value);
@@ -195,6 +191,7 @@ public class OrderCustomerController {
         for(OrderItem orderItem:orderCustomer.getOrderItemList()){
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
         }
+        //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
         orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
        // orderCustomer.setCustomer(customer);
         orderCustomer.setStatus(Status.AFFECTED);
@@ -214,7 +211,6 @@ public class OrderCustomerController {
 
     @GetMapping("/customer/order")
     private String displayCustomerOrder(Model model){
-
         return "customer-order";
     }
 
@@ -226,8 +222,7 @@ public class OrderCustomerController {
             final OrderCustomer orderCustomer = optionalOrderCustomer.get();
             Customer customer = orderCustomer.getCustomer();
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
-            //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
-           // orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+
             model.addAttribute("orderCustomer", orderCustomer);
             model.addAttribute("customer", customer);
             model.addAttribute("shippingAddress", shippingAddress);

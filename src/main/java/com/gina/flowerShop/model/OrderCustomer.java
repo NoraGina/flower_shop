@@ -7,8 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "orders_customer")
@@ -140,6 +139,11 @@ public class OrderCustomer {
     }
 
 
+    public Set<OrderItem> getOrderItemSet(){
+        Set<OrderItem>orderItemSet = new HashSet<>();
+        orderItemSet.addAll(this.getOrderItemList());
+        return orderItemSet;
+    }
 
     public double getTotal(){
         double total = 0;
