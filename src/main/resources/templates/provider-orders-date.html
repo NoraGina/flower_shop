@@ -2,203 +2,157 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders by date</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400;1,500&display=swap');
 *{
-            margin: 0;
-            padding: 0;
-           box-sizing: border-box;
-        }
+    margin: 0;
+    padding: 0;
+   box-sizing: border-box;
+}
 
-        body{
-            background-color: #acb3b5;
-            font-family: Roboto;
-        }
-        caption{
-            font-size: 18px;
-            font-style: italic;
-            font-weight: 900;
-        }
-        table{
-            width:100%;
-        }
+body{
+    background-color: #a8bfad;;
+    font-family: Roboto;
+}
+caption{
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 900;
+}
+table{
+    width:100%;
+}
 
-        table th{
-            padding-bottom: 5px;
-            text-decoration: underline;
-        }
+table th{
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
 
-        table td{
-            text-align: center;
-        }
+table td{
+    text-align: center;
+}
 
-        h2{
-            text-align: center;
-            font-style:italic;
-        }
-        button{
-            background-color: #1c3542;
-            border: none;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 500;
-            padding: 3px 5px;
-        }
-       input{
-           font-size: 16px;
-       }
-       select{
-           font-size: 16px;
-       }
-
-        legend{
-        font-size:15px;
-        font-style:italic;
-        }
-
-        fieldset{
-        padding:10px;
-        }
-
-        button {
-            transition-duration: 0.4s;
-          }
-
-          button:hover {
-            background-color: #7fa3b5; /* Green */
-          }
-          a:hover{
-              color:#03121a;
-          }
-
-        .container{
-            font-size: 14px;
-            padding:10px;
-            margin:auto;
-            width:60%;
-        }
-
-        .orders-container{
-            border-bottom: 2px solid#4c626e;
-            padding: 25px 10px 40px;
-            width: 100%;
-        }
-
-        .form-search{
-         font-size: 17px;
-         padding:10px;
-        }
-
-        .col{
-            float: right;
-            padding-right: 3px;
-        }
-
-        .btn-row::after{
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .col-25{
-            float: left;
-            width: 25%;
-        }
-
-        .col-75{
-            float: left;
-            width: 75%;
-        }
-
-        .row{
-            font-size: 16px;
-        }
-        .row::after{
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .total-container{
-            padding:10px 25px 10px;;
-            float:right;
-        }
+h2{
+    text-align: center;
+    font-style:italic;
+}
+button{
+    background-color: #7ca785;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 3px 5px;
+}
+input{
+   font-size: 16px;
+}
 
 
-          .total-container {
-            clear: right;
-          }
+button {
+    transition-duration: 0.4s;
+  }
 
-          .btn-container{
-                padding: 20px 40px 20px;
-                float:right;
-          }
+  button:hover {
+    background-color: #64c06c; /* Green */
+  }
+  a:hover{
+      color:#03121a;
+  }
 
-          .btn-container{
-              clear:right;
-          }
-          .btn-search{
-              color:powderblue;
-          }
-          #btn-link a{
-              color:indigo;
-          }
-          #btn-edit a{
-              color:rgb(114, 219, 9);
-          }
-          #btn-delete a{
-              color: lightcoral;
-          }
+.container{
+    font-size: 14px;
+    padding:10px;
+    margin:10px auto;
+    width:60%;
+}
 
+.orders-container{
+    border-bottom: 2px solid#4c626e;
+    padding: 25px 10px 40px;
+    width: 100%;
+}
+
+.form-search{
+ font-size: 17px;
+ padding:10px;
+}
+
+.col{
+    float: right;
+    padding-right: 3px;
+}
+
+.btn-row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.col-25{
+    float: left;
+    width: 25%;
+}
+
+.col-75{
+    float: left;
+    width: 75%;
+}
+
+.row{
+    font-size: 16px;
+}
+.row::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.total-container{
+    padding:10px 25px 10px;;
+    float:right;
+}
+
+
+  .total-container {
+    clear: right;
+  }
+
+  .btn-container{
+        padding: 20px 40px 20px;
+        float:right;
+  }
+
+  .btn-container{
+      clear:right;
+  }
+  .info-span{
+  color:red;
+  font-size:20px;
+  font-style:italic;
+  }
+
+  #btn-link a{
+      color:indigo;
+  }
+  #btn-edit a{
+      color: #046d11;
+  }
+  #btn-delete a{
+      color: indianred;
+  }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>All orders</h2>
-    <div class = "form-search">
-        <form  th:action="@{/provider/orders/date}" method="get">
-            <fieldset>
-                <legend>Filter by Date</legend>
-                <input type="date"  th:name="date"/>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class = "form-search">
-        <form  th:action="@{/provider/orders/status}" method="get">
-            <fieldset>
-                <legend>Filter by Status</legend>
-                <select th:name="status">
-                    <option value="">Select status</option>
-                    <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
-                            th:value="${status}" th:text="${status}" ></option>
-                </select>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class = "form-search">
-        <form th:action="@{/provider/orders/date/status}" method="get">
-            <fieldset>
-                <legend>Filter by Date and Status</legend>
-                <input type="date"  th:name="date"/>
-                <select  th:name="status">
-                    <option value="">Select status</option>
-                    <option th:each="status: ${T(com.gina.flowerShop.model.Status).values()}"
-                            th:value="${status}" th:text="${status}" ></option>
-                </select>
-                <button type="submit" value="Search" class="btn-search"> <i class="fas fa-search"></i>Search </button>
-            </fieldset>
-        </form>
-    </div>
-    <br>
+    <h2>Comenzi in </h2>
+    <h2 th:text="${date}"></h2>
     <div class="message container">
         <h3 th:text="${message}"></h3>
     </div>
-    <div class="orders-container" th:each="orderCustomer:${orders}">
+    <div class="orders-container" th:each="orderCustomer:${orders}"  th:if="!${#lists.isEmpty(orders)}">
         <div class="btn-row">
             <div class="col">
                 <button type="submit" id="btn-delete">
@@ -233,7 +187,7 @@
                 <label>Ora</label>
             </div><!--END Col-25 order time-->
             <div class="col-75">
-                <span th:text="${orderCustomer.time}"></span>
+                <span th:text="${orderCustomer.time}">8:20</span>
             </div><!--END col-75 order time-->
             <div class="col-25">
                 <label>Cerinte</label>
@@ -248,7 +202,7 @@
                 <label>Status</label>
             </div><!--END Col-25 order status-->
             <div class="col-75">
-                <span th:text="${orderCustomer.status}"></span>
+                <span th:text="${orderCustomer.status}">AFFECTED</span>
             </div><!--END col-75 order status-->
             <div class="col-25">
                 <label>Nume client</label>
@@ -270,7 +224,7 @@
             </div><!--END col-75 order customer-->
             <div class="col-25">
                 <label>Adresa de livrare</label>
-            </div><!--END Col-25 order shiiping address-->
+            </div><!--END Col-25 order shipping address-->
             <div class="col-75">
                 <span th:text="${orderCustomer.shippingAddress.name}"></span>
                 <span th:text="${orderCustomer.shippingAddress.address}"></span>
@@ -306,7 +260,6 @@
             </table>
         </div><!--End table container-->
 
-
         <div class="total-container">
             <label>Total comanada</label>
             <b><span th:text="${#numbers.formatDecimal(orderCustomer.amount, 0, 'COMMA', 2, 'POINT')}" class="inputs-total" >600.00</span></b>
@@ -317,7 +270,11 @@
         <label>Total comenzi</label>
         <b><span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}" class="inputs-total"></span></b>
     </div><!--total-container-->
-
+    <div th:if="${#lists.isEmpty(orders)}">
+        <span class="info-span">In data: </span>
+        <span class="info-span" th:text="${date}"></span>
+        <span class="info-span">, nu sunt comenzi!!</span>
+    </div>
     <div class="btn-container">
         <button id="btn-link"><a th:href="@{/dashboard}"><i class="fas fa-arrow-left">Back</i></a></button>
     </div>

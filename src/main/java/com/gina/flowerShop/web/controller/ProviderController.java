@@ -137,8 +137,16 @@ public class ProviderController {
     @GetMapping("/provider/orders/date")
     public String displayAllOrdersByDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam
             (value = "date", required = false) LocalDate date,Model model){
-       // List<OrderCustomer>orderCustomers = orderCustomerRepository.findAllByStatus(satus)
-        return "redirect:provider-orders";
+       List<OrderCustomer>orderCustomers = orderCustomerRepository.findAllByDate(date);
+        double total = 0;
+        for(OrderCustomer orderCustomer: orderCustomers){
+            total += orderCustomer.getTotal();
+        }
+        model.addAttribute("date", date);
+        model.addAttribute("orders", orderCustomers);
+        model.addAttribute("total", total);
+
+        return "provider-orders-date";
     }
 
     @GetMapping("/provider/orders/status")
@@ -147,8 +155,6 @@ public class ProviderController {
         double total = 0;
         for(OrderCustomer orderCustomer: orderCustomers){
             total += orderCustomer.getTotal();
-            model.addAttribute("orderCustomer", orderCustomer);
-            model.addAttribute("customer", orderCustomer.getCustomer());
         }
 
         model.addAttribute("orders", orderCustomers);
@@ -182,8 +188,7 @@ public class ProviderController {
             ShippingAddress shippingAddress = orderCustomer.getShippingAddress();
             shippingAddress.setCustomer(customer);
             List<OrderItem>orderItemList = orderItemRepository.findAllByIdOrderCustomer(idOrderCustomer);
-            //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
-            //orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
+
             orderCustomer.setCustomer(customer);
             model.addAttribute("orderItemList", orderItemList);
             model.addAttribute("orderCustomer", orderCustomer);
