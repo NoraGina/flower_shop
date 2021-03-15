@@ -113,7 +113,7 @@ public class OrderCustomerController {
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
 
         }
-        //orderCustomer.setOrderItemList(orderItemList);
+
         model.addAttribute("total", total);
 
         return "redirect:/customer/view/cart/form";
@@ -163,7 +163,6 @@ public class OrderCustomerController {
 
         Customer customer = customerRepository.findByUsername(currentUser.getUsername());
         orderCustomer.setCustomer(customer);
-        //orderCustomer.setOrderItemList(orderItemList);
         model.addAttribute("customer", customer);
         model.addAttribute("total", total);
         model.addAttribute("value", value);
@@ -181,19 +180,17 @@ public class OrderCustomerController {
 
     @PostMapping("/customer/save/order")
     public String saveOrder(@Valid @ModelAttribute("orderCustomer") OrderCustomer orderCustomer,
-                            BindingResult result, @AuthenticationPrincipal UserDetails currentUser,
-                            Model model){
+                            BindingResult result, Model model){
         if(result.hasErrors()){
             return "customer-save-cart";
         }
-        //Customer customer = customerRepository.findByUsername(currentUser.getUsername());
+
         double total = 0;
         for(OrderItem orderItem:orderCustomer.getOrderItemList()){
             total+=orderItem.getProduct().getPrice()*orderItem.getQuantity();
         }
-        //orderCustomer.setOrderItemList(orderCustomer.getOrderItemList());
+
         orderCustomer.getOrderItemList().forEach(item -> item.setOrderCustomer(orderCustomer));
-       // orderCustomer.setCustomer(customer);
         orderCustomer.setStatus(Status.AFFECTED);
         orderCustomer.setDate(LocalDate.now());
         orderCustomer.setTime(LocalTime.now());
