@@ -25,6 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
     private BCryptPasswordEncoder passwordEncoder;
 
     private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
@@ -100,10 +101,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public CustomerDto findByEmailAndRoleName(String email, String name) {
-        final Customer customer = customerRepository.findByEmailAndRoleName(email, name);
-        final CustomerDto customerDto = toDto(customer);
-        return customerDto;
+    public Customer findByEmailAndRoleName(String email, String name) {
+
+        return customerRepository.findByEmailAndRoleName(email, name);
     }
 
     private Collection< ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {

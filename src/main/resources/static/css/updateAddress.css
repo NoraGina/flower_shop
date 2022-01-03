@@ -1,0 +1,77 @@
+body{
+    background: #A1FFCE;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, rgba(210, 243, 210, 0.5) 20%, rgb(218, 243, 169, 0.5)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+main{
+    background-color: rgb(202, 244, 113, 0.1);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 4% auto 3% auto;
+    width: 35%;
+}
+form{
+    font-family: "Roboto";
+    font-size: 1.2em;
+    padding: 10px;
+    width: 100%;
+}
+legend{
+    color: seagreen;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+button{
+    border: none;
+    background-color: seagreen;
+    color: #190a99;
+    font-family: "Roboto";
+    font-size: 1em;
+    font-weight: 500;
+    padding: 3px;
+    opacity: 0.6;
+    float:right;
+}
+
+button:hover{
+    opacity: 1;
+}
+fieldset{
+    border:2px solid seagreen;
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+}
+.formGroup{
+    margin-bottom: 3px;
+}
+.inputField{
+    border:solid 1px #426006;
+    outline:solid 1px silver;
+    font-size: 1rem;
+    padding: 3px;
+    width: 100%;
+}
+.btnContainer{
+    margin-top: 7px;
+
+}
+
+@media screen and (max-width: 576px){
+    main{
+        width: 70%;
+    }
+
+}
+
+@media (min-width: 580px) and (max-width: 800px) {
+    main{
+        width: 50%;
+    }
+  }
+  @media (min-width: 810px) and (max-width: 992px) {
+    main{
+        width: 40%;
+    }
+  }

@@ -561,7 +561,7 @@ font-weight:bold;
         <!-- div class="nav at-center" -->
         <!-- div class="nav at-right"  -->
 
-        <a href="#" th:href="@{/customer/byPage}">Acasa</a>
+        <a href="#" th:href="@{/}">Acasa</a>
         <a href="#">Contact</a>
 
         <div class="dropdown">
@@ -583,7 +583,7 @@ font-weight:bold;
 
 <div class="main-container">
         <div class="message-container">
-            Welcome&nbsp;<span th:text="${customer.fullName}" class="message-txt"></span>
+            Welcome&nbsp;<span th:if="${customer!= null}" th:text="${customer.fullName}" class="message-txt"></span>
             <h3 th:text="${message}"></h3>
         </div><!--End message-container-->
     <div class="title-div" th:if="${not #lists.isEmpty(products)}">

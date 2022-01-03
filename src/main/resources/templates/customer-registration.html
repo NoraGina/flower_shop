@@ -2,126 +2,19 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer registration</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        *{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="/css/register.css" th:href="@{/css/register.css}">
+    <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="css/customerSignUp.css" th:href="@{/css/customerSignUp.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;1,300;1,400&family=Noto+Sans:ital@0;1&family=Poppins:ital,wght@0,400;1,300;1,400&family=Raleway:ital,wght@0,300;0,400;1,400&family=Roboto:ital,wght@0,400;0,500;1,300;1,400&display=swap">
 
-        body{
-            background: #ECE9E6;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            font-family: Georgia;
 
-        }
-
-        form{
-            padding: 10px;
-        }
-
-        legend{
-            color: rgb(32, 36, 36);
-            font-family: Georgia;
-            font-size: 24px;
-            font-style: oblique;
-        }
-
-        fieldset{
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        .container{
-            background-image: linear-gradient(to top,   #d3d0ce 0%, #f8f7f6 100%);
-            background-image: linear-gradient(-220deg, #d3d0ce 0%,  #f8f7f6 100%);
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            border-radius: 10px;
-            max-width:400px;
-            margin:40px auto auto auto;
-        }
-
-        .input-container {
-            display: -ms-flexbox; /* IE10 */
-            display: flex;
-            margin-bottom: 15px;
-            width: 100%;
-        }
-
-        .input-field {
-            font-size: 16px;
-            padding: 10px;
-            outline: none;
-            width: 100%;
-        }
-
-        .input-field:focus {
-            border: 2px solid  #566a80;
-            }
-
-        .icon {
-            background:  #566a80;
-            border-radius: 10px;
-            color: white;
-            padding: 10px;
-            margin-right: -10px;
-            min-width: 40px;
-            text-align: center;
-            }
-
-        #eye{
-            background-color:white;
-            border-left: none;
-            border-radius: 10px;
-            color:#043878;
-            height: 100%;
-            margin-left: -10px;
-            min-width: 30px;
-        }
-
-        #pwd{
-            width: 85%;
-        }
-
-        #pwd:focus{
-            background-color: #e5eff1;
-            border: 2px solid  #566a80;
-        }
-
-        #eye:hover{
-            background-color:#566a80;
-            border:1px solid rgba(24, 24, 24, 0.719);
-            color: white;
-            transform: translatey(2px);
-            /*transform:matrix(0.866,0.5,-0.1,0.866,0,0);*/
-        }
-
-        /* Set a style for the submit button */
-    .btn {
-        background-color:  #566a80;
-        border: none;
-        border-radius: 10px;
-        color:rgb(221, 230, 241);
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 15px 20px;
-        opacity: 0.9;
-        width: 100%;
-    }
-
-    .btn:hover {
-        color:lightgrey;
-        opacity: 1;
-    }
-    </style>
 </head>
 <body>
+<!--
 <div class="container">
     <div th:if="${param.success}">
         <div class="alert alert-info">You've successfully registered
@@ -169,29 +62,78 @@
         </fieldset>
     </form>
 </div>
-<script src="https://kit.fontawesome.com/7f4724c75b.js" crossorigin="anonymous"></script>
-<script>
-        function show() {
-        var p = document.getElementById('pwd');
-        p.setAttribute('type', 'text');
-    }
+-->
+<div class="container">
+    <div class="AlertDiv" th:if="${param.success}">
+        <div class="alert alert-info">You've successfully registered
+            to our awesome app!</div>
+    </div>
+    <!--CONTAINER-->
+    <div class="signUpContainer">
+        <form method="post" th:action="@{/customer/registration}" th:object="${customer}">
+            <fieldset>
+                <legend>SignUp form customer</legend>
+                <!--NAME-->
+                <div class="lblField">
+                    <label>Nume complet:</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="bi bi-person-fill icon"></i>
+                    <input class="input-field" type="text" th:field = "*{fullName}" placeholder="Full name" required/>
+                    <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-danger"></span>
+                </div>
+                <!--PHONE-->
+                <div class="lblField">
+                    <label>Telefon:</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="bi bi-telephone-fill icon"></i>
+                    <input class="input-field" type="text" th:field = "*{phone}" placeholder="enter phone number" required/>
+                    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+                </div>
+                <!--PASSWORD-->
+                <div class="lblField">
+                    <label>Parola:</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="bi bi-key-fill icon"></i>
+                    <input class="input-field" type="password" th:field = "*{password}"  id="pwd" placeholder="Enter Password" required/>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                    <span>
+                            <i class="bi bi-eye-fill iconP"  type="button"  onclick="togglePassword()"></i>
+                        </span>
+                </div>
+                <!--USERNAME-->
+                <div class="lblField">
+                    <label>Nume utilizator:</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="bi bi-person-circle icon"></i>
+                    <input class="input-field" type="email" th:field = "*{username}" placeholder="@ email as username" title="Folosește adresa de email" required/>
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+                </div>
+                <!--EMAIL-->
+                <div class="lblField">
+                    <label>Email:</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="bi bi-envelope-fill icon"></i>
+                    <input class="input-field" type="email" th:field = "*{email}" placeholder="@ email" required/>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                </div>
 
-    function hide() {
-        var p = document.getElementById('pwd');
-        p.setAttribute('type', 'password');
-    }
+                <button type="submit" class="btn">Register</button>
 
-    var pwShown = 0;
+            </fieldset>
+        </form>
+    </div><!--END SIGNUP CONTAINER-->
+    <div class="loginContainer">
+                <span>Ai deja un cont? <a href="/" th:href="@{/login}">LogIn aici
+                    </a></span>
+    </div>
 
-    document.getElementById("eye").addEventListener("click", function () {
-        if (pwShown == 0) {
-            pwShown = 1;
-            show();
-        } else {
-            pwShown = 0;
-            hide();
-        }
-    }, false);
-    </script>
+
+</div><!--END CONTAINER-->
+<script src="script.js" th:src="@{/js/script.js}"></script>
 </body>
 </html>

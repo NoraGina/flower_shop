@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    width: 30%;
+  }
+
+.updateContainer {
+    background-color: rgb(246 241 251);
+    border-radius: 10px 10px 0 0;
+
+    font-size: 1.2em;
+    margin:40px auto auto auto;
+    width:100%;
+}
+
+.updateContainer form{
+    padding: 10px;
+}
+
+.updateContainer fieldset{
+    border: 1px solid #260342;
+    border-radius: 10px 10px 0  0;
+    padding: 5px;
+}
+
+.updateContainer legend{
+    color: #260342;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+.updateContainer .icon{
+    color: #260342;
+    font-size: 1em;
+}
+
+.updateContainer .iconP{
+    color: #260342;
+    opacity: 0.7;
+    font-size: 1em;
+}
+
+.updateContainer .iconP:hover{
+    opacity: 1;
+}
+.updateContainer input{
+    border:solid 1px #260342;
+    outline:solid 1px silver;
+    font-size: 1rem;
+    padding: 2px 0;
+    width: 86%;
+}
+.inputContainer{
+    padding-bottom: 3px ;
+}
+
+.updateContainer .btn{
+    background-color:#260342;
+    color: white;
+    font-size: 1em;
+    padding: 3px;
+    margin: 5px 0;
+    opacity: 0.6;
+    width: 100%;
+}
+.updateContainer .btn:hover{
+    opacity: 1;
+}
+
+@media screen and (max-width: 770px) {
+    .container{
+        display: flex;
+        width: 50%;
+    }
+    .container .updateContainer{
+        font-size: 1.05em;
+        width: 100%;
+    }
+    .updateContainer #pwd {
+        width: 70%;
+    }
+
+
+  }
+  @media screen and (max-width: 778px) {
+    .updateContainer #pwd{
+        width: 55%;
+    }
+
+
+  }
+
+  @media screen and (max-width: 1284px) {
+
+    .updateContainer #pwd{
+        width: 75%;
+    }
+
+  }

@@ -34,13 +34,14 @@ public class OrderCustomerController {
     @Autowired private ShippingAddressRepository shippingAddressRepository;
     @Autowired private OrderCustomerService orderCustomerService;
     @Autowired private OrderCustomerRepository orderCustomerRepository;
-
+/* }*/
     @GetMapping("/by/product/{idProduct}")
     public String byProduct(@PathVariable(value = "idProduct", required = false)Long idProduct, @AuthenticationPrincipal UserDetails currentUser,
                             Model model){
         try{
-            Customer customer =customerRepository.findByUsername(currentUser.getUsername());
-            if(customer !=null){
+            if(currentUser != null){
+                Customer customer =customerRepository.findByUsername(currentUser.getUsername());
+
                 if(httpSession.getAttribute("order")==null){
                     List<OrderItem> orderItemList = new ArrayList<>();
                     OrderCustomer orderCustomer = new OrderCustomer();
@@ -78,11 +79,14 @@ public class OrderCustomerController {
 
                 }
 
-                return "redirect:/customer/byPage";
+                /*return "redirect:/customer/byPage";*/
+                return "redirect:/";
             }else{
                 model.addAttribute("customer", new CustomerDto());
                 return "customer-registration";
             }
+
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -145,7 +149,7 @@ public class OrderCustomerController {
         }
         Customer customer = customerRepository.findByUsername(currentUser.getUsername());
         redirectAttributes.addFlashAttribute("message", customer.getFullName()+", nu aveti produse in cos");
-        return "redirect:/customer/byPage";
+        return "redirect:/";
     }
 
 
@@ -285,7 +289,7 @@ public class OrderCustomerController {
         shippingAddressList.add(shippingAddress);
         Set<ShippingAddress>shippingAddressSet = new HashSet<>(shippingAddressList);
         customer.setShippingAddresses(shippingAddressSet);
-        return "redirect:/customer/byPage";
+        return "redirect:/";
 
     }
 

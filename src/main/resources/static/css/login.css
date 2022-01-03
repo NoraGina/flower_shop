@@ -1,0 +1,144 @@
+/* *********CONTAINER RULES ******* */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  width: 30%;
+}
+/* ****** LOGIN CONTAINER RULES **** */
+.loginContainer {
+    background-color: rgb(227 243 243);
+    border-radius: 10px 10px 0 0;
+    font-size: 1.2em;
+    margin:40px auto auto auto;
+    width:100%;
+}
+.loginContainer form{
+    padding: 10px;
+}
+.loginContainer fieldset{
+    border:1px solid teal;
+    border-radius: 10px;
+    padding: 5px;
+}
+.loginContainer legend{
+    color: teal;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+.loginInputContainer{
+    padding: 3px 0;
+
+}
+.loginContainer .icon{
+    color: teal;
+}
+.loginContainer .iconS{
+    color: white;
+}
+
+.loginInputField{
+    border:solid 1px teal;
+    outline:solid 1px silver;
+    font-size: 1rem;
+    padding:2px;
+    width: 86%;
+}
+#loginBtn{
+    background-color: teal;
+    font-size: 1rem;
+    padding: 3px;
+    opacity: 0.6;
+    width: 100%;
+}
+#loginBtn:hover{
+    opacity: 1;
+}
+
+/* ****** SIGNUP CONTAINER RULES **** */
+.signUpContainer{
+    background-color: rgb(227 243 243);
+    font-family: "Roboto";
+    font-size: 1.2em;
+    padding: 5px;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+.signUpContainer p{
+    color: rgb(47, 60, 233);
+}
+
+/* ****** FORGOT CONTAINER RULES **** */
+.forgotContainer{
+    background-color: rgb(227 243 243);
+    font-size: 1.3em;
+    padding: 3px 10px 20px 10px;
+    width:100%;
+}
+.forgotContainer legend{
+    color: tomato;
+    font-style: italic;
+}
+.forgotContainer fieldset{
+    border: 1px solid rgb(30, 10, 78);
+    border-radius: 10px;
+    padding: 5px;
+}
+.forgotContainer input{
+    border:solid 1px rgb(109, 57, 105);
+    outline:solid 1px silver;
+    font-size: 1rem;
+    width: 90%;
+}
+.forgotContainer .iconF{
+    color: rgb(30, 10, 78);
+    font-size: 1rem;
+}
+.forgotContainer .btn{
+    opacity: 0.6;
+}
+.forgotContainer .btn:hover{
+    opacity:1;
+}
+
+/* MEDIA ************************* */
+@media screen and (max-width: 770px) {
+    .container{
+        display: flex;
+        width: 50%;
+    }
+    .container .loginContainer, .container .signUpContainer,
+    .container .forgotContainer{
+        font-size: 1.05em;
+        width: 100%;
+    }
+    .loginContainer #pwd {
+        width: 70%;
+    }
+    .forgotContainer input{
+        width: 75%;
+    }
+
+  }
+  @media screen and (max-width: 778px) {
+    .loginContainer #pwd{
+        width: 55%;
+    }
+    .forgotContainer input{
+        width: 70%;
+    }
+
+  }
+
+  @media screen and (max-width: 1284px) {
+
+    .loginContainer #pwd{
+        width: 75%;
+    }
+    .forgotContainer input{
+        width: 85%;
+    }
+  }

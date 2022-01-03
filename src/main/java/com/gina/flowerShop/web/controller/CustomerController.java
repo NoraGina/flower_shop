@@ -65,7 +65,7 @@ public class CustomerController {
     public String displayCustomerUpdate(@RequestParam("email") String email,
                                         RedirectAttributes redirectAttributes,Model model){
 
-       CustomerDto customer = customerService.findByEmailAndRoleName(email,"ROLE_CLIENT" );
+       Customer customer = customerService.findByEmailAndRoleName(email,"ROLE_CLIENT" );
         if(customer != null){
             model.addAttribute("customer", customer);
 
@@ -76,7 +76,7 @@ public class CustomerController {
         return "redirect:/";
     }
 
-    @PostMapping("customer/update/{id}")
+    @PostMapping("/customer/update/{id}")
     public String updateCustomer(@PathVariable("id")Long id, Model model,
                                  @Valid @ModelAttribute("customer") CustomerDto customer, BindingResult result,
                                  RedirectAttributes attributes){

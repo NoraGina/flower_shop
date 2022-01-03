@@ -1,5 +1,6 @@
 package com.gina.flowerShop.service;
 
+import com.gina.flowerShop.model.Customer;
 import com.gina.flowerShop.web.dto.CustomerDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -13,5 +14,5 @@ public interface CustomerService extends UserDetailsService {
     void delete(Long id);
     long countByUserName( String username);
     CustomerDto findByUsername(String username);
-    CustomerDto findByEmailAndRoleName(String email, String name);
+    Customer findByEmailAndRoleName(String email, String name);
 }

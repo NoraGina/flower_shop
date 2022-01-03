@@ -1,0 +1,109 @@
+
+body{
+background: #ADA996;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+font-family: "Poppins";
+}
+button{
+    border: none;
+}
+a{
+    text-decoration: none;
+}
+main{
+    background-color: whitesmoke;
+    font-size: 1.2em;
+    margin: 4% auto 3% auto;
+    width: 35%;
+}
+.container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.addressForm{
+    padding: 10px;
+    width: 100%;
+}
+fieldset{
+    padding: 10px;
+}
+.formGroup{
+    margin-bottom: 3px;
+}
+.lbl{
+    width: 200px;
+}
+.inputField{
+    border:solid 1px rgb(70, 71, 71);
+    outline:solid 1px silver;
+    font-size: 1rem;
+    padding: 3px;
+    width: 100%;
+}
+.btnContainer{
+    margin-left: 60%;
+    margin-top: 3px;
+}
+
+.btn{
+    background-color: rgb(211, 210, 210);
+    color: darkblue;
+    font-size: 1rem;
+    margin-top: 2px;
+    padding: 3px 5px;
+    opacity: 0.6;
+}
+.btn:hover{
+    opacity: 1;
+}
+
+
+
+ .linkContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin:2% auto 5% auto;
+    padding-bottom: 10px;
+    width: 100%;
+}
+.linkContainer button{
+    background-color:honeydew;
+    font-size: 1rem;
+    margin-right: 20px;
+    padding: 3px 5px;
+    opacity: 0.6;
+}
+.inputId{
+    background-color: whitesmoke;
+    border: none;
+    color: whitesmoke;
+    outline: none;
+    width: 20px;
+}
+#btnList{
+    color:#cf07bffa;
+}
+#btnHome{
+    color: blue;
+}
+.linkContainer button:hover{
+    opacity: 1;
+}
+
+@media screen and (max-width: 576px){
+    main{
+        width: 70%;
+    }
+
+}
+
+@media  screen and (max-width:768) {
+    main{
+        width:60%;
+    }
+
+}
