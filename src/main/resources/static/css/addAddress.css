@@ -93,17 +93,24 @@ fieldset{
 .linkContainer button:hover{
     opacity: 1;
 }
-
-@media screen and (max-width: 576px){
+/* ******** MEDIA *********** */
+/* for large tablets */
+@media only screen and (min-width: 769px) and (max-width: 990px){
     main{
-        width: 70%;
+        width: 50%;
     }
-
 }
 
-@media  screen and (max-width:768) {
+/* for smaller tablets*/
+@media only screen and (min-width: 481px) and (max-width: 768px){
     main{
-        width:60%;
+        width:60% ;
     }
+}
 
+/* for cellphones */
+@media only screen  and (max-width: 480px){
+    main{
+        width:90%;
+    }
 }

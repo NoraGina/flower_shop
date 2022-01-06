@@ -1,14 +1,17 @@
+body{
+    background: #B993D6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8CA6DB, #B993D6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #e0d6ed, #e5d5f1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    font-family: "Roboto";
+}
+
 button{
     border: none;
 }
 ul{
     list-style: none;
 }
-
- h3{
-  padding: 5px;
-  text-align: center;
-  }
 
 .titleBox{
    margin: 10px auto auto 10px;
@@ -19,6 +22,12 @@ ul{
      font-style: italic;
      text-align: center;
 }
+
+ h3{
+  padding: 5px;
+  text-align: center;
+  }
+
 .messageContainer{
 color: #6600cc;
 font-size:1.3em;
@@ -31,29 +40,22 @@ font-size:1.3em;
 font-style:italic;
 text-align:center;
 }
-
-::placeholder {
-    color: white;
-    opacity: 1; /* Firefox */
-  }
-
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color: white;
-  }
-
-  ::-ms-input-placeholder { /* Microsoft Edge */
-   color: white;
-  }
-
+.titleDivNo {
+color:red;
+font-style:italic;
+text-align:center;
+text-transform: uppercase;
+}
+.titleDiv{
+color:#990099;
+font-size:1.2em;
+font-style:italic;
+text-align:center;
+text-transform: uppercase;
+}
 /*===========================================*/
 /* ********* NAVBAR *********************** */
 .navBar{
-
-    background-image: linear-gradient(#001a0d, #1a3300);
-/*background: #52c234;  /* fallback for old browsers */
-/*background: -webkit-linear-gradient(to right, #061700, #397c27);  /* Chrome 10-25, Safari 5.1-6 */
-/*background: linear-gradient(to right, #061700, #397c27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 color: white;
 position: sticky;
 top: 0;
@@ -61,10 +63,11 @@ z-index: 100;
 }
 /* ***********FIRSTNAVBAR **************** */
 .firstNavBar{
+    background-image: linear-gradient(#620662, #6c3b6c);
     align-items: center;
     display: flex;
     justify-content: space-between;
-    font-size: 1.2em;
+    font-size: 1em;
     text-transform: uppercase;
 }
 
@@ -96,30 +99,17 @@ z-index: 100;
 .firstNavBar ul li i{
     color: white;
 }
-.firstNavBar  .nav-btn{
-    background-color: #397c27;
-    border-radius: 5px;
-    border: none;
-    padding-left: 3px;
-    padding-right: 3px;
-}
-
-.firstNavBar .nav-btn i {
-    color: white;
-    font-size: 1.25em;
-    font-weight:900;
-}
 
 .firstNavBar ul li a:hover,
 .firstNavBar ul li i:hover{
-    color: rgb(8, 253, 8);
+    color: lime;
 }
 
 .firstNavBar ul li .dropdownList{
     display: none;
 }
 .firstNavBar ul li:hover .dropdownList{
-  background-color: #1a3300;
+  background-color: #620662;
   border-radius: 6px;
   box-shadow: 0px 20px 150px 0px rgba(0, 0, 0, 0.5);
   display: block;
@@ -156,6 +146,7 @@ z-index: 100;
     align-items: center;
     color:white;
     display: flex;
+    background-image: linear-gradient(#6c3b6c, #620662);
     justify-content: flex-start;
 }
  .container .itemContainer{
@@ -172,29 +163,31 @@ z-index: 100;
 }
 
 .itemContainer a:hover, .itemContainer .searchIcon:hover {
-    color: rgb(8, 253, 8);
+    color:lime;
+
 
 }
 .itemContainer .selectTxt{
-    background-color: #1a3300;
+    background-color: #721c72;
     box-sizing: border-box;
-    border: 1px solid #0d1a00;
+    border: 1px solid #8d1673;
     color: white;
     font-size: 1rem;
     padding: 2px ;
-    outline:solid 1px #336600;
+    outline:solid 1px #660063;
 }
 .itemContainer .selectTxt:focus{
-    border: 1px solid green;
-    outline: 1px solid rgb(5, 68, 5);
-    color: #80ff00;
+    border: 1px solid rgb(32, 158, 32);
+    outline: 1px solid lime;
+    color: lime;
 }
 .itemContainer .searchIcon{
     color: white;
     font-size: 1rem;
 }
 .itemContainer button{
-    background-color: #1a3300;
+    background-color: #56144e;
+    border-radius: 4px;
     padding: 3px;
 }
 .menuFilter{
@@ -206,49 +199,6 @@ z-index: 100;
     margin-bottom: 3px;
     width: 20px;
 }
-
-/*====================================================*/
-/* ***** CARUSEL ************************************ */
-/* Slideshow container */
-.mySlides {display: none;}
-img {vertical-align: middle;}
-
-.slideshowContainer {
-    width: 100%;
-    position: relative;
-    margin: auto;
-  }
-
-  /* Number text (1/3 etc) */
-  .numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-  }
-
-.slideImg{
-width:100%;
-}
-
-  /* Fading animation */
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 3.5s;
-    animation-name: fade;
-    animation-duration: 3.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
 
 /*==============================================*/
 /*MAIN CONTENT  STYLIZATION*/
@@ -366,7 +316,7 @@ main{
   .modalContent {
     background-color:aliceblue;
     font-family: "Roboto";
-    margin: 10% auto;
+    margin: 15% auto;
     padding: 20px;
     position: relative;
     border: 1px solid #888;
@@ -401,24 +351,7 @@ main{
     transform: scale(1.1);
 
 }
-.modalByBtn{
-      background-color: #3d3d5c;
-      color: rgb(168, 173, 177);
-      font-size: 1.08em;
-      margin-top: 7px;
-      padding: 3px;
-      opacity: 0.6;
-      width: 100%;
-  }
 
-  .modalByBtn:hover{
-      color:aqua;
-      opacity: 0.9;
-  }
-  .modalByBtn a, .modalByBtn i{
-  color: rgb(168, 173, 177);
-  text-decoration:none;
-  }
 /* The Close Button */
   .close {
     color: #aaa;
@@ -436,18 +369,33 @@ main{
     cursor: pointer;
   }
 
-  .showModal{
-        display: block;
+  .modalByBtn{
+        background-color: #3d3d5c;
+        color: rgb(168, 173, 177);
+        font-size: 1.08em;
+        margin-top: 7px;
+        padding: 3px;
+        opacity: 0.6;
+        width: 100%;
     }
+ .modalByBtn a, .modalByBtn i{
+  color: rgb(168, 173, 177);
+  text-decoration:none;
+  }
+    .modalByBtn:hover{
+        color:aqua;
+        opacity: 0.9;
+    }
+
+    .showModal{
+            display: block;
+        }
     .closeModal{
-        display: none;
-    }
+            display: none;
+        }
 
-  /*===========================================================*/
-  /* *****************MEDIA**************************** */
-
-
-
+/*===========================================================*/
+/* *****************MEDIA**************************** */
 /* for laptops */
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
     .modalContent{
@@ -486,7 +434,6 @@ main{
         top: 5px;
     }
 }
-
 /* for large tablets */
 @media only screen and (min-width: 769px) and (max-width: 990px) {
     .firstNavBar{
@@ -535,7 +482,7 @@ main{
   display: block;
   position: absolute;
   margin-top: 2px;
-  background-color: #1a3300;
+  background-color: #620662;
   border-radius: 6px;
   width: 90%;
   padding: 2px 2px;
@@ -635,7 +582,7 @@ main{
   display: block;
   position: absolute;
   margin-top: 2px;
-  background-color: #1a3300;
+  background-color: #620662;
   border-radius: 6px;
   width: 90%;
   padding: 2px 2px;
@@ -735,7 +682,7 @@ main{
   display: block;
   position: absolute;
   margin-top: 2px;
-  background-color: #1a3300;
+  background-color: #620662;
   border-radius: 6px;
   width: 90%;
   padding: 2px 2px;
@@ -749,7 +696,7 @@ main{
     }
     .active{
         display: block;
-    }
+   }
     .modalContent{
         margin: 90px auto auto auto;
         width: 80%;

@@ -1,3 +1,4 @@
+/* Function to toggle password */
 function togglePassword() {
     let x = document.querySelector("#pwd");
     if (x.type === "password") {
@@ -7,6 +8,7 @@ function togglePassword() {
     }
   }
 
+/* The Modals */
    let modals = document.getElementsByClassName('modal myModal');
               // Get the button that opens the modal
               let btns = document.getElementsByClassName("openmodal");
@@ -22,12 +24,8 @@ function togglePassword() {
                   }
 
   }
-  const toggleButton = document.getElementById('toggleButton');
-          const naviList = document.getElementById('naviList');
-          toggleButton.addEventListener('click', () => {
-              naviList.classList.toggle('active');
-          })
 
+/* *** CARUSEL **** */
   let slideIndex = 0;
           showSlides();
 
@@ -47,9 +45,20 @@ function togglePassword() {
           }
 
 
-        /* TOGGLE FILTER NAVBAR HAMBURGER */
-        const filterToggleButton=document.getElementById('toggleFilterButton');
-        const navFilterList = document.getElementById('navFilterList');
-        filterToggleButton.addEventListener('click', ()=>{
-            navFilterList.classList.toggle('filterActive');
-        })
+
+       /* TOGGLE FILTER NAVBAR HAMBURGER */
+                      const filterToggleButton=document.querySelector('#toggleFilterButton');
+                      const navFilterList = document.querySelector('#navFilterList');
+                      filterToggleButton.addEventListener('click', ()=>{
+                          navFilterList.classList.toggle('filterActive');
+                      })
+          /* TOGGLE  NAVBAR HAMBURGER */
+          const toggleButton = document.querySelector('#toggleButton');
+          const naviList = document.querySelector('#naviList');
+          const userDivId = document.querySelector('#userDivId')
+           toggleButton.addEventListener('click', () => {
+                naviList.classList.toggle('active');
+                userDivId.classList.toggle('active');
+            })
+
+

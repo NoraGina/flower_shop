@@ -58,20 +58,25 @@ fieldset{
 
 }
 
-@media screen and (max-width: 576px){
-    main{
-        width: 70%;
-    }
+/* ******* MEDIA ********** */
 
-}
-
-@media (min-width: 580px) and (max-width: 800px) {
+/* for large tablets */
+@media only screen and (min-width: 769px) and (max-width: 990px){
     main{
         width: 50%;
     }
-  }
-  @media (min-width: 810px) and (max-width: 992px) {
+}
+
+/* for smaller tablets*/
+@media only screen and (min-width: 481px) and (max-width: 768px){
     main{
-        width: 40%;
+        width:60% ;
     }
-  }
+}
+
+/* for cellphones */
+@media only screen  and (max-width: 480px){
+    main{
+        width:90%;
+    }
+}

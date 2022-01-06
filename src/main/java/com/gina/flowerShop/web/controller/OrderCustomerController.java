@@ -92,7 +92,6 @@ public class OrderCustomerController {
         }
         return "index";
 
-
     }
 
     private int exists(Long idProduct, List<OrderItem> cart) {

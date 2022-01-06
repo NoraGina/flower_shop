@@ -73,8 +73,62 @@
 .loginContainer{
     padding: 5px 0px 5px 10px;
 }
-/* ********MEDIA******** */
-@media screen and (max-width: 770px) {
+.loginContainer span, a{
+    float: right;
+    margin-right: 10px;
+}
+/* ********MEDIA********
+
+    /* for laptops */
+@media only screen and (min-width: 991px) and (max-width: 1200px){
+
+    .container{
+        display: flex;
+        width: 40%;
+    }
+    .container .loginContainer, .container .signUpContainer{
+
+        width: 100%;
+    }
+    .signUpContainer #pwd{
+        width: 75%;
+    }
+}
+
+  /* for large tablets */
+@media only screen and (min-width: 769px) and (max-width: 990px){
+    .container{
+        display: flex;
+        width: 45%;
+    }
+    .container .loginContainer, .container .signUpContainer{
+
+        width: 100%;
+    }
+     #pwd{
+        width: 80%;
+    }
+}
+
+/* for smaller tablets*/
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    .container{
+        display: flex;
+        width: 60%;
+    }
+     .loginContainer, .signUpContainer
+   {
+
+        width: 100%;
+    }
+   #pwd {
+        width: 80%;
+    }
+
+}
+
+/* for cellphones */
+@media only screen  and (max-width: 480px){
     .container{
         display: flex;
         width: 50%;
@@ -86,21 +140,4 @@
     .signUpContainer #pwd {
         width: 70%;
     }
-
-
-  }
-  @media screen and (max-width: 778px) {
-    .signUpContainer #pwd{
-        width: 55%;
-    }
-
-
-  }
-
-  @media screen and (max-width: 1284px) {
-
-    .signUpContainer #pwd{
-        width: 75%;
-    }
-
-  }
+}

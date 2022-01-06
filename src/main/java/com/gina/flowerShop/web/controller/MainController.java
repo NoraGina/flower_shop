@@ -90,6 +90,9 @@ public class MainController {
 
     @GetMapping("/available/products")
     public String getAvailableProducts(Model model){
+
+        model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+        model.addAttribute("origins",productService.findDistinctOrigin());
         model.addAttribute("products", productService.findAllByStockGreaterThan(1));
 
         return "available-products";
@@ -118,6 +121,8 @@ public class MainController {
             model.addAttribute("customer", customerDto);
             Category category = categoryRepository.getOne(idCategory);
             model.addAttribute("category", category);
+            model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+            model.addAttribute("origins",productService.findDistinctOrigin());
             model.addAttribute("products",productService.findAllByCategoryIdAndStockGreaterThan(idCategory, 1));
             return "customer-available-category";
         }
@@ -125,6 +130,8 @@ public class MainController {
         Category category = categoryRepository.getOne(idCategory);
         model.addAttribute("category", category);
         model.addAttribute("products",productService.findAllByCategoryIdAndStockGreaterThan(idCategory, 1));
+        model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+        model.addAttribute("origins",productService.findDistinctOrigin());
         return "customer-available-category";
 
     }
@@ -139,12 +146,16 @@ public class MainController {
             String trimString = replaceString;
             model.addAttribute("origin", trimString);
             model.addAttribute("products",productService.findAllByStockGreaterThanAndOrigin(1, origin));
+            model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+            model.addAttribute("origins",productService.findDistinctOrigin());
             return"customer-available-origin";
         }
         String replaceString = origin.replaceAll(",", "");
         String trimString = replaceString;
         model.addAttribute("origin", trimString);
         model.addAttribute("products",productService.findAllByStockGreaterThanAndOrigin(1, origin));
+        model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+        model.addAttribute("origins",productService.findDistinctOrigin());
         return"customer-available-origin";
     }
 
@@ -161,6 +172,8 @@ public class MainController {
             model.addAttribute("category", category);
             model.addAttribute("origin", trimString);
             model.addAttribute("products",productService.findAllByCategoryIdOriginAndStockGreaterThan(idCategory, origin, 1));
+            model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+            model.addAttribute("origins",productService.findDistinctOrigin());
             return"customer-available-category-origin";
         }
         Category category = categoryRepository.getOne(idCategory);
@@ -169,6 +182,8 @@ public class MainController {
         model.addAttribute("category", category);
         model.addAttribute("origin", trimString);
         model.addAttribute("products",productService.findAllByCategoryIdOriginAndStockGreaterThan(idCategory, origin, 1));
+        model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
+        model.addAttribute("origins",productService.findDistinctOrigin());
         return"customer-available-category-origin";
 
     }

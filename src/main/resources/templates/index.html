@@ -8,10 +8,10 @@
     <title>Eden Flower Shop Home Page</title>
     <link rel="stylesheet" href="/css/register.css" th:href="@{/css/register.css}">
     <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}">
-    <link rel="stylesheet" href="css/customerSignUp.css" th:href="@{/css/homePage.css}">
+    <link rel="stylesheet" href="css/homePage.css" th:href="@{/css/homePage.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;1,300;1,400&family=Noto+Sans:ital@0;1&family=Poppins:ital,wght@0,400;1,300;1,400&family=Raleway:ital,wght@0,300;0,400;1,400&family=Roboto:ital,wght@0,400;0,500;1,300;1,400&display=swap">
-    <script async defer src="script.js" th:src="@{/js/script.js}"></script>
+
 
 </head>
 <body>
@@ -135,12 +135,12 @@
     <h1>Lorem, ipsum dolor sit amet consectetur adipisicing.</h1>
 
     <div class="messageContainer" th:if="${customer != null}">
-        Welcome&nbsp;<span  th:text="${customer.fullName}" class="message-txt"></span>
+        <span>Bine ai venit </span><span  th:text="${customer.fullName}" class="messageTxt"></span><span> !</span>
     </div>
     <h3 class="message-txt" th:text="${message}"></h3>
-    <div th:if="${param.logout}">
+    <div class="logDiv" th:if="${param.logout}">
 
-        <span>You have been logged out.</span>
+        <span>Ai fost deconectat.</span>
     </div>
 </div>
 
@@ -191,8 +191,8 @@
                         <i class="fas fa-cart-arrow-down">Adauga</i>
                     </a>
                 </button>
-            </div><!--***End by-container***-->
-        </div>
+            </div><!--End by-container-->
+        </div><!--***End btnBox***-->
 
         <div class="modal myModal">
             <!-- The Modal -->
@@ -230,49 +230,76 @@
                             <em><span>Produs disponibil </span></em>
                         </div>
                     </div><!--End Col-->
-
-
                 </div><!--END row-->
+                <div class="byButton">
+                    <button class="modalByBtn">
+                        <a href="#" th:href="@{/by/product/{idProduct}(idProduct=${product.idProduct})}"  th:disabled="${product.stock == 0}">
+                            <i class="bi bi-cart-plus-fill">Adaugă în coș</i></a></button>
+                </div>
             </div><!--**END Modal content-->
         </div><!--End MODAl myModal-->
 
     </div><!--END COLUMN-->
-
-
     <div th:if="${#lists.isEmpty(products)}">
         You don't have any products
     </div>
+
 </main>
-<!--<div class="main-container">
-    <div class="top-container">
-        <h1><strong>Lorem ipsum dolor sit amet</strong></h1>
-        <h3 class="message-txt" th:text="${message}"></h3>
-    </div>--><!--End top container-->
-    <!--<div class="grid" th:if="!${#lists.isEmpty(products)}">
-        <div class="grid-div" th:each="product:${products}">
-            <h3 th:text="${product.productName}"></h3>
-            <img class="center" th:src="*{'data:image/jpg;base64,'+ product.imageAsString}"  alt="Image" />
-            <div class="price-cont">--><!--<p class="price-text">Pret:<span th:text="${product.price}"></span></p>-->
-                <!--<label>Pret: <span th:text="${product.price}"></span></label>
-            </div>
-            <div class="stock" th:if="${product.stock == 0}">
-                <em><span>Produs indisponibil </span></em>
-            </div>
+<script>
+     /* TOGGLE FILTER NAVBAR HAMBURGER */
+                      const filterToggleButton=document.querySelector('#toggleFilterButton');
+                      const navFilterList = document.querySelector('#navFilterList');
+                      filterToggleButton.addEventListener('click', ()=>{
+                          navFilterList.classList.toggle('filterActive');
+                      })
+          /* TOGGLE  NAVBAR HAMBURGER */
+          const toggleButton = document.querySelector('#toggleButton');
+          const naviList = document.querySelector('#naviList');
+          const userDivId = document.querySelector('#userDivId')
+           toggleButton.addEventListener('click', () => {
+                naviList.classList.toggle('active');
+                userDivId.classList.toggle('active');
+            })
 
-            <div class="stock" th:unless="${product.stock == 0}">
-                <em><span>Produs disponibil </span></em>
-            </div>-->
-            <!--End price cont-->
-            <!--<div class="mod-btn">
-                <button class="openmodal">Mai mule informatii</button>
-            </div>-->
+    /*Function to open and close Modal*/
+    function openMyModal(){
+       let modals = document.querySelectorAll('.modal.myModal')
+              // Get the button that opens the modal
+        let btns = document.querySelectorAll('.openmodal');
+        let spans = document.querySelectorAll(".close");
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].onclick = function () {
+                    modals[i].classList.remove('closeModal');
+                    modals[i].classList.add('showModal')
+                }
+            }
+            for (let i = 0; i < spans.length; i++) {
+                spans[i].onclick = function () {
+                    modals[i].classList.remove('showModal');
+                    modals[i].classList.add('closeModal');
+                }
+            }
+    }
 
+    /* *** CARUSEL **** */
+  let slideIndex = 0;
+      showSlides();
 
+      function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
 
-<!-- </div>***END GRID_DIV***-->
-<!-- </div>**** End grid*** -->
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
 
-<!-- </div>END main container-->
+        slides[slideIndex-1].style.display = "block";
+
+        setTimeout(showSlides, 3000); // Change image every 2 seconds
+      }
+</script>
 
 </body>
 </html>

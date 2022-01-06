@@ -68,34 +68,64 @@
 .updateContainer .btn:hover{
     opacity: 1;
 }
+/**** MEDIA ******* */
+   /* for laptops */
+@media only screen and (min-width: 991px) and (max-width: 1200px){
 
-@media screen and (max-width: 770px) {
+    .container{
+        display: flex;
+        width: 40%;
+    }
+    .container .updateContainer{
+
+        width: 100%;
+    }
+    .updateContainer #pwd{
+        width: 75%;
+    }
+}
+
+  /* for large tablets */
+@media only screen and (min-width: 769px) and (max-width: 990px){
+    .container{
+        display: flex;
+        width: 45%;
+    }
+    .container .updateContainer{
+
+        width: 100%;
+    }
+     #pwd{
+        width: 80%;
+    }
+}
+
+/* for smaller tablets*/
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    .container{
+        display: flex;
+        width: 60%;
+    }
+      .updateContainer{
+        width: 100%;
+    }
+   #pwd {
+        width: 80%;
+    }
+
+}
+
+/* for cellphones */
+@media only screen  and (max-width: 480px){
     .container{
         display: flex;
         width: 50%;
     }
-    .container .updateContainer{
+    .updateContainer{
         font-size: 1.05em;
         width: 100%;
     }
-    .updateContainer #pwd {
+   #pwd {
         width: 70%;
     }
-
-
-  }
-  @media screen and (max-width: 778px) {
-    .updateContainer #pwd{
-        width: 55%;
-    }
-
-
-  }
-
-  @media screen and (max-width: 1284px) {
-
-    .updateContainer #pwd{
-        width: 75%;
-    }
-
-  }
+}
