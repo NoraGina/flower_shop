@@ -185,6 +185,5 @@ public class MainController {
         model.addAttribute("categoryList", categoryRepository.findByOrderByCategoryNameAsc());
         model.addAttribute("origins",productService.findDistinctOrigin());
         return"customer-available-category-origin";
-
     }
 }
