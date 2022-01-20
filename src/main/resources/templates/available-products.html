@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/customerFilteredProducts.css" th:href="@{/css/customerFilteredProducts.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <script async defer src="/js/availableProducts.js" th:src="@{/js/availableProducts.js}" ></script>
 </head>
 <body>
 <!--NAVBAR-->
@@ -20,7 +21,7 @@
             <a href="" class="logoLink"> <img src="images/forYouLogoWhite.png" th:src="@{/images/forYouLogoWhite.png}" alt="Logo missing..."  class="logoImg"></a>
         </div>
         <!--NAV LIST-->
-        <ul class="navList" id="naviList">
+        <ul class="navList" id="navListId">
             <li class="listItem">
                 <a href="" th:href="@{/}"><i class="bi bi-house-fill"></i>Home</a>
             </li>
@@ -30,7 +31,7 @@
         </ul>
 
         <div class="userDiv">
-            <ul class="userDivList" id="userDivId">
+            <ul class="userDivList" id="customerDivId">
                 <li class="userListItem">
                     <a href="" sec:authorize="isAuthenticated()"><i class="bi bi-geo-alt-fill"></i>Adresa de livrare</a>
                     <!--DROPDOWN LIST-->
@@ -62,7 +63,7 @@
         </div>
 
         <!--HAMBURGER MENU-->
-        <div class="menu" id="toggleButton">
+        <div class="menu" id="toggleBtn">
             <div class="menuLine"></div>
             <div class="menuLine"></div>
             <div class="menuLine"></div>
@@ -218,42 +219,5 @@
     </div>
 </main>
 
-<script>
-      /* TOGGLE  NAVBAR Filtred Page HAMBURGER */
-                      const toggleButton = document.querySelector('#toggleBtn');
-                      const naviList = document.querySelector('#navListId');
-                      const userDivId = document.querySelector('#customerDivId')
-                       toggleButton.addEventListener('click', () => {
-                            naviList.classList.toggle('active');
-                            userDivId.classList.toggle('active');
-                        })
-
-        /* TOGGLE FILTER NAVBAR Filtred Page HAMBURGER */
-                  const filterToggleButton=document.querySelector('#toggleFilterButton');
-                  const navFilterList = document.querySelector('#navFilterList');
-                  filterToggleButton.addEventListener('click', ()=>{
-                      navFilterList.classList.toggle('filterActive');
-                  })
-
-      /*Function to open and close Modal*/
-    function openMyModal(){
-       let modals = document.querySelectorAll('.modal.myModal')
-              // Get the button that opens the modal
-        let btns = document.querySelectorAll('.openmodal');
-        let spans = document.querySelectorAll(".close");
-            for (let i = 0; i < btns.length; i++) {
-                btns[i].onclick = function () {
-                    modals[i].classList.remove('closeModal');
-                    modals[i].classList.add('showModal')
-                }
-            }
-            for (let i = 0; i < spans.length; i++) {
-                spans[i].onclick = function () {
-                    modals[i].classList.remove('showModal');
-                    modals[i].classList.add('closeModal');
-                }
-            }
-    }
-</script>
 </body>
 </html>
