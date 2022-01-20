@@ -69,6 +69,22 @@
 .signUpContainer .btn:hover{
     opacity: 1;
 }
+
+.hide{
+    display: none;
+    color: red;
+    font-size: smaller;
+    font-style: italic;
+}
+
+.error{
+    display:block;
+}
+
+.bad{
+    background-color: #ffff66;
+    border: 2px solid #b30000;
+}
 /*Login container rules*/
 .loginContainer{
     padding: 5px 0px 5px 10px;

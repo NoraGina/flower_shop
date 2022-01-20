@@ -1,12 +1,4 @@
-/* Function to toggle password */
-function togglePassword() {
-    let x = document.querySelector("#pwd");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  }
+
 
 /* The Modals */
    let modals = document.getElementsByClassName('modal myModal');
